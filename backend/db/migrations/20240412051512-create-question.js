@@ -30,7 +30,7 @@ module.exports = {
       },
       type: {
         allowNull: false,
-        type: Sequelize.ENUM('biology', 'chemistry', 'physics'),
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
