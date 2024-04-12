@@ -23,6 +23,15 @@ module.exports = (sequelize, DataTypes) => {
           as: 'Answers'
         }
       );
+      Answer.hasMany(
+        models.Comment, {
+          foreignKey: 'commentableId',
+          constraints: false,
+          scope: {
+            commentableType: 'answer'
+          }
+        }
+      );
     }
   }
   Answer.init({

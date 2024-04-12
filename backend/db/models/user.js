@@ -6,12 +6,24 @@ module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
       // define association here
-      // User.hasMany(
-      //   models.Question, {
-      //     foreignKey: 'userId',
-      //     onDelete: 'CASCADE',
-      //   }
-      // );
+      User.hasMany(
+        models.Question, {
+          foreignKey: 'userId',
+          onDelete: 'CASCADE',
+        }
+      );
+      User.hasMany(
+        models.Answer, {
+          foreignKey: 'userId',
+          onDelete: 'CASCADE',
+        }
+      );
+      User.hasMany(
+        models.Comment, {
+          foreignKey: 'userId',
+          onDelete: 'CASCADE',
+        }
+      );
     }
   };
 
