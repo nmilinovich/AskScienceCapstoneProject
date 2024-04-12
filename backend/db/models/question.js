@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     type: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM('biology', 'chemistry', 'physics'),
       allowNull: false,
       validate: {
         notNull: true
