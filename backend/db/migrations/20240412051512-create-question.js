@@ -21,16 +21,16 @@ module.exports = {
       },
       title: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(255),
       },
       description: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(5000),
 
       },
       type: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(9),
       },
       createdAt: {
         allowNull: false,
