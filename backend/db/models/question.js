@@ -41,7 +41,10 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     type: {
-      type: DataTypes.ENUM('biology', 'chemistry', 'physics'),
+      type: DataTypes.ENUM,
+      values: [
+        'biology', 'chemistry', 'physics'
+      ],
       allowNull: false,
       validate: {
         notNull: true
