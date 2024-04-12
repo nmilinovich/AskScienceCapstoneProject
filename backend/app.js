@@ -5,6 +5,7 @@ const cors = require('cors');
 const csurf = require('csurf');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
+const { ValidationError } = require('sequelize');
 
 const { environment } = require('./config');
 const isProduction = environment === 'production';
@@ -19,14 +20,14 @@ app.use(express.json());
 if (!isProduction) {
     // enable cors only in development
     app.use(cors());
-  }
+}
 
   // helmet helps set a variety of headers to better secure your app
-  app.use(
+app.use(
     helmet.crossOriginResourcePolicy({
-      policy: "cross-origin"
+        policy: "cross-origin"
     })
-  );
+);
 
   // Set the _csrf token and create req.csrfToken method
   app.use(
@@ -51,9 +52,9 @@ app.use((_req, _res, next) => {
     err.errors = { message: "The requested resource couldn't be found." };
     err.status = 404;
     next(err);
-  });
+});
 
-  const { ValidationError } = require('sequelize');
+
 
 // ...
 
@@ -80,6 +81,6 @@ app.use((err, _req, res, _next) => {
       errors: err.errors,
       stack: isProduction ? null : err.stack
     });
-  });
+});
 
 module.exports = app
