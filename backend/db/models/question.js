@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Bookmark extends Model {
+  class Question extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,25 +11,46 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Bookmark.belongsTo(
+      Question.belongsTo(
         models.User, {
           foreignKey: 'userId',
-          as: 'UserBookmark'
+          as: 'Owner'
         }
       );
     }
   }
-  Bookmark.init({
+  Question.init({
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
         notNull: true
       }
-    }
+    },
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: true
+      }
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: true
+      }
+    },
+    type: {
+      type: DataTypes.ENUM('biology', 'chemisty', 'physics'),
+      allowNull: false,
+      validate: {
+        notNull: true
+      }
+    },
   }, {
     sequelize,
-    modelName: 'Bookmark',
+    modelName: 'Question',
   });
-  return Bookmark;
+  return Question;
 };
