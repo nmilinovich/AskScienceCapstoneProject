@@ -1,33 +1,32 @@
 'use strict';
-const { Model, Validator } = require('sequelize');
-
+const {
+  Model
+} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Question extends Model {
+  class Comment extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
-      Question.belongsTo(
+      Answer.belongsTo(
         models.User, {
           foreignKey: 'userId',
-          as: 'Owner'
+          as: 'AnswerOwner'
         }
       );
-      Question.hasMany(
-        models.Comment, {
-          foreignKey: 'commentableId',
-          constraints: false,
-          scope: {
-            commentableType: 'question'
-          }
-        }
-      );
+      Comment.belongsTo(models.Question, {
+        foreignKey: 'commentableId',
+        constraints: false,
+      });
+      Comment.belongsTo(models.Answer, {
+        foreignKey: 'commentableId',
+        constraints: false,
+      });
     }
   }
-  Question.init({
+  Comment.init({
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -35,8 +34,15 @@ module.exports = (sequelize, DataTypes) => {
         notNull: true
       }
     },
-    title: {
-      type: DataTypes.STRING,
+    commentableType: {
+      type: DataTypes.ENUM('question', 'answer'),
+      allowNull: false,
+      validate: {
+        notNull: true
+      }
+    },
+    commentableId: {
+      type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
         notNull: true
@@ -49,16 +55,9 @@ module.exports = (sequelize, DataTypes) => {
         notNull: true
       }
     },
-    type: {
-      type: DataTypes.ENUM('biology', 'chemistry', 'physics'),
-      allowNull: false,
-      validate: {
-        notNull: true
-      }
-    },
   }, {
     sequelize,
-    modelName: 'Question',
+    modelName: 'Comment',
   });
-  return Question;
+  return Comment;
 };
