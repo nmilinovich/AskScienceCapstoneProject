@@ -5,7 +5,7 @@ const { Like } = require('../models');
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await Comment.bulkCreate([
+    await Like.bulkCreate([
       {
         userId: 1,
         likeableType: 'question',
