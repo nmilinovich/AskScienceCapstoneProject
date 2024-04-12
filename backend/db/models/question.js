@@ -22,7 +22,8 @@ module.exports = (sequelize, DataTypes) => {
           constraints: false,
           scope: {
             commentableType: 'question'
-          }
+          },
+          onDelete: 'CASCADE'
         }
       );
     }
