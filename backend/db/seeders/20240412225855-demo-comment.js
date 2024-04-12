@@ -1,9 +1,11 @@
 'use strict';
 
+const { Comment } = require('../models');
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await Answer.bulkCreate([
+    await Comment.bulkCreate([
       {
         userId: 1,
         commentableType: 'question',
