@@ -3,40 +3,30 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Comment extends Model {
+  class Like extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Comment.belongsTo(
+      Like.belongsTo(
         models.User, {
           foreignKey: 'userId',
-          as: 'AnswerOwner'
+          as: 'LikeOwner'
         }
       );
-      Comment.belongsTo(models.Question, {
-        foreignKey: 'commentableId',
+      Like.belongsTo(models.Question, {
+        foreignKey: 'likeableId',
         constraints: false,
       });
-      Comment.belongsTo(models.Answer, {
-        foreignKey: 'commentableId',
+      Like.belongsTo(models.Answer, {
+        foreignKey: 'likeableId',
         constraints: false,
       });
-      Comment.hasMany(
-        models.Like, {
-          foreignKey: 'likeableId',
-          constraints: false,
-          scope: {
-            likeableType: 'answer'
-          },
-          onDelete: 'CASCADE'
-        }
-      );
     }
   }
-  Comment.init({
+  Like.init({
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -44,30 +34,30 @@ module.exports = (sequelize, DataTypes) => {
         notNull: true
       }
     },
-    commentableType: {
-      type: DataTypes.ENUM('question', 'answer'),
+    likeableType: {
+      type: DataTypes.ENUM('question', 'answer', 'comment'),
       allowNull: false,
       validate: {
         notNull: true
       }
     },
-    commentableId: {
+    likeableId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
         notNull: true
       }
     },
-    description: {
-      type: DataTypes.STRING,
+    dislike: {
+      type: DataTypes.BOOLEAN,
       allowNull: false,
       validate: {
         notNull: true
       }
-    },
+    }
   }, {
     sequelize,
-    modelName: 'Comment',
+    modelName: 'Like',
   });
-  return Comment;
+  return Like;
 };
