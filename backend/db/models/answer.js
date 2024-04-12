@@ -1,8 +1,9 @@
 'use strict';
-const { Model, Validator } = require('sequelize');
-
+const {
+  Model
+} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Question extends Model {
+  class Answer extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -10,15 +11,21 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Question.belongsTo(
+      Answer.belongsTo(
         models.User, {
           foreignKey: 'userId',
           as: 'Owner'
         }
       );
+      Answer.belongsTo(
+        models.Question, {
+          foreignKey: 'userId',
+          as: 'Answers'
+        }
+      );
     }
   }
-  Question.init({
+  Answer.init({
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -26,8 +33,8 @@ module.exports = (sequelize, DataTypes) => {
         notNull: true
       }
     },
-    title: {
-      type: DataTypes.STRING,
+    questionId: {
+      type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
         notNull: true
@@ -39,17 +46,10 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notNull: true
       }
-    },
-    type: {
-      type: DataTypes.ENUM('biology', 'chemistry', 'physics'),
-      allowNull: false,
-      validate: {
-        notNull: true
-      }
-    },
+    }
   }, {
     sequelize,
-    modelName: 'Question',
+    modelName: 'Answer',
   });
-  return Question;
+  return Answer;
 };
