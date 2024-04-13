@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       });
       Comment.hasMany(
         models.Like, {
-          foreignKey: 'likeableId',
+          foreignKey: 'commentableId',
           constraints: false,
           scope: {
             likeableType: 'answer'
