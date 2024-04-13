@@ -16,6 +16,17 @@ module.exports = (sequelize, DataTypes) => {
           as: 'Owner'
         }
       );
+      // Question.hasMany(
+      //   models.Bookmark, {
+      //     foreignKey: 'userId',
+      //   }
+      // );
+      Question.hasMany(
+        models.Answer, {
+          foreignKey: 'userId',
+          onDelete: 'CASCADE',
+        }
+      );
       Question.hasMany(
         models.Comment, {
           foreignKey: 'commentableId',
@@ -27,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
         }
       );
       Question.hasMany(
-        models.Comment, {
+        models.Like, {
           foreignKey: 'likeableId',
           constraints: false,
           scope: {
@@ -37,11 +48,11 @@ module.exports = (sequelize, DataTypes) => {
         }
       );
       Question.hasMany(
-        models.Comment, {
+        models.Image, {
           foreignKey: 'imageableId',
           constraints: false,
           scope: {
-            likeableType: 'question'
+            imageableType: 'question'
           },
           onDelete: 'CASCADE'
         }
