@@ -3,34 +3,30 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Like extends Model {
+  class Image extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Like.belongsTo(
+      Image.belongsTo(
         models.User, {
           foreignKey: 'userId',
           as: 'LikeOwner'
         }
       );
-      Like.belongsTo(models.Question, {
-        foreignKey: 'likeableId',
+      Image.belongsTo(models.Question, {
+        foreignKey: 'imageableId',
         constraints: false,
       });
-      Like.belongsTo(models.Answer, {
-        foreignKey: 'likeableId',
-        constraints: false,
-      });
-      Like.belongsTo(models.Comment, {
-        foreignKey: 'likeableId',
+      Image.belongsTo(models.Answer, {
+        foreignKey: 'imageableId',
         constraints: false,
       });
     }
   }
-  Like.init({
+  Image.init({
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -38,22 +34,22 @@ module.exports = (sequelize, DataTypes) => {
         notNull: true
       }
     },
-    likeableType: {
-      type: DataTypes.ENUM('question', 'answer', 'comment'),
+    imageableType: {
+      type: DataTypes.ENUM('question', 'answer'),
       allowNull: false,
       validate: {
         notNull: true
       }
     },
-    likeableId: {
+    imageableId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
         notNull: true
       }
     },
-    dislike: {
-      type: DataTypes.BOOLEAN,
+    url: {
+      type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notNull: true
@@ -61,7 +57,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'Like',
+    modelName: 'Image',
   });
-  return Like;
+  return Image;
 };

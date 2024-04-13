@@ -43,6 +43,16 @@ module.exports = (sequelize, DataTypes) => {
           onDelete: 'CASCADE'
         }
       );
+      Answer.hasMany(
+        models.Like, {
+          foreignKey: 'imageableId',
+          constraints: false,
+          scope: {
+            likeableType: 'answer'
+          },
+          onDelete: 'CASCADE'
+        }
+      );
     }
   }
   Answer.init({

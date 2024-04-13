@@ -36,6 +36,16 @@ module.exports = (sequelize, DataTypes) => {
           onDelete: 'CASCADE'
         }
       );
+      Question.hasMany(
+        models.Comment, {
+          foreignKey: 'imageableId',
+          constraints: false,
+          scope: {
+            likeableType: 'question'
+          },
+          onDelete: 'CASCADE'
+        }
+      );
     }
   }
   Question.init({
