@@ -13,6 +13,12 @@ module.exports = (sequelize, DataTypes) => {
         }
       );
       User.hasMany(
+        models.Bookmark, {
+          foreignKey: 'userId',
+          onDelete: 'CASCADE',
+        }
+      );
+      User.hasMany(
         models.Answer, {
           foreignKey: 'userId',
           onDelete: 'CASCADE',

@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       );
       Answer.belongsTo(
         models.Question, {
-          foreignKey: 'userId',
+          foreignKey: 'questionId',
           as: 'Answers'
         }
       );
@@ -44,11 +44,11 @@ module.exports = (sequelize, DataTypes) => {
         }
       );
       Answer.hasMany(
-        models.Like, {
+        models.Image, {
           foreignKey: 'imageableId',
           constraints: false,
           scope: {
-            likeableType: 'answer'
+            imageableType: 'answer'
           },
           onDelete: 'CASCADE'
         }

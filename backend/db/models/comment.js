@@ -26,10 +26,10 @@ module.exports = (sequelize, DataTypes) => {
       });
       Comment.hasMany(
         models.Like, {
-          foreignKey: 'commentableId',
+          foreignKey: 'likeableId',
           constraints: false,
           scope: {
-            likeableType: 'answer'
+            likeableType: 'comment'
           },
           onDelete: 'CASCADE'
         }
