@@ -44,6 +44,6 @@ module.exports = {
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
       description: { [Op.in]: ['Description of 4', 'Description of 3', 'Description of 2', 'These are my legitimate concerns'] }
-    }, {});
+    }, {truncate: true, restartIdentity: true});
   }
 };

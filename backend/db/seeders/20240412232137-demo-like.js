@@ -2,6 +2,11 @@
 
 const { Like } = require('../models');
 
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;  // define your schema in options object
+}
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
@@ -50,6 +55,6 @@ module.exports = {
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
       likeableType: { [Op.in]: ['question', 'answer', 'comment'] }
-    }, {});
+    }, {truncate: true, restartIdentity: true});
   }
 };

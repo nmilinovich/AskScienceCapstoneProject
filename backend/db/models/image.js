@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       Image.belongsTo(
         models.User, {
           foreignKey: 'userId',
-          as: 'LikeOwner'
+          as: 'ImageOwner'
         }
       );
       Image.belongsTo(models.Question, {
