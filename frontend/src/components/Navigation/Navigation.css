@@ -5,4 +5,113 @@
 .navbar {
     display: flex;
     flex-direction: row;
+    /* justify-content: space-between; */
+    width: 99vw;
+    margin: 0;
+    padding: 1vh, 1vw;
+    height: 6vh;
+}
+
+.leftsideNav {
+    display: flex;
+    align-items: center;
+    width: 33vw
+}
+
+.logo {
+    width: 3.375vw;
+    height: 6vh;
+}
+
+.homeBtn {
+    width: 3.375vw;
+    height: 6vh;
+}
+
+
+.filterTags {
+    justify-content: space-between;
+    display: flex;
+    width: 33vw;
+    /* justify-content: space-between; */
+}
+
+.bioTag {
+    height: 6vh;
+    width: 10vw;
+}
+.chemTag {
+    height: 6vh;
+    width: 10vw;
+}
+.physTag {
+    height: 6vh;
+    width: 10vw;
+}
+
+
+.rightsideNav {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    width: 33vw;
+    height: 6vh;
+    align-items: center;
+}
+
+.login-signup-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    width: 33vw;
+}
+
+
+
+.nav-Btn {
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: orange;
+    color: green;
+    box-shadow: -3px 3px 3px #121212;
+    width: 8vw;
+    height: 6vh;
+    margin-right: 1vw;
+    text-align: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.profile-btn {
+    width: 6vw;
+    padding: 0;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    height: 6vh;
+    border-radius: 4px;
+}
+
+.profile-dropdown {
+    right: .8vw;
+    top: 7vh;
+    width: fit-content;
+    margin: 0;
+    padding: 4px;
+    justify-content: center;
+    /* left: 40px; */
+    /* top: 22px; */
+    position: absolute;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: -3px 3px 3px #121212;
+    flex-wrap: nowrap;
+}
+
+
+
+.dropdown-logout {
+    text-align: center;
 }

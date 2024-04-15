@@ -34,18 +34,18 @@ function ProfileButton({ user }) {
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
   return (
-    <>
-      <button onClick={toggleMenu}>
+    <div className='rightsideNav'>
+      <button onClick={toggleMenu} className="profile-btn">
         <i className="fas fa-user-circle" />
       </button>
-      <ul className={ulClassName} ref={ulRef}> {/* <-- Attach it here */}
-        <li>{user.username}</li>
-        <li>{user.email}</li>
-        <li>
+      <div className={ulClassName} ref={ulRef}> {/* <-- Attach it here */}
+        <div>{user.username}</div>
+        <div>{user.email}</div>
+        <div className='dropdown-logout'>
           <button onClick={logout}>Log Out</button>
-        </li>
-      </ul>
-    </>
+        </div>
+      </div>
+    </div>
   );
 }
 
