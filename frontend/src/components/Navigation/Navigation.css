@@ -1,0 +1,8 @@
+.hidden {
+    display: none;
+}
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+}
