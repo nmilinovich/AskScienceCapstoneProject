@@ -21,7 +21,7 @@ function Navigation({ isLoaded }){
         <div className='leftsideNav'>
             <NavLink to="/" className='homeBtn'>
                 <a href='' className='logo'>
-                    <img className='logo' src='../../../public/favicon.ico' alt=''/>
+                    <img className='logo' src='dist/favicon.ico' alt=''/>
                 </a>
             </NavLink>
         </div>
