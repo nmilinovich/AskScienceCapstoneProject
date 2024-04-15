@@ -6,27 +6,34 @@ function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
 
   const sessionLinks = sessionUser ? (
-    <li>
       <ProfileButton user={sessionUser} />
-    </li>
   ) : (
-    <>
-      <li>
-        <NavLink to="/login">Log In</NavLink>
-      </li>
-      <li>
-        <NavLink to="/signup">Sign Up</NavLink>
-      </li>
-    </>
+    <div className='login-signup-div'>
+
+      <NavLink to="/login"><button className='nav-Btn'>Login</button></NavLink>
+        <NavLink to="/signup"><button className='nav-Btn'>Sign Up</button></NavLink>
+
+    </div>
   );
 
   return (
-    <ul className='navbar'>
-      <li>
-        <NavLink to="/">Home</NavLink>
-      </li>
-      {isLoaded && sessionLinks}
-    </ul>
+    <div className='navbar'>
+        <div className='leftsideNav'>
+            <NavLink to="/" className='homeBtn'>
+                <a href='' className='logo'>
+                    <img className='logo' src='../../../public/favicon.ico' alt=''/>
+                </a>
+            </NavLink>
+        </div>
+        <div className='filterTags'>
+            <button className='bioTag'>Biology</button>
+            <button className='chemTag'>Chemistry</button>
+            <button className='physTag'>Physics</button>
+        </div>
+        <div className='rightsideNav'>
+            {isLoaded && sessionLinks}
+        </div>
+    </div>
   );
 }
 

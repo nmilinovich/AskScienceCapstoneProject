@@ -17,10 +17,10 @@ function Layout() {
   }, [dispatch]);
 
   return (
-    <>
+    <div>
       <Navigation isLoaded={isLoaded} />
       {isLoaded && <Outlet />}
-    </>
+    </div>
   );
 }
 

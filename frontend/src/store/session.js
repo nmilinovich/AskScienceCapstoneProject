@@ -64,7 +64,6 @@ export const logout = () => async (dispatch) => {
 };
 
 const sessionReducer = (state = { user: null }, action) => {
-    console.log(action)
     switch (action.type) {
         case LOGIN_USER:
             return { user: action.payload }
