@@ -6,6 +6,40 @@ const router = express.Router();
 
 
 router.get(
+    '/current',
+    requireAuth,
+    async (req, res) => {
+        const userId = req.user.id;
+        console.log(userId);
+        query = {
+            where: {
+                userId: userId,
+            },
+            include: [{
+                model: Like,
+            }, {
+                model: Image,
+                attributes: ['url'],
+            }],
+        }
+        const questions = await Question.findAll(query);
+
+        let returnedQuestions = questions.map(obj => {
+            let spot = obj.toJSON();
+            let numStars = 0;
+            spot.Reviews.forEach((review) => {
+                numStars += review.stars;
+            });
+            spot.avgRating = numStars/spot.Reviews.length;
+            delete spot.Reviews;
+            return spot;
+        });
+        return res.json({ Spots: returnedSpots })
+
+    }
+);
+
+router.get(
     '/:questionId',
     async (req, res, next) => {
         const questionId = req.params.questionId;
@@ -51,7 +85,7 @@ router.get(
             ],
         };
 
-        const question = await Question.findOne(query);
+        const question = await Question.findAll(query);
 
         if (!question) {
             let err = new Error("Question couldn't be found");
@@ -60,7 +94,60 @@ router.get(
             err.status = 404;
             return next(err);
         }
-        return res.json(question);
+
+
+        modifiedQuestion = question.map((obj) => {
+            let question = obj.toJSON();
+            let likes = 0;
+            question.Likes.forEach(like => {
+                if (like.dislike) likes -= 1;
+                else {
+                    likes += 1;
+                }
+            });
+            delete question.Likes
+            question.numLikes = likes;
+
+            question.Answers.forEach(answer => {
+                let answerLikes = 0;
+                answer.Likes.forEach(answerlike => {
+                    if (answerlike.dislike) answerLikes -= 1;
+                    else {
+                        answerLikes += 1
+                    }
+                });
+                answer.numLikes = answerLikes
+                delete answer.Likes
+
+                answer.Comments.forEach(answerComment => {
+                    let answerCommentLikes = 0;
+                    answerComment.Likes.forEach(answerCommentLike => {
+                        if (answerCommentLike.dislike) answerCommentLikes -= 1
+                        else {
+                            answerCommentLikes += 1;
+                        }
+                    })
+                    answerComment.numLikes = answerCommentLikes
+                    delete answerComment.Likes
+                });
+            });
+
+            question.Comments.forEach(questionComment => {
+                let questionCommentLikes = 0
+                questionComment.Likes.forEach(questionCommentLike => {
+                    if (questionCommentLike.dislike) questionCommentLikes -=1
+                    else {
+                        questionCommentLikes += 1;
+                    }
+                });
+                questionComment.numLikes = questionCommentLikes
+                delete questionComment.Likes
+            });
+
+            return question
+        })
+
+        return res.json({"Question": modifiedQuestion[0]});
     }
 );
 
@@ -126,7 +213,7 @@ router.get(
             let likes = 0;
             question.Likes.forEach((like) => {
                 if (like.dislike) likes += 1;
-                    if (!like.dislike) likes += 1;
+                if (!like.dislike) likes += 1;
             });
             question.numLikes = likes;
             delete question.Likes;
