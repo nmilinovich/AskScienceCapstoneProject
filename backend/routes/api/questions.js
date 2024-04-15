@@ -4,12 +4,72 @@ const { requireAuth, sendAuthorizationError } = require('../../utils/auth.js')
 const { Op } = require('sequelize');
 const router = express.Router();
 
+
+router.get(
+    '/:questionId',
+    async (req, res, next) => {
+        const questionId = req.params.questionId;
+        let query = {
+            where: {
+                id: questionId
+            },
+            include: [
+                {
+                model: Answer,
+                    include: [
+                        {
+                            model: Like,
+                        },
+                        {
+                            model: Image,
+                        },
+                        {
+                            model: Comment,
+                                include: [
+                                    {
+                                        model: Like
+                                    }
+                                ]
+                        }
+                    ]
+                },
+                {
+                model: Comment,
+                    include: [
+                        {
+                            model: Like,
+                        }
+                    ]
+                },
+                {
+                model: Like,
+                },
+                {
+                model: Image,
+                attributes: ['url'],
+                },
+            ],
+        };
+
+        const question = await Question.findOne(query);
+
+        if (!question) {
+            let err = new Error("Question couldn't be found");
+            err.title = "Question couldn't be found";
+            // err.errors = "Question couldn't be found";
+            err.status = 404;
+            return next(err);
+        }
+        return res.json(question);
+    }
+);
+
 router.get(
     '/',
     async (req, res, next) => {
 
         let { page, size,
-            // biology, chemistry, physics
+            // type
             } = req.query;
         if (page) page = parseInt(page);
         if (size) size = parseInt(size);
@@ -26,28 +86,6 @@ router.get(
             where: {
             },
             include: [
-                {
-                model: Answer,
-                    include: [
-                        {
-                            model: Like,
-                        },
-                        {
-                            model: Image,
-                        },
-                        {
-                            model: Comment,
-                        }
-                    ]
-                },
-                {
-                model: Comment,
-                    include: [
-                        {
-                            model: Like,
-                        }
-                    ]
-                },
                 {
                 model: Like,
                 // as: 'reviews'
@@ -81,26 +119,30 @@ router.get(
             return next(err);
         }
 
-        const Questions = await Question.findAll(query);
+        const questions = await Question.findAll(query);
 
-        // let returnedQuestions = Spots.map(obj => {
-        //     let spot = obj.toJSON();
-        //     let numStars = 0;
-        //     spot.Reviews.forEach((review) => {
-        //         numStars += review.stars;
-        //     });
-        //     spot.avgRating = numStars/spot.Reviews.length;
-        //     delete spot.Reviews;
-        //     return spot;
-        // });
+        let returnedQuestions = questions.map(obj => {
+            let question = obj.toJSON();
+            let likes = 0;
+            question.Likes.forEach((like) => {
+                if (like.dislike) likes += 1;
+                    if (!like.dislike) likes += 1;
+            });
+            question.numLikes = likes;
+            delete question.Likes;
+            return question;
+        });
 
         return res.json({
-           "Questions": Questions,
+           "Questions": returnedQuestions,
            "page": page,
            "size": size,
         });
     }
 );
+
+
+
 
 
 module.exports = router
