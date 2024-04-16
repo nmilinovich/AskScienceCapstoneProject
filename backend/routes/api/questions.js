@@ -322,9 +322,6 @@ router.delete(
     async (req, res, next) => {
         const usersId = req.user.id;
         const questionId = req.params.questionId;
-
-        const { title, description, type } = req.body;
-
         const question = await Question.findByPk(questionId);
 
         if (!question) {

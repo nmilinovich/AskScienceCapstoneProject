@@ -128,4 +128,31 @@ router.put(
     }
 );
 
+router.delete(
+    '/:answerId',
+    requireAuth,
+    async (req, res, next) => {
+        const usersId = req.user.id;
+        const answerId = req.params.answerId;
+        const answer = await Answer.findByPk(answerId);
+
+        if (!answer) {
+            const err = new Error("Answer couldn't be found");
+            err.title = "Answer couldn't be found";
+            err.errors = "Answer couldn't be found";
+            err.status = 404;
+            return next(err);
+        } else if (answer && usersId !== answer.userId) {
+            const err = new Error("Forbidden");
+            err.title = "Forbidden";
+            err.errors = "Forbidden";
+            err.status = 403;
+            return next(err);
+        } else {
+            await answer.destroy();
+            return res.status(200).json({ "message": "successfully deleted" })
+        }
+    }
+);
+
 module.exports = router
