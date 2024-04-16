@@ -100,4 +100,30 @@ router.patch(
     }
 );
 
+router.delete(
+    '/:likeId',
+    requireAuth,
+    async (req, res, next) => {
+        const userId = req.user.id
+        const likeId = req.params.likeId
+        oldLike = await Like.findByPk(likeId);
+        if (!oldLike) {
+            const err = new Error("Like couldn't be found");
+            err.title = "Like couldn't be found";
+            err.errors = "Like couldn't be found";
+            err.status = 404;
+            return next(err);
+        } else if (oldLike.userId !== userId) {
+            const err = new Error("Forbidden");
+            err.title = "Forbidden";
+            err.errors = "Forbidden";
+            err.status = 403;
+            return next(err);
+        } else {
+            await oldLike.destroy()
+            return res.status(200).json({ "message": "successfully deleted" })
+        }
+    }
+);
+
 module.exports = router
