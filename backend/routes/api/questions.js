@@ -22,7 +22,7 @@ router.get(
                 attributes: ['url'],
             }],
         }
-        
+
         const questions = await Question.findAll(query);
 
         let returnedQuestions = questions.map(obj => {
@@ -233,35 +233,73 @@ router.post(
     '/current',
     requireAuth,
     async (req, res, next) => {
-        const userId = req.user.id;
-        const { title, description } = req.body;
-        query = {
-            where: {
-                userId: userId,
-            },
-            include: [{
-                model: Like,
-            }, {
-                model: Image,
-                attributes: ['url'],
-            }],
-        }
-        const questions = await Question.findAll(query);
+        const id = req.user.id;
 
-        let returnedQuestions = questions.map(obj => {
-            let question = obj.toJSON();
-            let likes = 0;
-            question.Likes.forEach((like) => {
-                if (like.dislike) likes += 1;
-                if (!like.dislike) likes += 1;
-            });
-            question.numLikes = likes;
-            delete question.Likes;
-            return question;
+        const { title, description, type } = req.body;
+
+        if (!title) {
+            const err = new Error("Bad Request");
+            err.message = "Bad Request";
+            err.errors = {
+                "title": "Title is required",
+            };
+            if (!description) {
+                err.errors['description'] =  "Description is required"
+            }
+            if (!type) {
+                err.errors['type'] =  "Subject type is required"
+            }
+            err.status = 400;
+            return next(err);
+        }
+
+        const user = await User.findByPk(id);
+        console.log(user)
+        const newQuestion = await user.createQuestion({
+            userId: id,
+            title: title,
+            description: description,
+            type: type
         });
-        return res.json({ Questions: returnedQuestions })
+        return res.status(201).json(newQuestion);
     }
 );
+
+// router.delete(
+//     '/current',
+//     requireAuth,
+//     async (req, res, next) => {
+//         const id = req.user.id;
+
+//         const { title, description, type } = req.body;
+
+//         if (!title) {
+//             const err = new Error("Bad Request");
+//             err.message = "Bad Request";
+//             err.errors = {
+//                 "title": "Title is required",
+//             };
+//             if (!description) {
+//                 err.errors['description'] =  "Description is required"
+//             }
+//             if (!type) {
+//                 err.errors['type'] =  "Subject type is required"
+//             }
+//             err.status = 400;
+//             return next(err);
+//         }
+
+//         const user = await User.findByPk(id);
+//         console.log(user)
+//         const newQuestion = await user.createQuestion({
+//             userId: id,
+//             title: title,
+//             description: description,
+//             type: type
+//         });
+//         return res.status(201).json(newQuestion);
+//     }
+// );
 
 
 
