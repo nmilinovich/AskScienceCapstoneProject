@@ -47,7 +47,6 @@ router.post(
     requireAuth,
     async (req, res, next) => {
         const userId = req.user.id
-        console.log(userId)
         const { questionId, description } = req.body;
 
         const question = await Question.findByPk(questionId);
@@ -59,15 +58,14 @@ router.post(
             return next(err);
         };
 
-        const answerExist = await Answer.findOne({
+        const answerExists = await Answer.findOne({
             where: {
                 questionId,
                 userId
             }
         });
 
-
-        if(answerExist) {
+        if(answerExists) {
             const err = new Error("Bad Request. User already has an answer for this question")
             err.message = "Bad Request. User already has an answer for this question";
             err.errors = "Bad Request. User already has an answer for this question";

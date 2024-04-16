@@ -15,7 +15,7 @@ router.post(
             const err = new Error("You cannot like the same item twice");
             err.title = "You cannot like the same item twice";
             err.errors = "You cannot like the same item twice";
-            err.status = 404;
+            err.status = 400;
             return next(err);
         }
         if (likeableType === 'question') {
@@ -29,7 +29,7 @@ router.post(
                 return next(err);
             }
             else {
-                newLike = await question.createLike({
+                const newLike = await question.createLike({
                     userId,
                     likeableType,
                     likeableId,
@@ -46,7 +46,7 @@ router.post(
                 err.status = 404;
                 return next(err);
             } else {
-                newLike = await answer.createLike({
+                const newLike = await answer.createLike({
                     userId,
                     likeableType,
                     likeableId,
@@ -63,7 +63,7 @@ router.post(
                 err.status = 404;
                 return next(err);
             } else {
-                newLike = await comment.createLike({
+                const newLike = await comment.createLike({
                     userId,
                     likeableType,
                     likeableId,
