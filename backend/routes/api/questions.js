@@ -233,9 +233,48 @@ router.post(
     '/current',
     requireAuth,
     async (req, res, next) => {
-        const id = req.user.id;
+        const usersId = req.user.id;
 
         const { title, description, type } = req.body;
+
+        if (!title) {
+            const err = new Error("Bad Request");
+            err.message = "Bad Request";
+            err.errors = {
+                "title": "Title is required",
+            };
+            if (!description) {
+                err.errors['description'] = "Description is required"
+            }
+            if (!type) {
+                err.errors['type'] = "Subject type is required"
+            }
+            err.status = 400;
+            return next(err);
+        }
+
+        const user = await User.findByPk(usersId);
+        console.log(user)
+        const newQuestion = await user.createQuestion({
+            userId,
+            title,
+            description,
+            type
+        });
+        return res.status(201).json(newQuestion);
+    }
+);
+
+router.put(
+    '/:questionId',
+    requireAuth,
+    async (req, res, next) => {
+        const usersId = req.user.id;
+        const questionId = req.params.questionId;
+
+        const { title, description, type } = req.body;
+
+        const question = await Question.findByPk(questionId);
 
         if (!title) {
             const err = new Error("Bad Request");
@@ -252,55 +291,56 @@ router.post(
             err.status = 400;
             return next(err);
         }
-
-        const user = await User.findByPk(id);
-        console.log(user)
-        const newQuestion = await user.createQuestion({
-            userId: id,
-            title: title,
-            description: description,
-            type: type
-        });
-        return res.status(201).json(newQuestion);
+        if (!question) {
+            const err = new Error("Question couldn't be found");
+            err.title = "Question couldn't be found";
+            err.errors = "Question couldn't be found";
+            err.status = 404;
+            return next(err);
+        } else if (question && usersId !== question.userId) {
+            const err = new Error("Forbidden");
+            err.title = "Forbidden";
+            err.errors = "Forbidden";
+            err.status = 403;
+            return next(err);
+        } else {
+            question.title = title;
+            question.description = description;
+            question.type = type;
+            await question.save();
+            return res.status(200).json(question)
+        }
     }
 );
 
-// router.delete(
-//     '/current',
-//     requireAuth,
-//     async (req, res, next) => {
-//         const id = req.user.id;
+router.delete(
+    '/:questionId',
+    requireAuth,
+    async (req, res, next) => {
+        const usersId = req.user.id;
+        const questionId = req.params.questionId;
 
-//         const { title, description, type } = req.body;
+        const { title, description, type } = req.body;
 
-//         if (!title) {
-//             const err = new Error("Bad Request");
-//             err.message = "Bad Request";
-//             err.errors = {
-//                 "title": "Title is required",
-//             };
-//             if (!description) {
-//                 err.errors['description'] =  "Description is required"
-//             }
-//             if (!type) {
-//                 err.errors['type'] =  "Subject type is required"
-//             }
-//             err.status = 400;
-//             return next(err);
-//         }
+        const question = await Question.findByPk(questionId);
 
-//         const user = await User.findByPk(id);
-//         console.log(user)
-//         const newQuestion = await user.createQuestion({
-//             userId: id,
-//             title: title,
-//             description: description,
-//             type: type
-//         });
-//         return res.status(201).json(newQuestion);
-//     }
-// );
-
-
+        if (!question) {
+            const err = new Error("Question couldn't be found");
+            err.title = "Question couldn't be found";
+            err.errors = "Question couldn't be found";
+            err.status = 404;
+            return next(err);
+        } else if (question && usersId !== question.userId) {
+            const err = new Error("Forbidden");
+            err.title = "Forbidden";
+            err.errors = "Forbidden";
+            err.status = 403;
+            return next(err);
+        } else {
+            await question.destroy();
+            return res.status(200).json({ "message": "successfully deleted" })
+        }
+    }
+);
 
 module.exports = router
