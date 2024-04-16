@@ -77,4 +77,27 @@ router.post(
     }
 );
 
+router.patch(
+    '/',
+    requireAuth,
+    async (req, res, next) => {
+        const userId = req.user.id
+        const { likeableType, likeableId, dislike } = req.body;
+        oldLike = await Like.findOne({where: { likeableType, likeableId, userId }});
+        if (!oldLike) {
+            const err = new Error("Like couldn't be found");
+            err.title = "Like couldn't be found";
+            err.errors = "Like couldn't be found";
+            err.status = 404;
+            return next(err);
+        } else if (oldLike.dislike === dislike) {
+            return res.status(400).json(oldLike);
+        } else {
+            oldLike.dislike = dislike
+            await oldLike.save();
+            return res.status(200).json(oldLike)
+        }
+    }
+);
+
 module.exports = router
