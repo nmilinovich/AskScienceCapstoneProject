@@ -26,7 +26,7 @@ router.post(
                 err.status = 403;
                 return next(err);
             } else {
-                newImage = await question.createImage({
+                const newImage = await question.createImage({
                     userId,
                     url,
                     imageableType,
@@ -49,7 +49,7 @@ router.post(
                 err.status = 403;
                 return next(err);
             } else {
-                newImage = await answer.createImage({
+                const newImage = await answer.createImage({
                     userId,
                     url,
                     imageableType,
