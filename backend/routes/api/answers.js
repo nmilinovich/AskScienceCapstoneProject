@@ -65,7 +65,7 @@ router.post(
                 userId
             }
         });
-        
+
 
         if(answerExist) {
             const err = new Error("Bad Request. User already has an answer for this question")
@@ -84,6 +84,47 @@ router.post(
             return res.status(201).json(newAnswer);
         }
 
+    }
+);
+
+router.put(
+    '/:answerId',
+    requireAuth,
+    async (req, res, next) => {
+        const usersId = req.user.id;
+        const answerId = req.params.answerId;
+
+        const { description } = req.body;
+
+        if (!description) {
+            const err = new Error("Bad Request");
+            err.message = "Bad Request";
+            err.errors = {
+                "description": "Description is required",
+            };
+            err.status = 400;
+            return next(err);
+        }
+
+        const answer = await Answer.findByPk(answerId);
+
+        if (!answer) {
+            const err = new Error("Answer couldn't be found");
+            err.title = "Answer couldn't be found";
+            err.errors = "Answer couldn't be found";
+            err.status = 404;
+            return next(err);
+        } else if (answer && usersId !== answer.userId) {
+            const err = new Error("Forbidden");
+            err.title = "Forbidden";
+            err.errors = "Forbidden";
+            err.status = 403;
+            return next(err);
+        } else {
+            answer.description = description;
+            await answer.save();
+            return res.status(200).json(answer)
+        }
     }
 );
 
