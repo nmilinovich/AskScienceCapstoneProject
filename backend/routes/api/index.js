@@ -28,7 +28,7 @@ router.use('/session', sessionRouter);
 router.use('/users', usersRouter);
 router.use('/questions', questionsRouter);
 router.use('/answers', answersRouter)
-router.use('./likes', likesRouter)
+router.use('/likes', likesRouter)
 // router.get(
 //   '/restore-user',
 //   (req, res) => {
