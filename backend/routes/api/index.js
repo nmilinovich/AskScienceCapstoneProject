@@ -4,6 +4,7 @@ const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
 const questionsRouter = require('./questions.js');
 const answersRouter = require('./answers.js');
+const commentsRouter = require('./comments.js')
 const likesRouter = require('./likes.js');
 const imagesRouter = require('./images.js');
 
@@ -29,6 +30,7 @@ router.use('/session', sessionRouter);
 router.use('/users', usersRouter);
 router.use('/questions', questionsRouter);
 router.use('/answers', answersRouter);
+router.use('/comments', commentsRouter);
 router.use('/likes', likesRouter);
 router.use('/images', imagesRouter);
 // router.get(

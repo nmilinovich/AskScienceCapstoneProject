@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
+import logo from '../../../public/favicon.ico'
 import './Navigation.css'
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
@@ -21,7 +22,7 @@ function Navigation({ isLoaded }){
         <div className='leftsideNav'>
             <NavLink to="/" className='homeBtn'>
                 <a href='' className='logo'>
-                    <img className='logo' src='/public/favicon.ico' alt=''/>
+                    <img className='logo' src={logo} alt=''/>
                 </a>
             </NavLink>
         </div>
