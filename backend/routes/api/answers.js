@@ -42,4 +42,49 @@ router.get(
     }
 );
 
+router.post(
+    '/',
+    requireAuth,
+    async (req, res, next) => {
+        const userId = req.user.id
+        console.log(userId)
+        const { questionId, description } = req.body;
+
+        const question = await Question.findByPk(questionId);
+
+        if(!question) {
+            const err = new Error("Question couldn't be found");
+            err.title = "Question couldn't be found";
+            err.status = 404;
+            return next(err);
+        };
+
+        const answerExist = await Answer.findOne({
+            where: {
+                questionId,
+                userId
+            }
+        });
+        
+
+        if(answerExist) {
+            const err = new Error("Bad Request. User already has an answer for this question")
+            err.message = "Bad Request. User already has an answer for this question";
+            err.errors = "Bad Request. User already has an answer for this question";
+            err.status = 400
+            return next(err);
+        } else {
+            console.log(userId)
+            const newAnswer = await question.createAnswer({
+                userId,
+                questionId,
+                description,
+            });
+            console.log(newAnswer)
+            return res.status(201).json(newAnswer);
+        }
+
+    }
+);
+
 module.exports = router
