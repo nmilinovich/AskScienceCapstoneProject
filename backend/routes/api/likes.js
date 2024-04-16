@@ -87,19 +87,19 @@ router.patch(
     async (req, res, next) => {
         const userId = req.user.id
         const { likeableType, likeableId, dislike } = req.body;
-        oldLike = await Like.findOne({where: { likeableType, likeableId, userId }});
-        if (!oldLike) {
+        const like = await Like.findOne({where: { likeableType, likeableId, userId }});
+        if (!like) {
             const err = new Error("Like couldn't be found");
             err.title = "Like couldn't be found";
             err.errors = "Like couldn't be found";
             err.status = 404;
             return next(err);
-        } else if (oldLike.dislike === dislike) {
-            return res.status(400).json(oldLike);
+        } else if (like.dislike === dislike) {
+            return res.status(400).json(like);
         } else {
-            oldLike.dislike = dislike
-            await oldLike.save();
-            return res.status(200).json(oldLike)
+            like.dislike = dislike
+            await like.save();
+            return res.status(200).json(like)
         }
     }
 );
@@ -110,21 +110,21 @@ router.delete(
     async (req, res, next) => {
         const userId = req.user.id
         const likeId = req.params.likeId
-        oldLike = await Like.findByPk(likeId);
-        if (!oldLike) {
+        const like = await Like.findByPk(likeId);
+        if (!like) {
             const err = new Error("Like couldn't be found");
             err.title = "Like couldn't be found";
             err.errors = "Like couldn't be found";
             err.status = 404;
             return next(err);
-        } else if (oldLike.userId !== userId) {
+        } else if (like && like.userId !== userId) {
             const err = new Error("Forbidden");
             err.title = "Forbidden";
             err.errors = "Forbidden";
             err.status = 403;
             return next(err);
         } else {
-            await oldLike.destroy()
+            await like.destroy()
             return res.status(200).json({ "message": "successfully deleted" })
         }
     }

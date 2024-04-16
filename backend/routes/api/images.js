@@ -67,5 +67,60 @@ router.post(
     }
 );
 
+router.patch(
+    '/:imageId',
+    requireAuth,
+    async (req, res, next) => {
+        const userId = req.user.id
+        const imageId = req.params.imageId
+        const { url } = req.body;
+        const image = await Image.findByPk(imageId);
+        if (!image) {
+            const err = new Error("Image couldn't be found");
+            err.title = "Image couldn't be found";
+            err.errors = "Image couldn't be found";
+            err.status = 404;
+            return next(err);
+        } else if (image && image.userId !== userId) {
+            const err = new Error("Forbidden");
+            err.title = "Forbidden";
+            err.errors = "Forbidden";
+            err.status = 403;
+            return next(err);
+        } else {
+            image.url = url
+            await image.save();
+            return res.status(200).json(image)
+        }
+    }
+);
+
+router.delete(
+    '/:imageId',
+    requireAuth,
+    async (req, res, next) => {
+        const userId = req.user.id
+        const imageId = req.params.imageId
+        const image = await Image.findByPk(imageId);
+        if (!image) {
+            console.log('IMAGE: ', image)
+            const err = new Error("Image couldn't be found");
+            err.title = "Image couldn't be found";
+            err.errors = "Image couldn't be found";
+            err.status = 404;
+            return next(err);
+        } else if (image && image.userId !== userId) {
+            const err = new Error("Forbidden");
+            err.title = "Forbidden";
+            err.errors = "Forbidden";
+            err.status = 403;
+            return next(err);
+        } else {
+            await image.destroy()
+            return res.status(200).json({ "message": "successfully deleted" })
+        }
+    }
+);
+
 
 module.exports = router;
