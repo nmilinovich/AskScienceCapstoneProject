@@ -29,8 +29,11 @@ router.get(
             let question = obj.toJSON();
             let likes = 0;
             question.Likes.forEach((like) => {
-                if (like.dislike) likes += 1;
-                if (!like.dislike) likes += 1;
+                if (like.dislike) {
+                    likes -= 1;
+                } else {
+                    likes += 1;
+                }
             });
             question.numLikes = likes;
             delete question.Likes;
