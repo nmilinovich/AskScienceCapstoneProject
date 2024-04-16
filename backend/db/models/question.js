@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       // );
       Question.hasMany(
         models.Answer, {
-          foreignKey: 'userId',
+          foreignKey: 'questionId',
           onDelete: 'CASCADE',
         }
       );
