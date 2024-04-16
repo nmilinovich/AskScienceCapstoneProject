@@ -51,10 +51,10 @@ router.post(
             }
         });
         if (commentExists) {
-            const err = new Error("Bad Request. User already has a comment for this question or answer")
-            err.message = "Bad Request. User already has a comment for this question or answer";
-            err.errors = "Bad Request. User already has a comment for this question or answer";
-            err.status = 400
+            const err = new Error("Forbidden. User already has a comment for this question or answer")
+            err.message = "Forbidden. User already has a comment for this question or answer";
+            err.errors = "Forbidden. User already has a comment for this question or answer";
+            err.status = 403
             return next(err);
         }
         if (commentableType === 'question') {
@@ -97,6 +97,73 @@ router.post(
             err.errors = "Server Error";
             err.status = 500;
             return next(err);
+        }
+    }
+);
+
+router.patch(
+    '/:commentId',
+    requireAuth,
+    async (req, res, next) => {
+        const usersId = req.user.id;
+        const commentId = req.params.commentId;
+
+        const { description } = req.body;
+
+        if (!description) {
+            const err = new Error("Bad Request");
+            err.message = "Bad Request";
+            err.errors = {
+                "description": "Description is required",
+            };
+            err.status = 400;
+            return next(err);
+        }
+        const comment = await Comment.findByPk(commentId);
+
+        if (!comment) {
+            const err = new Error("Comment couldn't be found");
+            err.title = "Comment couldn't be found";
+            err.errors = "Comment couldn't be found";
+            err.status = 404;
+            return next(err);
+        } else if (comment && usersId !== comment.userId) {
+            const err = new Error("Forbidden");
+            err.title = "Forbidden";
+            err.errors = "Forbidden";
+            err.status = 403;
+            return next(err);
+        } else {
+            comment.description = description;
+            await comment.save();
+            return res.status(200).json(comment)
+        }
+    }
+);
+
+router.delete(
+    '/:commentId',
+    requireAuth,
+    async (req, res, next) => {
+        const usersId = req.user.id;
+        const commentId = req.params.commentId;
+        const comment = await Comment.findByPk(commentId);
+
+        if (!comment) {
+            const err = new Error("Comment couldn't be found");
+            err.title = "Comment couldn't be found";
+            err.errors = "Comment couldn't be found";
+            err.status = 404;
+            return next(err);
+        } else if (comment && usersId !== comment.userId) {
+            const err = new Error("Forbidden");
+            err.title = "Forbidden";
+            err.errors = "Forbidden";
+            err.status = 403;
+            return next(err);
+        } else {
+            await comment.destroy();
+            return res.status(200).json({ "message": "successfully deleted" })
         }
     }
 );

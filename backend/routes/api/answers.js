@@ -66,10 +66,10 @@ router.post(
         });
 
         if(answerExists) {
-            const err = new Error("Bad Request. User already has an answer for this question")
-            err.message = "Bad Request. User already has an answer for this question";
-            err.errors = "Bad Request. User already has an answer for this question";
-            err.status = 400
+            const err = new Error("Forbidden. User already has an answer for this question")
+            err.message = "Forbidden. User already has an answer for this question";
+            err.errors = "Forbidden. User already has an answer for this question";
+            err.status = 403
             return next(err);
         } else {
             console.log(userId)
