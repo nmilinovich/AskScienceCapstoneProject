@@ -4,6 +4,7 @@ const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
 const questionsRouter = require('./questions.js')
 const answersRouter = require('./answers.js')
+const likesRouter = require('./likes.js')
 
 const { restoreUser } = require('../../utils/auth.js');
 const { requireAuth } = require('../../utils/auth.js');
@@ -25,10 +26,9 @@ router.use(restoreUser);
 router.use('/session', sessionRouter);
 
 router.use('/users', usersRouter);
-
 router.use('/questions', questionsRouter);
 router.use('/answers', answersRouter)
-
+router.use('/likes', likesRouter)
 // router.get(
 //   '/restore-user',
 //   (req, res) => {
