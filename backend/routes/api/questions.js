@@ -8,7 +8,7 @@ const router = express.Router();
 router.get(
     '/current',
     requireAuth,
-    async (req, res) => {
+    async (req, res, next) => {
         const userId = req.user.id;
         console.log(userId);
         query = {
@@ -22,20 +22,21 @@ router.get(
                 attributes: ['url'],
             }],
         }
+        
         const questions = await Question.findAll(query);
 
         let returnedQuestions = questions.map(obj => {
-            let spot = obj.toJSON();
-            let numStars = 0;
-            spot.Reviews.forEach((review) => {
-                numStars += review.stars;
+            let question = obj.toJSON();
+            let likes = 0;
+            question.Likes.forEach((like) => {
+                if (like.dislike) likes += 1;
+                if (!like.dislike) likes += 1;
             });
-            spot.avgRating = numStars/spot.Reviews.length;
-            delete spot.Reviews;
-            return spot;
+            question.numLikes = likes;
+            delete question.Likes;
+            return question;
         });
-        return res.json({ Spots: returnedSpots })
-
+        return res.json({ Questions: returnedQuestions })
     }
 );
 
@@ -228,7 +229,39 @@ router.get(
     }
 );
 
+router.post(
+    '/current',
+    requireAuth,
+    async (req, res, next) => {
+        const userId = req.user.id;
+        const { title, description } = req.body;
+        query = {
+            where: {
+                userId: userId,
+            },
+            include: [{
+                model: Like,
+            }, {
+                model: Image,
+                attributes: ['url'],
+            }],
+        }
+        const questions = await Question.findAll(query);
 
+        let returnedQuestions = questions.map(obj => {
+            let question = obj.toJSON();
+            let likes = 0;
+            question.Likes.forEach((like) => {
+                if (like.dislike) likes += 1;
+                if (!like.dislike) likes += 1;
+            });
+            question.numLikes = likes;
+            delete question.Likes;
+            return question;
+        });
+        return res.json({ Questions: returnedQuestions })
+    }
+);
 
 
 
