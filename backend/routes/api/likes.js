@@ -37,8 +37,7 @@ router.post(
                 })
                 return res.status(201).json(newLike)
             }
-        }
-        if (likeableType === 'answer') {
+        } else if (likeableType === 'answer') {
             const answer = await Answer.findByPk(likeableId);
             if (!answer) {
                 const err = new Error("Answer couldn't be found");
@@ -55,8 +54,7 @@ router.post(
                 })
                 return res.status(201).json(newLike)
             }
-        }
-        if (likeableType === 'comment') {
+        } else if (likeableType === 'comment') {
             const comment = await Comment.findByPk(likeableId);
             if (!comment) {
                 const err = new Error("Comment couldn't be found");
@@ -73,6 +71,12 @@ router.post(
                 })
                 return res.status(201).json(newLike)
             }
+        } else {
+            const err = new Error("Server Error");
+            err.title = "Server Error";
+            err.errors = "Server Error";
+            err.status = 500;
+            return next(err);
         }
     }
 );
