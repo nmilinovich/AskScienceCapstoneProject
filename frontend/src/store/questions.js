@@ -38,6 +38,7 @@ export const getQuestions = () => async (dispatch) => {
       const data = await res.json();
       console.log(data);
       dispatch(loadQuestions(data));
+    console.log(data)
       return data;
     }
     return res;

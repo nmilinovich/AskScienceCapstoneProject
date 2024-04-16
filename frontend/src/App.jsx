@@ -5,7 +5,8 @@ import LoginFormPage from './components/LoginFormPage/LoginFormPage';
 import SignupFormPage from './components/SignupFormPage/SignupFormPage';
 import Navigation from './components/Navigation/Navigation';
 import * as sessionActions from './store/session';
-import QuestionLandingPage from './components/Questions';
+import QuestionsLandingPage from './components/Questions/QuestionsLandingPage';
+import QuestionDetailsPage from './components/Questions/QuestionDetailsPage';
 
 function Layout() {
   const dispatch = useDispatch();
@@ -31,11 +32,15 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <QuestionLandingPage />
+        element: <QuestionsLandingPage />
       },
       {
         path: 'questions',
-        element: <QuestionLandingPage />
+        element: <QuestionsLandingPage />
+      },
+      {
+        path: 'questions/:questionId',
+        element: <QuestionDetailsPage />
       },
       {
         path: "login",

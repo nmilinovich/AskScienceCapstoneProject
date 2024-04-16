@@ -84,7 +84,6 @@ router.get(
                 },
                 {
                 model: Image,
-                attributes: ['url'],
                 },
             ],
         };
@@ -98,7 +97,6 @@ router.get(
             err.status = 404;
             return next(err);
         }
-
 
         modifiedQuestion = question.map((obj) => {
             let question = obj.toJSON();
@@ -150,8 +148,7 @@ router.get(
 
             return question
         })
-
-        return res.json({"Question": modifiedQuestion[0]});
+        return res.json(modifiedQuestion[0]).status(200);
     }
 );
 
