@@ -46,6 +46,7 @@ router.get(
 router.get(
     '/:questionId',
     async (req, res, next) => {
+        const user = req.user
         const questionId = req.params.questionId;
         let query = {
             where: {
@@ -122,7 +123,7 @@ router.get(
                     likes += 1;
                 }
             });
-            delete question.Likes
+            // delete question.Likes
             question.numLikes = likes;
 
             question.Answers.forEach(answer => {
@@ -135,7 +136,7 @@ router.get(
                     }
                 });
                 answer.numLikes = answerLikes
-                delete answer.Likes
+                // delete answer.Likes
 
                 answer.Comments.forEach(answerComment => {
                     let answerCommentLikes = 0;
@@ -146,7 +147,7 @@ router.get(
                         }
                     })
                     answerComment.numLikes = answerCommentLikes
-                    delete answerComment.Likes
+                    // delete answerComment.Likes
                 });
             });
 
@@ -159,7 +160,7 @@ router.get(
                     }
                 });
                 questionComment.numLikes = questionCommentLikes
-                delete questionComment.Likes
+                // delete questionComment.Likes
             });
 
             return question
@@ -191,37 +192,36 @@ router.get(
             },
             include: [
                 {
+                model: User,
+                attributes: ['username'],
+                as: 'questionOwner'
+                },
+                {
                 model: Like,
-                // as: 'reviews'
-                // attributes: ['stars'],
                 },
                 {
                 model: Image,
-                // where: {
-                //     preview: true
-                // },
                 attributes: ['url'],
-                // as: 'previewImage',
                 },
             ],
         };
 
-        query.limit = size;
-        query.offset = size * (page - 1);
+        // query.limit = size;
+        // query.offset = size * (page - 1);
 
-        if (
-            (!Number.isInteger(page) || page > 10 || page < 1) ||
-            (!Number.isInteger(size) || size > 20 || size < 1)
-        ) {
-            const err = new Error("Bad Request");
-            err.message = "Bad Request";
-            err.errors = {
-                "page": "Page must be greater than or equal to 1",
-                "size": "Size must be greater than or equal to 1",
-            };
-            err.status = 400;
-            return next(err);
-        }
+        // if (
+        //     (!Number.isInteger(page) || page > 10 || page < 1) ||
+        //     (!Number.isInteger(size) || size > 20 || size < 1)
+        // ) {
+        //     const err = new Error("Bad Request");
+        //     err.message = "Bad Request";
+        //     err.errors = {
+        //         "page": "Page must be greater than or equal to 1",
+        //         "size": "Size must be greater than or equal to 1",
+        //     };
+        //     err.status = 400;
+        //     return next(err);
+        // }
 
         const questions = await Question.findAll(query);
 
@@ -233,7 +233,6 @@ router.get(
                 if (!like.dislike) likes += 1;
             });
             question.numLikes = likes;
-            delete question.Likes;
             return question;
         });
 

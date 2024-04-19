@@ -35,6 +35,7 @@ function ProfileButton({ user }) {
 
   return (
     <div className='rightsideNav'>
+      <button className='askQuestionButton'>Ask a Question</button>
       <button onClick={toggleMenu} className="profile-btn">
         <i className="fas fa-user-circle" />
       </button>

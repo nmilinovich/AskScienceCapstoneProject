@@ -1,13 +1,16 @@
 .questionCardCommentsContainer {
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
 .questionCardComment {
-    width: 99%;
     margin-top: 0.5vh;
     margin-bottom: 0.5vh;
+    margin-left: 0.5vw;
+    margin-right: 0.5vw;
+    padding-left: 0.3vw;
+    padding-top: 0.3vw;
+    padding-bottom: 0.3vw;
     border: 2px solid rgb(3, 83, 3);
     border-radius: 2px;
     background-color: rgb(255, 111, 0);
@@ -15,4 +18,5 @@
 
 .noQuesitonComments {
     margin-left: 0.5vh;
+    padding-left: 0.3vw;
 }

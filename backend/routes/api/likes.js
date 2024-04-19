@@ -4,6 +4,21 @@ const { requireAuth, sendAuthorizationError } = require('../../utils/auth.js')
 const { Op } = require('sequelize');
 const router = express.Router();
 
+router.get(
+    '/current',
+    requireAuth,
+    async (req, res, next) => {
+        const userId = req.user.id
+        userLikes = await Like.findAll({
+            where: {
+                userId
+            }
+        })
+        return res.status(200).json({Likes: userLikes})
+
+    }
+)
+
 router.post(
     '/',
     requireAuth,

@@ -1,0 +1,26 @@
+.likesContainer {
+    display: flex;
+    flex-direction: column;
+    width: 10%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.upArrow {
+    cursor: pointer;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 100%;
+}
+
+.totalLikes {
+    font-size:xx-large;
+    font-weight: bolder;
+}
+
+.downArrow {
+    cursor: pointer;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 100%;
+}

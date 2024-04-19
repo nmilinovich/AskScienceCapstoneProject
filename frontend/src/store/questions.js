@@ -33,6 +33,8 @@ export const updateQuestion = (question) => ({
 
 // thunks
 export const getQuestions = () => async (dispatch) => {
+    console.log('blaaaaaa')
+
     const res = await csrfFetch("/api/questions");
     if (res.ok) {
       const data = await res.json();
@@ -45,6 +47,8 @@ export const getQuestions = () => async (dispatch) => {
 };
 
 export const getQuestionDetails = (questionId) => async (dispatch) => {
+    console.log('blaaaaaa')
+
     const res = await csrfFetch(`/api/questions/${questionId}`);
     if (res.ok) {
         const data = await res.json();
@@ -56,6 +60,7 @@ export const getQuestionDetails = (questionId) => async (dispatch) => {
 };
 
 export const postNewQuestion = (question, imageURLs) => async (dispatch) => {
+
     const res = await csrfFetch("/api/questions/current",
         {
             headers: {
@@ -92,6 +97,8 @@ export const postNewQuestion = (question, imageURLs) => async (dispatch) => {
 };
 
 export const removeQuestion = (questionId) => async (dispatch) => {
+    console.log('blaaaaaa')
+
     const deletedQuestion = await csrfFetch(`/api/questions/${questionId}`,
         {
             headers: {
@@ -105,6 +112,7 @@ export const removeQuestion = (questionId) => async (dispatch) => {
 }
 
 export const editQuestion = (question) => async (dispatch) => {
+    console.log('blaaaaaa')
     const resQuestion = await csrfFetch(`/api/question/${question.id}`,
         {
             headers: {

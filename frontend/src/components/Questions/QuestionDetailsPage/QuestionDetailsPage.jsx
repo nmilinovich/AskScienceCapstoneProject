@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react'
 import { getQuestionDetails } from '../../../store/questions';
+// import { getUserLikes } from '../../../store/likes';
 import QuestionDetailsCard from '../QuestionDetailsCard/QuestionDetailsCard';
 import QuestionCommentsCard from '../QuestionCommentsCard/QuestionCommentsCard';
 import QuestionAnswersCard from '../QuestionAnswersCard/QuestionAnswersCard';
@@ -11,20 +12,23 @@ import QuestionAnswersCard from '../QuestionAnswersCard/QuestionAnswersCard';
 
 function QuestionDetailsPage() {
     const dispatch = useDispatch();
-    const { questionId } = useParams();
-    // const questionId = parseInt(questionId);
+    let { questionId } = useParams();
+    questionId = parseInt(questionId);
     // dispatch(getQuestionDetails(questionId));
+    let question = useSelector((state) => state.questions[questionId]);
+
+
+
     useEffect(() => {
         dispatch(getQuestionDetails(questionId));
     }, [dispatch, questionId]);
     // let user = useSelector((state) => state.session.user?.['id']);
-    let question = useSelector((state) => state.questions[questionId]);
-
     if(!question) {
         return <div>Loading...</div>;
     }
     if (question) {
         return (
+
             <div className='questionDetailsPage'>
                 <div>
                     <div className='questionSection'>
