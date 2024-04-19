@@ -2,6 +2,9 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react'
 import { getQuestionDetails } from '../../../store/questions';
+import QuestionDetailsCard from '../QuestionDetailsCard/QuestionDetailsCard';
+import QuestionCommentsCard from '../QuestionCommentsCard/QuestionCommentsCard';
+import QuestionAnswersCard from '../QuestionAnswersCard/QuestionAnswersCard';
 // import { getQuestions } from '../../../store/questions';
 // import './QuestionDetails.css';
 // import { getQuestion } from '../../store/reviews';
@@ -23,32 +26,14 @@ function QuestionDetailsPage() {
     if (question) {
         return (
             <div className='questionDetailsPage'>
-                <div className="questionCard">
-                    <h1 className='questionCardTitle'>{question.title}</h1>
-                    <div className='questionCardType'>{question.type}</div>
-                    <button className='createQuestionLink'>Ask a Question</button>
-                    <div>
-                        <p className='questionCardDescription'>{question.description}</p>
+                <div>
+                    <div className='questionSection'>
+                        <QuestionDetailsCard question={question} />
+                        <h3 className='commentsH3'>Comments</h3>
+                        <QuestionCommentsCard question={question} />
                     </div>
-                    <div className='img-container'>
-                        {question.Images?.map((image) =>
-                            <img id={image.id} key={image.id} className='questionCardImg' src={`${image['url']}`} alt='image'/>
-                        )}
-                    </div>
-                    <div className='questionCardCommentsContainer'>
-                        {question.Comments?.map((questionComment) => {
-                            return (
-                                <div id={questionComment.id} key={questionComment.id} className='questionCardComments'>{questionComment.description}</div>
-                            )
-                        })}
-                    </div>
-                    <div className='answersContainer'>
-                        {question.Answers?.map((answer) => {
-                            return (
-                                <div id={answer.id} key={answer.id} className='answer'>{answer.description}</div>
-                            )
-                        })}
-                    </div>
+
+                    <QuestionAnswersCard question={question} />
                 </div>
             </div>
         );
