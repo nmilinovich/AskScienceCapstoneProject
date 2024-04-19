@@ -53,6 +53,11 @@ router.get(
             },
             include: [
                 {
+                model: User,
+                attributes: ['username'],
+                as: 'questionOwner'
+                },
+                {
                 model: Answer,
                     include: [
                         {
@@ -68,6 +73,11 @@ router.get(
                                         model: Like
                                     }
                                 ]
+                        },
+                        {
+                            model: User,
+                            attributes: ['username'],
+                            as: 'answerOwner'
                         }
                     ]
                 },
@@ -76,6 +86,11 @@ router.get(
                     include: [
                         {
                             model: Like,
+                        },
+                        {
+                            model: User,
+                            attributes:['username'],
+                            as: 'commentOwner'
                         }
                     ]
                 },
@@ -111,6 +126,7 @@ router.get(
             question.numLikes = likes;
 
             question.Answers.forEach(answer => {
+                answerOwner = async () => await User.findByPk(answer.userId);
                 let answerLikes = 0;
                 answer.Likes.forEach(answerlike => {
                     if (answerlike.dislike) answerLikes -= 1;
@@ -254,7 +270,6 @@ router.post(
         }
 
         const user = await User.findByPk(usersId);
-        console.log(user)
         const newQuestion = await user.createQuestion({
             userId,
             title,

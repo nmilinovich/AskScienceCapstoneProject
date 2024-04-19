@@ -12,11 +12,6 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     await Answer.bulkCreate([
       {
-        userId: 1,
-        questionId: 1,
-        description: 'Answer 1'
-      },
-      {
         userId: 2,
         questionId: 1,
         description: "Each hair goes through a cycle of growth, rest, and shedding. It is simply that head hair grows for 2-8 years while body hair grows for 30-45 days only. That means that, rather than body hair growing shorter, it simply doesn't have enough time to grow longer. As such, even head hair has its limits; while some people manage to grow very long hair, other people will find that their hair won't grow past the middle of their back. And finally, the reason we don't notice those hair phases is because each follicle has its own schedule, so every day you're shedding older hair and growing new ones. It's just that the shorter hair isn't as noticeable. That's also the reason laser treatments take many sessions, because they target the growth phase, so it fails to kill hairs that are in the rest or shedding phase. And that also explains why (if you live with a long haired person) the house is always covered in hair yet that person never gets bald"

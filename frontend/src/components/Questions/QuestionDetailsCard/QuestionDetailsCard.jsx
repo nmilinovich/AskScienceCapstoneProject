@@ -9,11 +9,11 @@ function QuestionDetailsCard({ question }) {
             <div>
                 <p className='questionCardDescription'>{question.description}</p>
             </div>
-            <div className='imgContainer'>
+            <div className='questionImgsContainer'>
                 {question.Images?.map((image) => {
                     console.log(image)
                     return (
-                        <div key={image.id}>
+                        <div key={image.id} className='questionImgDiv'>
                             <img className='questionCardImg' src={`${image['url']}`} alt='image'/>
                         </div>
                     )

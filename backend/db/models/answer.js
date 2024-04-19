@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       Answer.belongsTo(
         models.User, {
           foreignKey: 'userId',
-          as: 'Owner'
+          as: 'answerOwner'
         }
       );
       Answer.belongsTo(

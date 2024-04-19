@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       Comment.belongsTo(
         models.User, {
           foreignKey: 'userId',
-          as: 'AnswerOwner'
+          as: 'commentOwner'
         }
       );
       Comment.belongsTo(models.Question, {
