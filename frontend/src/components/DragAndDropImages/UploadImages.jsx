@@ -1,9 +1,7 @@
 import { useState } from "react";
-
-const DragAndDropImages = () => {
-
+import './UploadImages'
+function UploadImages() {
   const [selectedImages, setSelectedImages] = useState([]);
-
   return (
     <div className="imageUploadContainer">
       {selectedImages.map(img => (
@@ -32,4 +30,4 @@ const DragAndDropImages = () => {
 };
 
 
-export default DragAndDropImages
+export default UploadImages

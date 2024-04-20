@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import DragAndDropImages from '../../DragAndDropImages/DragAndDropImages';
+import UploadImages from '../../DragAndDropImages/UploadImages';
 import './PostAnswer.css'
 
 function PostAnswer() {
@@ -54,8 +54,8 @@ function PostAnswer() {
                     >
                     </textarea>
                 </label>
-                <DragAndDropImages />
-                {console.log(DragAndDropImages)}
+                <UploadImages />
+                {console.log(UploadImages.selectedImages)}
                 <button onSubmit={onSubmit}>Submit Answer</button>
             </form>
         </div>
