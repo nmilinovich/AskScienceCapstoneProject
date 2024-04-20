@@ -6,10 +6,7 @@ import { getQuestionDetails } from '../../../store/questions';
 import QuestionDetailsCard from '../QuestionDetailsCard/QuestionDetailsCard';
 import QuestionCommentsCard from '../QuestionCommentsCard/QuestionCommentsCard';
 import QuestionAnswersCard from '../QuestionAnswersCard/QuestionAnswersCard';
-// import { getUserLikes } from '../../../store/likes';
-// import { getQuestions } from '../../../store/questions';
-// import './QuestionDetails.css';
-// import { getQuestion } from '../../store/reviews';
+import PostAnswer from '../PostAnswer/PostAnswer';
 
 function QuestionDetailsPage() {
     const dispatch = useDispatch();
@@ -35,6 +32,7 @@ function QuestionDetailsPage() {
                         <QuestionCommentsCard question={question} />
                     </div>
                     <QuestionAnswersCard question={question} />
+                    <PostAnswer />
                 </div>
             </div>
         );
