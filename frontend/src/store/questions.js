@@ -33,26 +33,19 @@ export const updateQuestion = (question) => ({
 
 // thunks
 export const getQuestions = () => async (dispatch) => {
-    console.log('blaaaaaa')
-
     const res = await csrfFetch("/api/questions");
     if (res.ok) {
       const data = await res.json();
-      console.log(data);
       dispatch(loadQuestions(data));
-    console.log(data)
       return data;
     }
     return res;
 };
 
 export const getQuestionDetails = (questionId) => async (dispatch) => {
-    console.log('blaaaaaa')
-
     const res = await csrfFetch(`/api/questions/${questionId}`);
     if (res.ok) {
         const data = await res.json();
-        console.log(data);
         dispatch(loadQuestion(data));
         return data;
     }
@@ -97,7 +90,6 @@ export const postNewQuestion = (question, imageURLs) => async (dispatch) => {
 };
 
 export const removeQuestion = (questionId) => async (dispatch) => {
-    console.log('blaaaaaa')
 
     const deletedQuestion = await csrfFetch(`/api/questions/${questionId}`,
         {
@@ -112,7 +104,6 @@ export const removeQuestion = (questionId) => async (dispatch) => {
 }
 
 export const editQuestion = (question) => async (dispatch) => {
-    console.log('blaaaaaa')
     const resQuestion = await csrfFetch(`/api/question/${question.id}`,
         {
             headers: {
@@ -122,7 +113,6 @@ export const editQuestion = (question) => async (dispatch) => {
             body: JSON.stringify(question)
         }
     );
-    console.log(resQuestion)
     const editedQuestion = await resQuestion.json();
     // const questionImgs = [];
     // for (let i = 0; i < imageURLs.length; i++) {
@@ -155,7 +145,6 @@ const questionsReducer = (state = {}, action) => {
             });
             // newState["page"] = action.payload.page;
             // newState["size"] = action.payload.size;
-            console.log(newState);
             return newState;
         case LOAD_QUESTION:
             newState[action.question.id] = {...newState[action.question.id], ...action.question}

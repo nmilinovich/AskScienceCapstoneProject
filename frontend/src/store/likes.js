@@ -1,8 +1,8 @@
 import { csrfFetch } from "./csrf";
 const LOAD_USERLIKES = 'load/like';
 const CREATE_LIKE = 'create/like';
-const DELETE_LIKE = 'delete/like';
 const UPDATE_LIKE = 'update/like';
+const DELETE_LIKE = 'delete/like';
 
 export const loadLikes = (payload) => ({
     type: LOAD_USERLIKES,
@@ -14,14 +14,14 @@ export const postLike = (like) => ({
     like
 });
 
-export const deleteLike = (likeId) => ({
-    type: DELETE_LIKE,
-    likeId
-});
-
 export const updateLike = (like) => ({
     type: UPDATE_LIKE,
     like
+});
+
+export const deleteLike = (likeId) => ({
+    type: DELETE_LIKE,
+    likeId
 });
 
 export const getUserLikes = () => async (dispatch) => {
@@ -36,6 +36,7 @@ export const getUserLikes = () => async (dispatch) => {
 };
 
 export const postNewLike = (like) => async (dispatch) => {
+    console.log(like)
     const resLike = await csrfFetch("/api/likes",
         {
             headers: {
@@ -54,7 +55,6 @@ export const postNewLike = (like) => async (dispatch) => {
 };
 
 export const editLike = (like) => async (dispatch) => {
-    console.log(like)
     const resLike = await csrfFetch("/api/likes",
         {
             headers: {
@@ -66,11 +66,25 @@ export const editLike = (like) => async (dispatch) => {
     );
     if (resLike.ok) {
         const editedLike = await resLike.json();
-        dispatch(postLike(editedLike));
+        dispatch(updateLike(editedLike));
         return editedLike;
     }
     return resLike
 };
+
+export const removeLike = (likeId) => async (dispatch) => {
+    console.log('LIKEID', likeId)
+    const deletedLike = await csrfFetch(`/api/likes/${likeId}`,
+        {
+            headers: {
+            'Content-Type': 'application/json'
+            },
+            method: "DELETE",
+        }
+    );
+    await dispatch(deleteLike(likeId));
+    return deletedLike;
+}
 
 const likesReducer = (state = {}, action) => {
     const newState = {...state}
@@ -88,6 +102,9 @@ const likesReducer = (state = {}, action) => {
         case UPDATE_LIKE:
             newState[action.like.id] = {...action.like}
             return newState;
+            case DELETE_LIKE:
+                delete newState[action.likeId]
+                return newState;
         default:
             return state;
     }

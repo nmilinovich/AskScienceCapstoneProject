@@ -1,7 +1,7 @@
 import VotingComponent from '../../VotingComponent/VotingComponent'
 import './QuestionAnswersCard.css'
 
-function QuestionAnswersCard({ question }) {
+function QuestionAnswersCard({ question, questionId }) {
     return (
         <div>
             {question.Answers?.map((answer) => {
@@ -9,7 +9,7 @@ function QuestionAnswersCard({ question }) {
                     <div key={answer.id} className='answerCard'>
                         <span className='answerOwnerSpan'>{answer.answerOwner.username}</span>
                         <div className='likesAndDesciptionContainer'>
-                            <VotingComponent response={answer} type='answer'/>
+                            <VotingComponent response={answer} type='answer' questionId={questionId} />
                                 <p className='answerDescription'>{answer.description}</p>
                         </div>
                         <div>
