@@ -27,7 +27,7 @@ module.exports = {
         userId: 1,
         imageableType: 'answer',
         imageableId: 1,
-        url: 'url 3'
+        url: 'https://external-preview.redd.it/most-of-my-leg-hair-grows-in-groups-of-3-v0-LB19BTNCC3LqEzD2_gBRpDy_IKkyShHPpDpeRHKpu4g.jpg?width=640&crop=smart&auto=webp&s=65438c8ee0ca2d734351f888d009f946ecf7329b'
       },
     ], { validate: true });
   },

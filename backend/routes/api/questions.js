@@ -49,7 +49,6 @@ router.get(
         const user = req.user
         const questionId = req.params.questionId;
         let query = {
-
             include: [
                 {
                 model: User,
@@ -58,7 +57,7 @@ router.get(
                 },
                 {
                 model: Answer,
-                group: ['Answer.id', 'Likes.id'],
+                group: ['Answer.id', 'Likes.id', 'Images.id', 'Comments.id'],
                     include: [
                         {
                             model: Like,
@@ -74,6 +73,7 @@ router.get(
                         },
                         {
                             model: Comment,
+                                group: ['Comment.id', 'Likes.id'],
                                 include: [
                                     {
                                         model: Like
@@ -89,6 +89,7 @@ router.get(
                 },
                 {
                 model: Comment,
+                    group: ['Comment.id', 'Likes.id'],
                     include: [
                         {
                             model: Like,
