@@ -1,7 +1,7 @@
 import VotingComponent from '../../VotingComponent/VotingComponent'
 import './QuestionDetailsCard.css'
 
-function QuestionDetailsCard({ question, questionId }) {
+function QuestionDetailsCard({ question }) {
     // let { questionId } = useParams()
     // questionId = parseInt(questionId)
     // const userLikes = useSelector((state) => state.session.user.likes)
@@ -15,7 +15,7 @@ function QuestionDetailsCard({ question, questionId }) {
                 <span className='questionCardType'>{question.type}</span>
             </div>
             <div className='questionCardLikesAndTitle'>
-                <VotingComponent className='questionLikes' response={question} type='question' questionId={questionId} />
+                <VotingComponent className='questionLikes' response={question} type='question' />
                 <h1 className='questionCardTitle'>{question.title}</h1>
             </div>
             <div>

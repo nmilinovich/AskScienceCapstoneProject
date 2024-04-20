@@ -6,19 +6,30 @@
     align-items: center;
 }
 
-.upArrow {
-    cursor: pointer;
-    width: 100%;
-    object-fit: cover;
-    border-radius: 100%;
-}
+
 
 .totalLikes {
     font-size:xx-large;
     font-weight: bolder;
 }
 
-.downArrow {
+.disliked {
+    cursor: pointer;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 100%;
+    filter:sepia(1) hue-rotate(149deg);
+}
+
+.liked {
+    cursor: pointer;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 100%;
+    filter:sepia(1) hue-rotate(149deg);
+}
+
+.notLiked {
     cursor: pointer;
     width: 100%;
     object-fit: cover;

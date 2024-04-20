@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       Like.belongsTo(models.Answer, {
         foreignKey: 'likeableId',
         constraints: false,
+        // as: 'AnswerLike'
       });
       Like.belongsTo(models.Comment, {
         foreignKey: 'likeableId',

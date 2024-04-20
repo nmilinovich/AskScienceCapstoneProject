@@ -40,6 +40,7 @@ module.exports = (sequelize, DataTypes) => {
           scope: {
             likeableType: 'answer'
           },
+          // as: 'AnswerLikes',
           onDelete: 'CASCADE'
         }
       );

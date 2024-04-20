@@ -49,9 +49,7 @@ router.get(
         const user = req.user
         const questionId = req.params.questionId;
         let query = {
-            where: {
-                id: questionId
-            },
+
             include: [
                 {
                 model: User,
@@ -60,9 +58,16 @@ router.get(
                 },
                 {
                 model: Answer,
+                group: ['Answer.id', 'Likes.id'],
                     include: [
                         {
                             model: Like,
+                            // right: true,
+                            // where: {
+                            //     likeableId: Answer.id,
+                            //     likeableType: 'answer'
+                            // },
+                            // as: 'AnswerLike'
                         },
                         {
                             model: Image,
@@ -102,9 +107,13 @@ router.get(
                 model: Image,
                 },
             ],
+            // attributes: [
+            //     'id', 'userId', 'title', 'description', 'type', 'createdAt', 'updatedAt',
+            //     [sequelize.fn('COUNT', sequelize.col('Questions.id')), 'numLikes'],
+            // ]
         };
 
-        const question = await Question.findAll(query);
+        const question = await Question.findByPk(questionId, query);
 
         if (!question) {
             let err = new Error("Question couldn't be found");
@@ -114,58 +123,58 @@ router.get(
             return next(err);
         }
 
-        modifiedQuestion = question.map((obj) => {
-            let question = obj.toJSON();
-            let likes = 0;
-            question.Likes.forEach(like => {
-                if (like.dislike) likes -= 1;
-                else {
-                    likes += 1;
-                }
-            });
-            // delete question.Likes
-            question.numLikes = likes;
+        // modifiedQuestion = question.map((obj) => {
+        //     let question = obj.toJSON();
+        //     let likes = 0;
+        //     question.Likes.forEach(like => {
+        //         if (like.dislike) likes -= 1;
+        //         else {
+        //             likes += 1;
+        //         }
+        //     });
+        //     // delete question.Likes
+        //     question.numLikes = likes;
 
-            question.Answers.forEach(answer => {
-                answerOwner = async () => await User.findByPk(answer.userId);
-                let answerLikes = 0;
-                answer.Likes.forEach(answerlike => {
-                    if (answerlike.dislike) answerLikes -= 1;
-                    else {
-                        answerLikes += 1
-                    }
-                });
-                answer.numLikes = answerLikes
-                // delete answer.Likes
+        //     question.Answers.forEach(answer => {
+        //         answerOwner = async () => await User.findByPk(answer.userId);
+        //         let answerLikes = 0;
+        //         answer.Likes.forEach(answerlike => {
+        //             if (answerlike.dislike) answerLikes -= 1;
+        //             else {
+        //                 answerLikes += 1
+        //             }
+        //         });
+        //         answer.numLikes = answerLikes
+        //         // delete answer.Likes
 
-                answer.Comments.forEach(answerComment => {
-                    let answerCommentLikes = 0;
-                    answerComment.Likes.forEach(answerCommentLike => {
-                        if (answerCommentLike.dislike) answerCommentLikes -= 1
-                        else {
-                            answerCommentLikes += 1;
-                        }
-                    })
-                    answerComment.numLikes = answerCommentLikes
-                    // delete answerComment.Likes
-                });
-            });
+        //         answer.Comments.forEach(answerComment => {
+        //             let answerCommentLikes = 0;
+        //             answerComment.Likes.forEach(answerCommentLike => {
+        //                 if (answerCommentLike.dislike) answerCommentLikes -= 1
+        //                 else {
+        //                     answerCommentLikes += 1;
+        //                 }
+        //             })
+        //             answerComment.numLikes = answerCommentLikes
+        //             // delete answerComment.Likes
+        //         });
+        //     });
 
-            question.Comments.forEach(questionComment => {
-                let questionCommentLikes = 0
-                questionComment.Likes.forEach(questionCommentLike => {
-                    if (questionCommentLike.dislike) questionCommentLikes -=1
-                    else {
-                        questionCommentLikes += 1;
-                    }
-                });
-                questionComment.numLikes = questionCommentLikes
-                // delete questionComment.Likes
-            });
+        //     question.Comments.forEach(questionComment => {
+        //         let questionCommentLikes = 0
+        //         questionComment.Likes.forEach(questionCommentLike => {
+        //             if (questionCommentLike.dislike) questionCommentLikes -=1
+        //             else {
+        //                 questionCommentLikes += 1;
+        //             }
+        //         });
+        //         questionComment.numLikes = questionCommentLikes
+        //         // delete questionComment.Likes
+        //     });
 
-            return question
-        })
-        return res.json(modifiedQuestion[0]).status(200);
+        //     return question
+        // })
+        return res.json(question).status(200);
     }
 );
 
