@@ -11,44 +11,11 @@ router.get(
     async (req, res, next) => {
         const userId = req.user.id;
         console.log(userId);
-        query = {
+
+        let query = {
             where: {
                 userId: userId,
             },
-            include: [{
-                model: Like,
-            }, {
-                model: Image,
-                attributes: ['url'],
-            }],
-        }
-
-        const questions = await Question.findAll(query);
-
-        let returnedQuestions = questions.map(obj => {
-            let question = obj.toJSON();
-            let likes = 0;
-            question.Likes.forEach((like) => {
-                if (like.dislike) {
-                    likes -= 1;
-                } else {
-                    likes += 1;
-                }
-            });
-            question.numLikes = likes;
-            delete question.Likes;
-            return question;
-        });
-        return res.json({ Questions: returnedQuestions })
-    }
-);
-
-router.get(
-    '/:questionId',
-    async (req, res, next) => {
-        const user = req.user
-        const questionId = req.params.questionId;
-        let query = {
             include: [
                 {
                 model: User,
@@ -61,12 +28,6 @@ router.get(
                     include: [
                         {
                             model: Like,
-                            // right: true,
-                            // where: {
-                            //     likeableId: Answer.id,
-                            //     likeableType: 'answer'
-                            // },
-                            // as: 'AnswerLike'
                         },
                         {
                             model: Image,
@@ -108,10 +69,86 @@ router.get(
                 model: Image,
                 },
             ],
-            // attributes: [
-            //     'id', 'userId', 'title', 'description', 'type', 'createdAt', 'updatedAt',
-            //     [sequelize.fn('COUNT', sequelize.col('Questions.id')), 'numLikes'],
-            // ]
+        };
+
+        const questions = await Question.findAll(query);
+
+        let returnedQuestions = questions.map(obj => {
+            let question = obj.toJSON();
+            let likes = 0;
+            question.Likes.forEach((like) => {
+                if (like.dislike === true) {
+                    likes -= 1;
+                } else {
+                    likes += 1;
+                }
+            });
+            question.numLikes = likes;
+            return question;
+        });
+        return res.json({ Questions: returnedQuestions })
+    }
+);
+
+router.get(
+    '/:questionId',
+    async (req, res, next) => {
+        const user = req.user
+        const questionId = req.params.questionId;
+        let query = {
+            include: [
+                {
+                model: User,
+                attributes: ['username'],
+                as: 'questionOwner'
+                },
+                {
+                model: Answer,
+                group: ['Answer.id', 'Likes.id', 'Images.id', 'Comments.id'],
+                    include: [
+                        {
+                            model: Like,
+                        },
+                        {
+                            model: Image,
+                        },
+                        {
+                            model: Comment,
+                                group: ['Comment.id', 'Likes.id'],
+                                include: [
+                                    {
+                                        model: Like
+                                    }
+                                ]
+                        },
+                        {
+                            model: User,
+                            attributes: ['username'],
+                            as: 'answerOwner'
+                        }
+                    ]
+                },
+                {
+                model: Comment,
+                    group: ['Comment.id', 'Likes.id'],
+                    include: [
+                        {
+                            model: Like,
+                        },
+                        {
+                            model: User,
+                            attributes:['username'],
+                            as: 'commentOwner'
+                        }
+                    ]
+                },
+                {
+                model: Like,
+                },
+                {
+                model: Image,
+                },
+            ],
         };
 
         const question = await Question.findByPk(questionId, query);
@@ -198,8 +235,6 @@ router.get(
         }
 
         let query = {
-            where: {
-            },
             include: [
                 {
                 model: User,
@@ -207,14 +242,54 @@ router.get(
                 as: 'questionOwner'
                 },
                 {
+                model: Answer,
+                group: ['Answer.id', 'Likes.id', 'Images.id', 'Comments.id'],
+                    include: [
+                        {
+                            model: Like,
+                        },
+                        {
+                            model: Image,
+                        },
+                        {
+                            model: Comment,
+                                group: ['Comment.id', 'Likes.id'],
+                                include: [
+                                    {
+                                        model: Like
+                                    }
+                                ]
+                        },
+                        {
+                            model: User,
+                            attributes: ['username'],
+                            as: 'answerOwner'
+                        }
+                    ]
+                },
+                {
+                model: Comment,
+                    group: ['Comment.id', 'Likes.id'],
+                    include: [
+                        {
+                            model: Like,
+                        },
+                        {
+                            model: User,
+                            attributes:['username'],
+                            as: 'commentOwner'
+                        }
+                    ]
+                },
+                {
                 model: Like,
                 },
                 {
                 model: Image,
-                attributes: ['url'],
                 },
             ],
         };
+
 
         // query.limit = size;
         // query.offset = size * (page - 1);
@@ -239,8 +314,11 @@ router.get(
             let question = obj.toJSON();
             let likes = 0;
             question.Likes.forEach((like) => {
-                if (like.dislike) likes += 1;
-                if (!like.dislike) likes += 1;
+                if (like.dislike === true) {
+                    likes -= 1
+                } else {
+                    likes += 1;
+                }
             });
             question.numLikes = likes;
             return question;
