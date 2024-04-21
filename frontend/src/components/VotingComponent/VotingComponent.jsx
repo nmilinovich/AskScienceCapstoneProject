@@ -7,6 +7,7 @@ import './VotingComponent.css'
 
 
 function VotingComponent({ response, type }) {
+    console.log(response)
     const dispatch = useDispatch()
     // let { questionId } = useParams();
     // questionId = parseInt(questionId);
