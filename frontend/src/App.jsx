@@ -7,6 +7,7 @@ import Navigation from './components/Navigation/Navigation';
 import * as sessionActions from './store/session';
 import QuestionsLandingPage from './components/Questions/QuestionsLandingPage';
 import QuestionDetailsPage from './components/Questions/QuestionDetailsPage';
+import PostQuestionPage from './components/Questions/PostQuestionPage/PostQuestionPage';
 
 function Layout() {
   const dispatch = useDispatch();
@@ -39,9 +40,14 @@ const router = createBrowserRouter([
         element: <QuestionsLandingPage />
       },
       {
+        path: 'questions/new',
+        element: <PostQuestionPage />
+      },
+      {
         path: 'questions/:questionId',
         element: <QuestionDetailsPage />
       },
+
       {
         path: "login",
         element: <LoginFormPage />

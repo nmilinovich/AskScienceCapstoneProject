@@ -14,7 +14,7 @@ const app = express();
 
 app.use(morgan('dev'));
 app.use(cookieParser());
-app.use(express.json({ limit: '200mb' }));
+app.use(express.json({ limit: '5mb' }));
 
 // Security Middleware
 if (!isProduction) {

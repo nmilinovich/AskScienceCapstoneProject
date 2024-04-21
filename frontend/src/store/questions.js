@@ -52,9 +52,9 @@ export const getQuestionDetails = (questionId) => async (dispatch) => {
     return res;
 };
 
-export const postNewQuestion = (question, imageURLs) => async (dispatch) => {
-
-    const res = await csrfFetch("/api/questions/current",
+export const postNewQuestion = (question) => async (dispatch) => {
+    console.log(question)
+    const resQuestion = await csrfFetch("/api/questions/current",
         {
             headers: {
             'Content-Type': 'application/json'
@@ -63,31 +63,50 @@ export const postNewQuestion = (question, imageURLs) => async (dispatch) => {
             body: JSON.stringify(question)
         }
     );
-    const newQuestion = await res.json();
-    const questionImgs = [];
-    for (let i = 0; i < imageURLs.length; i++) {
-        const imgURL = imageURLs[i];
-        const newImage = await csrfFetch(`/api/images`,
-            {
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                method: "POST",
-                body: JSON.stringify({
-                    imageableType: 'question',
-                    imageableId: question.id,
-                    url: imgURL
-                })
-            }
-        );
-        if (res.ok) {
-            questionImgs.push(newImage);
-        }
+    if (resQuestion.ok) {
+        const newQuestion = await resQuestion.json();
+        dispatch(postQuestion(newQuestion));
+        return newQuestion;
     }
-    newQuestion.Images = questionImgs;
-    dispatch(postQuestion(newQuestion));
-    return newQuestion;
+    return resQuestion
 };
+
+// export const postNewQuestion = (question, imageURLs) => async (dispatch) => {
+
+//     const res = await csrfFetch("/api/questions/current",
+//         {
+//             headers: {
+//             'Content-Type': 'application/json'
+//             },
+//             method: "POST",
+//             body: JSON.stringify(question)
+//         }
+//     );
+//     const newQuestion = await res.json();
+//     const questionImgs = [];
+//     for (let i = 0; i < imageURLs.length; i++) {
+//         const imgURL = imageURLs[i];
+//         const newImage = await csrfFetch(`/api/images`,
+//             {
+//                 headers: {
+//                     'Content-Type': 'application/json'
+//                 },
+//                 method: "POST",
+//                 body: JSON.stringify({
+//                     imageableType: 'question',
+//                     imageableId: question.id,
+//                     url: imgURL
+//                 })
+//             }
+//         );
+//         if (res.ok) {
+//             questionImgs.push(newImage);
+//         }
+//     }
+//     newQuestion.Images = questionImgs;
+//     dispatch(postQuestion(newQuestion));
+//     return newQuestion;
+// };
 
 export const removeQuestion = (questionId) => async (dispatch) => {
 

@@ -32,10 +32,7 @@ function Navigation({ isLoaded }) {
             <button className='chemTag'>Chemistry</button>
             <button className='physTag'>Physics</button>
         </div>
-        <div className='rightsideNav'>
-
-            {isLoaded && sessionLinks}
-        </div>
+        {isLoaded && sessionLinks}
     </div>
   );
 }

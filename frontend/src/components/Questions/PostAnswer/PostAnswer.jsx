@@ -39,10 +39,11 @@ function PostAnswer() {
             questionId,
             description,
         };
-        if (!questionId) {
-            errHits.questionId = "Related Question could not be found";
-        }
+
         let errHits = {}
+        // if (!questionId) {
+        //     errHits.questionId = "Related Question could not be found";
+        // }
         // if (description.length < 30) {
         //     errHits.description = "Description must be more than 30 characters.";
         // }
