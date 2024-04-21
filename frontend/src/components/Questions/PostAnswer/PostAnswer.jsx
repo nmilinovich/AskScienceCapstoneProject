@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState  } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { postNewAnswer } from '../../../store/answers';
@@ -15,7 +15,7 @@ function convertImageToBase64(file) {
         };
         reader.readAsDataURL(file);
     });
-};
+}
 
 function PostAnswer() {
     let imageableType='answer'
@@ -53,7 +53,7 @@ function PostAnswer() {
                 let imageableId = answer.id
                 const base64Images = await Promise.all(selectedImages.map(convertImageToBase64));
                 console.log(base64Images);
-                const newImages = await new Promise(res => dispatch(postNewImages(base64Images, imageableType, imageableId)).then(res));
+                await new Promise(res => dispatch(postNewImages(base64Images, imageableType, imageableId)).then(res));
                 setSelectedImages([])
             }
 
