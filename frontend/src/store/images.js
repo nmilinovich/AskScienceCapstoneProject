@@ -8,9 +8,8 @@ export const postImages = (imageURLs) => ({
 });
 
 export const postNewImages = (imageURLs, imageableType, imageableId) => async (dispatch) => {
-
-    imageURLs.forEach(async (image) => {
-        const resImage = await csrfFetch('/api/images/',
+    return await Promise.all(imageURLs.map((image) => {
+        return csrfFetch('/api/images/',
             {
                 headers: {
                 'Content-Type': 'application/json'
@@ -25,9 +24,7 @@ export const postNewImages = (imageURLs, imageableType, imageableId) => async (d
                 )
             }
         );
-        console.log(resImage)
-        return resImage
-    })
+    }));
 };
 
 const imagesReducer = (state = {}, action) => {

@@ -32,7 +32,7 @@ function QuestionDetailsPage() {
                         <QuestionCommentsCard question={question} />
                     </div>
                     <QuestionAnswersCard question={question} />
-                    <PostAnswer />
+                    <PostAnswer question={question}/>
                 </div>
             </div>
         );

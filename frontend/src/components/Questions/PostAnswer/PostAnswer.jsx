@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { postNewAnswer } from '../../../store/answers';
@@ -25,6 +25,11 @@ function PostAnswer() {
     const [description, setDescription] = useState('');
     const [selectedImages, setSelectedImages] = useState([]);
     const [errors, setErrors] = useState({})
+
+    // useEffect(() => {
+    //     dispatch(getQuestionDetails(questionId));
+    // }, [dispatch, questionId]);
+
     const onSubmit = async (e) => {
         console.log(selectedImages)
         e.preventDefault();
@@ -43,23 +48,23 @@ function PostAnswer() {
         setErrors(errHits);
         if (!Object.values(errors).length) {
             const answer = await new Promise(res => dispatch(postNewAnswer(newAnswer)).then(res));
+            setDescription('')
             if (selectedImages.length) {
                 let imageableId = answer.id
                 const base64Images = await Promise.all(selectedImages.map(convertImageToBase64));
                 console.log(base64Images);
                 const newImages = await new Promise(res => dispatch(postNewImages(base64Images, imageableType, imageableId)).then(res));
+                setSelectedImages([])
             }
-            if (answer.ok) {
-                await new Promise(res => dispatch(getQuestionDetails()).then(res));
-            }
+
         }
+        await new Promise(res => dispatch(getQuestionDetails(questionId)).then(res));
     };
 
     return (
         <div >
-
             <form onSubmit={onSubmit} className='postAnswerForm'>
-            <h3 className='responseH3'>Your Response</h3>
+                <h3 className='responseH3'>Your Response</h3>
                 <label htmlFor='description'>
                     <textarea
                         placeholder='Please write at least 30 characters'
@@ -71,28 +76,27 @@ function PostAnswer() {
                     </textarea>
                 </label>
                 <div className="imageUploadContainer">
-      {selectedImages.map(img => (
-        <div key={img}>
-          <img
-            alt="not found"
-            width={"250px"}
-            src={URL.createObjectURL(img)}
-          />
-          <br />
-          {console.log(selectedImages)}
-          <button onClick={() => setSelectedImages(selectedImages.filter((keptImgs) => keptImgs !== img))}>Remove</button>
-        </div>
-      ))}
-      <input
-        type="file"
-        name="myImage"
-        accept="image/*"
-        onChange={(event) => {
-          console.log(event.target.files[0]);
-          setSelectedImages(selectedImages => [...selectedImages, ...event.target.files]);
-        }}
-      />
-    </div>
+                    {selectedImages.map(img => (
+                        <div key={img}>
+                        <img
+                            alt="not found"
+                            width={"250px"}
+                            src={URL.createObjectURL(img)}
+                        />
+                        <br />
+                        <button onClick={() => setSelectedImages(selectedImages.filter((keptImgs) => keptImgs !== img))}>Remove</button>
+                        </div>
+                    ))}
+                    <input
+                        type="file"
+                        name="myImage"
+                        accept="image/*"
+                        onChange={(event) => {
+                        console.log(event.target.files[0]);
+                        setSelectedImages(selectedImages => [...selectedImages, ...event.target.files]);
+                        }}
+                    />
+                </div>
                 <button disabled={!description} onSubmit={onSubmit}>Submit Answer</button>
             </form>
         </div>

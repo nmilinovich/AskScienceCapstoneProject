@@ -26,7 +26,7 @@ function VotingComponent({ response, type }) {
         }
     })
     useEffect(() => {
-        dispatch(getUserLikes())
+        // dispatch(getUserLikes())
         // dispatch(getQuestionDetails(response.id))
     }, [dispatch, response.id]);
 
