@@ -14,8 +14,8 @@ module.exports = {
     await Question.bulkCreate([
       {
         userId: 1,
-        title: "How do I find out health things",
-        description: 'These are my legitimate concerns',
+        title: "Why does arm and leg hair have a growth limit while head hair appears to grow continuously?",
+        description: 'Why does arm and leg hair stop growing at a certain length, whereas head hair seems to have no limit to its growth?',
         type: "biology",
       },
       {

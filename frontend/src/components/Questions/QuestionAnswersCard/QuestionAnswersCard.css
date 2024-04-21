@@ -1,0 +1,69 @@
+
+.answerCard {
+    /* padding-right: .5vw; */
+    height: fit-content;
+    margin-top: 0.5vh;
+    border: 2px solid rgb(255, 111, 0);
+    border-radius: 2px;
+    background-color: rgb(3, 83, 3);
+    color: rgb(255, 111, 0);
+    /* box-shadow: -3px 3px 3px rgb(3, 83, 3); */
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.answerOwnerDiv {
+    margin-left: 1vw;
+}
+
+.likesAndDesciptionContainer {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid black;
+    margin-top: 0.5vh;
+    padding-top: 1vh;
+}
+
+.answerDescription {
+    text-align: justify;
+    margin-top: 0.3vh;
+    margin-bottom: 0.5vh;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    width: 100%;
+    float: right;
+}
+
+.answerCommentDescription {
+    /* width: 99%; */
+    margin-top: 0.5vh;
+    margin-bottom: 0.5vh;
+    margin-left: 0.5vw;
+    margin-right: 0.5vw;
+    padding-left: 0.3vw;
+    padding-top: 0.3vw;
+    padding-bottom: 0.3vw;
+    border: 1px solid rgb(255, 111, 0);
+    border-radius: 2px;
+    /* background-color: rgb(255, 111, 0); */
+}
+
+.answerImgsContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    /* text-align: center; */
+    max-height: 30%;
+    max-width: 98%
+}
+
+.answerImgDiv {
+    max-width: 200px;
+    max-height: 100%;
+}
+
+.answerCardImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

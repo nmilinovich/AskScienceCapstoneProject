@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       Answer.belongsTo(
         models.User, {
           foreignKey: 'userId',
-          as: 'Owner'
+          as: 'answerOwner'
         }
       );
       Answer.belongsTo(
@@ -40,6 +40,7 @@ module.exports = (sequelize, DataTypes) => {
           scope: {
             likeableType: 'answer'
           },
+          // as: 'AnswerLikes',
           onDelete: 'CASCADE'
         }
       );

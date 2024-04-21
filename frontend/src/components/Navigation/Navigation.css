@@ -15,19 +15,13 @@
 .leftsideNav {
     display: flex;
     align-items: center;
-    width: 33vw
+    width: 33vw;
 }
 
 .logo {
-    width: 3.375vw;
     height: 6vh;
+    object-fit: cover;
 }
-
-.homeBtn {
-    width: 3.375vw;
-    height: 6vh;
-}
-
 
 .filterTags {
     justify-content: space-between;
@@ -75,6 +69,17 @@
     width: 33vw;
     height: 6vh;
     align-items: center;
+}
+
+.askQuestionButton {
+    height: 6vh;
+    width: 10vw;
+    border: 2px solid rgb(3, 83, 3);
+    border-radius: 5px;
+    background-color: rgb(255, 111, 0);
+    color: green;
+    box-shadow: -3px 3px 3px rgb(3, 83, 3);
+    cursor: pointer;
 }
 
 .login-signup-div {

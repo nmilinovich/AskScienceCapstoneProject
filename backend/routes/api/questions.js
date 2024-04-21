@@ -46,36 +46,58 @@ router.get(
 router.get(
     '/:questionId',
     async (req, res, next) => {
+        const user = req.user
         const questionId = req.params.questionId;
         let query = {
-            where: {
-                id: questionId
-            },
             include: [
                 {
+                model: User,
+                attributes: ['username'],
+                as: 'questionOwner'
+                },
+                {
                 model: Answer,
+                group: ['Answer.id', 'Likes.id', 'Images.id', 'Comments.id'],
                     include: [
                         {
                             model: Like,
+                            // right: true,
+                            // where: {
+                            //     likeableId: Answer.id,
+                            //     likeableType: 'answer'
+                            // },
+                            // as: 'AnswerLike'
                         },
                         {
                             model: Image,
                         },
                         {
                             model: Comment,
+                                group: ['Comment.id', 'Likes.id'],
                                 include: [
                                     {
                                         model: Like
                                     }
                                 ]
+                        },
+                        {
+                            model: User,
+                            attributes: ['username'],
+                            as: 'answerOwner'
                         }
                     ]
                 },
                 {
                 model: Comment,
+                    group: ['Comment.id', 'Likes.id'],
                     include: [
                         {
                             model: Like,
+                        },
+                        {
+                            model: User,
+                            attributes:['username'],
+                            as: 'commentOwner'
                         }
                     ]
                 },
@@ -84,12 +106,15 @@ router.get(
                 },
                 {
                 model: Image,
-                attributes: ['url'],
                 },
             ],
+            // attributes: [
+            //     'id', 'userId', 'title', 'description', 'type', 'createdAt', 'updatedAt',
+            //     [sequelize.fn('COUNT', sequelize.col('Questions.id')), 'numLikes'],
+            // ]
         };
 
-        const question = await Question.findAll(query);
+        const question = await Question.findByPk(questionId, query);
 
         if (!question) {
             let err = new Error("Question couldn't be found");
@@ -99,59 +124,58 @@ router.get(
             return next(err);
         }
 
+        // modifiedQuestion = question.map((obj) => {
+        //     let question = obj.toJSON();
+        //     let likes = 0;
+        //     question.Likes.forEach(like => {
+        //         if (like.dislike) likes -= 1;
+        //         else {
+        //             likes += 1;
+        //         }
+        //     });
+        //     // delete question.Likes
+        //     question.numLikes = likes;
 
-        modifiedQuestion = question.map((obj) => {
-            let question = obj.toJSON();
-            let likes = 0;
-            question.Likes.forEach(like => {
-                if (like.dislike) likes -= 1;
-                else {
-                    likes += 1;
-                }
-            });
-            delete question.Likes
-            question.numLikes = likes;
+        //     question.Answers.forEach(answer => {
+        //         answerOwner = async () => await User.findByPk(answer.userId);
+        //         let answerLikes = 0;
+        //         answer.Likes.forEach(answerlike => {
+        //             if (answerlike.dislike) answerLikes -= 1;
+        //             else {
+        //                 answerLikes += 1
+        //             }
+        //         });
+        //         answer.numLikes = answerLikes
+        //         // delete answer.Likes
 
-            question.Answers.forEach(answer => {
-                let answerLikes = 0;
-                answer.Likes.forEach(answerlike => {
-                    if (answerlike.dislike) answerLikes -= 1;
-                    else {
-                        answerLikes += 1
-                    }
-                });
-                answer.numLikes = answerLikes
-                delete answer.Likes
+        //         answer.Comments.forEach(answerComment => {
+        //             let answerCommentLikes = 0;
+        //             answerComment.Likes.forEach(answerCommentLike => {
+        //                 if (answerCommentLike.dislike) answerCommentLikes -= 1
+        //                 else {
+        //                     answerCommentLikes += 1;
+        //                 }
+        //             })
+        //             answerComment.numLikes = answerCommentLikes
+        //             // delete answerComment.Likes
+        //         });
+        //     });
 
-                answer.Comments.forEach(answerComment => {
-                    let answerCommentLikes = 0;
-                    answerComment.Likes.forEach(answerCommentLike => {
-                        if (answerCommentLike.dislike) answerCommentLikes -= 1
-                        else {
-                            answerCommentLikes += 1;
-                        }
-                    })
-                    answerComment.numLikes = answerCommentLikes
-                    delete answerComment.Likes
-                });
-            });
+        //     question.Comments.forEach(questionComment => {
+        //         let questionCommentLikes = 0
+        //         questionComment.Likes.forEach(questionCommentLike => {
+        //             if (questionCommentLike.dislike) questionCommentLikes -=1
+        //             else {
+        //                 questionCommentLikes += 1;
+        //             }
+        //         });
+        //         questionComment.numLikes = questionCommentLikes
+        //         // delete questionComment.Likes
+        //     });
 
-            question.Comments.forEach(questionComment => {
-                let questionCommentLikes = 0
-                questionComment.Likes.forEach(questionCommentLike => {
-                    if (questionCommentLike.dislike) questionCommentLikes -=1
-                    else {
-                        questionCommentLikes += 1;
-                    }
-                });
-                questionComment.numLikes = questionCommentLikes
-                delete questionComment.Likes
-            });
-
-            return question
-        })
-
-        return res.json({"Question": modifiedQuestion[0]});
+        //     return question
+        // })
+        return res.json(question).status(200);
     }
 );
 
@@ -178,37 +202,36 @@ router.get(
             },
             include: [
                 {
+                model: User,
+                attributes: ['username'],
+                as: 'questionOwner'
+                },
+                {
                 model: Like,
-                // as: 'reviews'
-                // attributes: ['stars'],
                 },
                 {
                 model: Image,
-                // where: {
-                //     preview: true
-                // },
                 attributes: ['url'],
-                // as: 'previewImage',
                 },
             ],
         };
 
-        query.limit = size;
-        query.offset = size * (page - 1);
+        // query.limit = size;
+        // query.offset = size * (page - 1);
 
-        if (
-            (!Number.isInteger(page) || page > 10 || page < 1) ||
-            (!Number.isInteger(size) || size > 20 || size < 1)
-        ) {
-            const err = new Error("Bad Request");
-            err.message = "Bad Request";
-            err.errors = {
-                "page": "Page must be greater than or equal to 1",
-                "size": "Size must be greater than or equal to 1",
-            };
-            err.status = 400;
-            return next(err);
-        }
+        // if (
+        //     (!Number.isInteger(page) || page > 10 || page < 1) ||
+        //     (!Number.isInteger(size) || size > 20 || size < 1)
+        // ) {
+        //     const err = new Error("Bad Request");
+        //     err.message = "Bad Request";
+        //     err.errors = {
+        //         "page": "Page must be greater than or equal to 1",
+        //         "size": "Size must be greater than or equal to 1",
+        //     };
+        //     err.status = 400;
+        //     return next(err);
+        // }
 
         const questions = await Question.findAll(query);
 
@@ -220,7 +243,6 @@ router.get(
                 if (!like.dislike) likes += 1;
             });
             question.numLikes = likes;
-            delete question.Likes;
             return question;
         });
 
@@ -257,7 +279,6 @@ router.post(
         }
 
         const user = await User.findByPk(usersId);
-        console.log(user)
         const newQuestion = await user.createQuestion({
             userId,
             title,

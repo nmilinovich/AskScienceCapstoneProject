@@ -3,11 +3,14 @@ import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import logo from '../../../public/favicon.ico'
 import './Navigation.css'
-function Navigation({ isLoaded }){
+function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
 
   const sessionLinks = sessionUser ? (
+    <div>
+
       <ProfileButton user={sessionUser} />
+    </div>
   ) : (
     <div className='login-signup-div'>
 
@@ -21,9 +24,7 @@ function Navigation({ isLoaded }){
     <div className='navbar'>
         <div className='leftsideNav'>
             <NavLink to="/" className='homeBtn'>
-                <a href='' className='logo'>
-                    <img className='logo' src={logo} alt=''/>
-                </a>
+              <img className='logo' src={logo} alt=''/>
             </NavLink>
         </div>
         <div className='filterTags'>
@@ -32,6 +33,7 @@ function Navigation({ isLoaded }){
             <button className='physTag'>Physics</button>
         </div>
         <div className='rightsideNav'>
+
             {isLoaded && sessionLinks}
         </div>
     </div>
