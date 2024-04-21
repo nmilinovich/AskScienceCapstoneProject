@@ -3,10 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { postNewLike, editLike, removeLike } from '../../store/likes'
 import { getQuestionDetails } from "../../store/questions";
 import './VotingComponent.css'
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 
 function VotingComponent({ response, type }) {
+    console.log(response)
     const dispatch = useDispatch()
     // let { questionId } = useParams();
     // questionId = parseInt(questionId);
@@ -23,10 +24,6 @@ function VotingComponent({ response, type }) {
             numLikes += 1;
         }
     })
-    useEffect(() => {
-        // dispatch(getUserLikes())
-        // dispatch(getQuestionDetails(response.id))
-    }, [dispatch, response.id]);
 
     const handleVote = async (isUpvote) => {
         const newLike = {
