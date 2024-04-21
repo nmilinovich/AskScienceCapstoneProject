@@ -89,10 +89,8 @@ function PostAnswer() {
                     ))}
                     <input
                         type="file"
-                        name="myImage"
                         accept="image/*"
                         onChange={(event) => {
-                        console.log(event.target.files[0]);
                         setSelectedImages(selectedImages => [...selectedImages, ...event.target.files]);
                         }}
                     />
