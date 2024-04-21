@@ -7,8 +7,6 @@ import { getQuestionDetails } from '../../../store/questions';
 // import UploadImages from '../../DragAndDropImages/UploadImages';
 import './PostAnswer.css'
 
-
-
 function PostAnswer() {
     let imageableType='answer'
     const dispatch = useDispatch();
