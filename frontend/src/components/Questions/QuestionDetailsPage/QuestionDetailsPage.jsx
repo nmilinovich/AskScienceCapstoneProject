@@ -4,8 +4,8 @@ import { useEffect } from 'react'
 import { getQuestionDetails } from '../../../store/questions';
 // import { getUserLikes } from '../../../store/likes';
 import QuestionDetailsCard from '../QuestionDetailsCard/QuestionDetailsCard';
-import QuestionCommentsCard from '../QuestionCommentsCard/QuestionCommentsCard';
-import QuestionAnswersCard from '../QuestionAnswersCard/QuestionAnswersCard';
+// import QuestionCommentsCard from '../QuestionCommentsCard/QuestionCommentsCard';
+// import QuestionAnswersCard from '../QuestionAnswersCard/QuestionAnswersCard';
 // import PostAnswer from '../PostAnswer/PostAnswer';
 
 function QuestionDetailsPage() {
@@ -29,9 +29,9 @@ function QuestionDetailsPage() {
                     <div className='questionSection'>
                         <QuestionDetailsCard question={question} />
                         <h3 className='commentsH3'>Comments</h3>
-                        <QuestionCommentsCard question={question} />
+                        {/* <QuestionCommentsCard question={question} /> */}
                     </div>
-                    <QuestionAnswersCard question={question} />
+                    {/* <QuestionAnswersCard question={question} /> */}
                     {/* <PostAnswer question={question}/> */}
                 </div>
             </div>
