@@ -10,12 +10,10 @@ function VotingComponent({ response, type }) {
     const dispatch = useDispatch()
     // let { questionId } = useParams();
     // questionId = parseInt(questionId);
-    let user = useSelector((state) => state.session.user.id);
-
     let userLikesObj = useSelector((state) => state.likes);
     let userLikes = Object.values(userLikesObj)
     const userLike = userLikes.find(like => like.likeableId === response.id
-        && like.likeableType === type && like.userId === user
+        && like.likeableType === type
     );
     let numLikes = 0;
     response.Likes.forEach((like) => {
