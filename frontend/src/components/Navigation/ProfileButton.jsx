@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import * as sessionActions from '../../store/session';
 
 function ProfileButton({ user }) {
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
@@ -38,7 +38,7 @@ function ProfileButton({ user }) {
 
   return (
     <div className='rightsideNav'>
-      <button className='askQuestionButton'>Ask a Question</button>
+      <button onClick={() => navigate('/questions/new')} className='askQuestionButton'>Ask a Question</button>
       <button onClick={toggleMenu} className="profile-btn">
         <i className="fas fa-user-circle" />
       </button>
