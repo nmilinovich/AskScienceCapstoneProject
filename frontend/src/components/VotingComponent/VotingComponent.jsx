@@ -1,6 +1,6 @@
 // import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserLikes, postNewLike, editLike, removeLike } from '../../store/likes'
+import { postNewLike, editLike, removeLike } from '../../store/likes'
 import { getQuestionDetails } from "../../store/questions";
 import './VotingComponent.css'
 import { useEffect } from "react";
