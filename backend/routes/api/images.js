@@ -9,7 +9,6 @@ router.post(
     requireAuth,
     async (req, res, next) => {
         const userId = req.user.id
-        const questionId = req.params.questionId;
         const { imageableType, imageableId, url } = req.body;
 
         if (imageableType === 'question') {

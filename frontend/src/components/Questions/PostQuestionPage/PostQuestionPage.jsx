@@ -1,7 +1,7 @@
 import { useState  } from 'react';
 // import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { postNewQuestion } from '../../../store/questions';
+import { getQuestionDetails, postNewQuestion } from '../../../store/questions';
 import { postNewImages } from '../../../store/images';
 import { useNavigate } from "react-router-dom"
 // import { getQuestionDetails } from '../../../store/questions';
@@ -15,7 +15,7 @@ function PostQuestionPage() {
     const dispatch = useDispatch();
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    // const [type, setType] = useState('');
+    const [type, setType] = useState('');
     const [selectedImages, setSelectedImages] = useState([]);
     const [errors, setErrors] = useState({})
 
@@ -40,8 +40,9 @@ function PostQuestionPage() {
         const newQuestion = {
             title,
             description,
-            // type,
+            type,
         };
+        console.log(newQuestion)
         let errHits = {}
         // if (description.length < 30) {
         //     errHits.description = "Description must be more than 30 characters.";
@@ -57,14 +58,17 @@ function PostQuestionPage() {
                 await new Promise(res => dispatch(postNewImages(base64Images, imageableType, imageableId)).then(res));
                 setSelectedImages([])
             }
+            await new Promise(res => dispatch(getQuestionDetails(question.id)).then(res));
             navigate(`/questions/${question.id}`)
         }
-        // await new Promise(res => dispatch(getQuestionDetails(questionId)).then(res));
     };
 
     return (
         user ?
             <div >
+                <button onClick={() => setType('biology')}>Biology</button>
+                <button onClick={() => setType('chemistry')}>Chemistry</button>
+                <button onClick={() => setType('physics')}>Physics</button>
                 <form onSubmit={onSubmit} className='postQuestionForm'>
                     <h3 className='responseH3'>Your Question</h3>
                     <label htmlFor='description'>

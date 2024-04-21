@@ -358,7 +358,7 @@ router.post(
 
         const user = await User.findByPk(usersId);
         const newQuestion = await user.createQuestion({
-            userId,
+            userId: usersId,
             title,
             description,
             type
