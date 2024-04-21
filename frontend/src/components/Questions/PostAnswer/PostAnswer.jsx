@@ -1,6 +1,6 @@
 import { useState  } from 'react';
 import { useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { postNewAnswer } from '../../../store/answers';
 import { postNewImages } from '../../../store/images';
 import { getQuestionDetails } from '../../../store/questions';
@@ -8,6 +8,7 @@ import { getQuestionDetails } from '../../../store/questions';
 import './PostAnswer.css'
 
 function PostAnswer() {
+    let user = useSelector((state) => state.session.user?.id)
     let imageableType='answer'
     const dispatch = useDispatch();
     let { questionId } = useParams();
@@ -62,42 +63,45 @@ function PostAnswer() {
     };
 
     return (
-        <div >
-            <form onSubmit={onSubmit} className='postAnswerForm'>
-                <h3 className='responseH3'>Your Response</h3>
-                <label htmlFor='description'>
-                    <textarea
-                        placeholder='Please write at least 30 characters'
-                        id='description'
-                        type='text'
-                        onChange={e => setDescription(e.target.value)}
-                        value={description}
-                    >
-                    </textarea>
-                </label>
-                <div className="imageUploadContainer">
-                    {selectedImages.map(img => (
-                        <div key={img}>
-                        <img
-                            alt="not found"
-                            width={"250px"}
-                            src={URL.createObjectURL(img)}
+        user ?
+            <div >
+                <form onSubmit={onSubmit} className='postAnswerForm'>
+                    <h3 className='responseH3'>Your Response</h3>
+                    <label htmlFor='description'>
+                        <textarea
+                            placeholder='Please write at least 30 characters'
+                            id='description'
+                            type='text'
+                            onChange={e => setDescription(e.target.value)}
+                            value={description}
+                        >
+                        </textarea>
+                    </label>
+                    <div className="imageUploadContainer">
+                        {selectedImages.map(img => (
+                            <div key={img}>
+                            <img
+                                alt="not found"
+                                width={"250px"}
+                                src={URL.createObjectURL(img)}
+                            />
+                            <br />
+                            <button onClick={() => setSelectedImages(selectedImages.filter((keptImgs) => keptImgs !== img))}>Remove</button>
+                            </div>
+                        ))}
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={(event) => {
+                            setSelectedImages(selectedImages => [...selectedImages, ...event.target.files]);
+                            }}
                         />
-                        <br />
-                        <button onClick={() => setSelectedImages(selectedImages.filter((keptImgs) => keptImgs !== img))}>Remove</button>
-                        </div>
-                    ))}
-                    <input
-                        type="file"
-                        accept="image/*"
-                        onChange={(event) => {
-                        setSelectedImages(selectedImages => [...selectedImages, ...event.target.files]);
-                        }}
-                    />
-                </div>
-                <button disabled={!description} onSubmit={onSubmit}>Submit Answer</button>
-            </form>
-        </div>
+                    </div>
+                    <button disabled={!description} onSubmit={onSubmit}>Submit Answer</button>
+                </form>
+            </div>
+        :
+        <div>Log in to post an answer!</div>
   );
 }
 
