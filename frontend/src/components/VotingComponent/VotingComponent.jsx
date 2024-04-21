@@ -23,10 +23,6 @@ function VotingComponent({ response, type }) {
             numLikes += 1;
         }
     })
-    useEffect(() => {
-        // dispatch(getUserLikes())
-        // dispatch(getQuestionDetails(response.id))
-    }, [dispatch, response.id]);
 
     const handleVote = async (isUpvote) => {
         const newLike = {

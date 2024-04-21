@@ -1,4 +1,4 @@
-// import VotingComponent from '../../VotingComponent/VotingComponent'
+import VotingComponent from '../../VotingComponent/VotingComponent'
 import './QuestionDetailsCard.css'
 
 function QuestionDetailsCard({ question }) {
@@ -15,7 +15,7 @@ function QuestionDetailsCard({ question }) {
                 <span className='questionCardType'>{question.type}</span>
             </div>
             <div className='questionCardLikesAndTitle'>
-                {/* <VotingComponent className='questionLikes' response={question} type='question' /> */}
+                <VotingComponent className='questionLikes' response={question} type='question' />
                 <h1 className='questionCardTitle'>{question.title}</h1>
             </div>
             <div>
