@@ -28,14 +28,6 @@ function QuestionTile({ question }) {
             <div className='questionTileRight'>
                 <div className='questionTileType'>{question.type}</div>
             </div> */}
-
-
-
-
-
-
-
-
             {/* <i className="fa-solid fa-star"></i> */}
 
             {/* <div>
