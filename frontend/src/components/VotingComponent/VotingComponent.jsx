@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { postNewLike, editLike, removeLike } from '../../store/likes'
 import { getQuestionDetails } from "../../store/questions";
 import './VotingComponent.css'
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 
 function VotingComponent({ response, type }) {
