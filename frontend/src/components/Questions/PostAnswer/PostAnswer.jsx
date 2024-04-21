@@ -7,15 +7,7 @@ import { getQuestionDetails } from '../../../store/questions';
 // import UploadImages from '../../DragAndDropImages/UploadImages';
 import './PostAnswer.css'
 
-function convertImageToBase64(file) {
-    const reader = new FileReader();
-    return new Promise(res => {
-        reader.onload = () => {
-            res(reader.result);
-        };
-        reader.readAsDataURL(file);
-    });
-}
+
 
 function PostAnswer() {
     let imageableType='answer'
@@ -25,6 +17,16 @@ function PostAnswer() {
     const [description, setDescription] = useState('');
     const [selectedImages, setSelectedImages] = useState([]);
     const [errors, setErrors] = useState({})
+
+    function convertImageToBase64(file) {
+        const reader = new FileReader();
+        return new Promise(res => {
+            reader.onload = () => {
+                res(reader.result);
+            };
+            reader.readAsDataURL(file);
+        });
+    }
 
     // useEffect(() => {
     //     dispatch(getQuestionDetails(questionId));
