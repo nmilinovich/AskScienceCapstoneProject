@@ -45,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
           scope: {
             likeableType: 'question'
           },
-          onDelete: 'CASCADE'
+          onDelete: 'CASCADE',
         }
       );
       Question.hasMany(

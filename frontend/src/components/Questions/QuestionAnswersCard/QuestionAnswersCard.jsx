@@ -1,15 +1,45 @@
+import { useSelector, useDispatch } from 'react-redux'
+import { removeAnswer } from '../../../store/answers';
+import { getQuestionDetails } from '../../../store/questions';
 import VotingComponent from '../../VotingComponent/VotingComponent'
+import PostAnswer from '../PostAnswer/PostAnswer';
 import './QuestionAnswersCard.css'
+import { useEffect } from 'react';
 
 function QuestionAnswersCard({ question }) {
+
+    const user = useSelector((state) => state.session.user.id);
+    const dispatch = useDispatch();
+    let answers = useSelector((state) => state.questions[question.id].Answers)
+    console.log(answers)
+    // const deleteAnswer = (e) => {
+    //     e.preventDefault();
+
+    //     dispatch(removeAnswer(question.id))
+    // }
+
+    // useEffect(() => {
+    //     dispatch(getQuestionDetails)
+    // }, [dispatch, answers])
+
+
     return (
         <div>
-            {question.Answers?.map((answer) => {
+            {answers.map((answer) => {
                 return (
                     <div key={answer.id} className='answerCard'>
-                        <div className='answerOwnerDiv'>{answer.answerOwner.username}</div>
+                        <div className='answerCardTop'>
+                            <div className='answerOwnerDiv'>{answer.answerOwner.username}</div>
+                            {
+                            answer.userId === user ?
+                            <button onClick={async (e) => {e.preventDefault(); await dispatch(removeAnswer(answer.id)); await dispatch(getQuestionDetails(answer.questionId));
+                            }} className='de'>Delete Answer</button>
+                            : null
+                            }
+                        </div>
+
                         <div className='likesAndDesciptionContainer'>
-                            <VotingComponent response={answer} type='answer' />
+                            <VotingComponent key={answer.id} response={answer} likeableType='answer' />
                                 <p className='answerDescription'>{answer.description}</p>
                         </div>
                         <div className='answerImgsContainer'>
@@ -32,6 +62,7 @@ function QuestionAnswersCard({ question }) {
                     </div>
                 )
             })}
+            <PostAnswer answers={answers}/>
         </div>
     )
 }

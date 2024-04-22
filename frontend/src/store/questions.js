@@ -36,7 +36,7 @@ export const getQuestions = () => async (dispatch) => {
     const res = await csrfFetch("/api/questions");
     if (res.ok) {
       const data = await res.json();
-      dispatch(loadQuestions(data));
+      await dispatch(loadQuestions(data));
       return data;
     }
     return res;
@@ -71,42 +71,6 @@ export const postNewQuestion = (question) => async (dispatch) => {
     return resQuestion
 };
 
-// export const postNewQuestion = (question, imageURLs) => async (dispatch) => {
-
-//     const res = await csrfFetch("/api/questions/current",
-//         {
-//             headers: {
-//             'Content-Type': 'application/json'
-//             },
-//             method: "POST",
-//             body: JSON.stringify(question)
-//         }
-//     );
-//     const newQuestion = await res.json();
-//     const questionImgs = [];
-//     for (let i = 0; i < imageURLs.length; i++) {
-//         const imgURL = imageURLs[i];
-//         const newImage = await csrfFetch(`/api/images`,
-//             {
-//                 headers: {
-//                     'Content-Type': 'application/json'
-//                 },
-//                 method: "POST",
-//                 body: JSON.stringify({
-//                     imageableType: 'question',
-//                     imageableId: question.id,
-//                     url: imgURL
-//                 })
-//             }
-//         );
-//         if (res.ok) {
-//             questionImgs.push(newImage);
-//         }
-//     }
-//     newQuestion.Images = questionImgs;
-//     dispatch(postQuestion(newQuestion));
-//     return newQuestion;
-// };
 
 export const removeQuestion = (questionId) => async (dispatch) => {
 

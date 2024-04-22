@@ -69,6 +69,7 @@ function PostQuestionPage() {
                 <button onClick={() => setType('biology')}>Biology</button>
                 <button onClick={() => setType('chemistry')}>Chemistry</button>
                 <button onClick={() => setType('physics')}>Physics</button>
+                {console.log(type)}
                 <form onSubmit={onSubmit} className='postQuestionForm'>
                     <h3 className='responseH3'>Your Question</h3>
                     <label htmlFor='description'>

@@ -96,6 +96,9 @@ router.get(
         const user = req.user
         const questionId = req.params.questionId;
         let query = {
+            where: {
+                id: questionId
+            },
             include: [
                 {
                 model: User,
@@ -126,7 +129,7 @@ router.get(
                             attributes: ['username'],
                             as: 'answerOwner'
                         }
-                    ]
+                    ],
                 },
                 {
                 model: Comment,
@@ -149,9 +152,24 @@ router.get(
                 model: Image,
                 },
             ],
+            // attributes: [
+            //     [sequelize.fn('COUNT', sequelize.col('Question.Likes')), 'numLikes'],
+            // ]
+
         };
 
-        const question = await Question.findByPk(questionId, query);
+        const question = await Question.findOne(query);
+        const questionLikes = await Like.findAll({
+            where: {
+                dislike: false,
+                likeableType: 'question',
+                likeableId: questionId
+            },
+            attributes: [
+                [sequelize.fn('COUNT', sequelize.col('id')), 'numLikes']
+            ]
+        });
+        console.log(questionLikes)
 
         if (!question) {
             let err = new Error("Question couldn't be found");
@@ -174,7 +192,7 @@ router.get(
         //     question.numLikes = likes;
 
         //     question.Answers.forEach(answer => {
-        //         answerOwner = async () => await User.findByPk(answer.userId);
+        //         // answerOwner = async () => await User.findByPk(answer.userId);
         //         let answerLikes = 0;
         //         answer.Likes.forEach(answerlike => {
         //             if (answerlike.dislike) answerLikes -= 1;
@@ -212,6 +230,9 @@ router.get(
 
         //     return question
         // })
+
+
+        // {question, numLikes:questionLikes[0].numLikes}
         return res.json(question).status(200);
     }
 );
@@ -320,7 +341,20 @@ router.get(
                     likes += 1;
                 }
             });
+
             question.numLikes = likes;
+
+            question.Answers.forEach((answer) => {
+                let answerLikes = 0;
+                answer.Likes.forEach((like) => {
+                    if (like.dislike === true) {
+                        answerLikes -= 1
+                    } else {
+                        answerLikes += 1;
+                    }
+                })
+                answer.numLikes = answerLikes;
+            });
             return question;
         });
 
