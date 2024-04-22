@@ -8,13 +8,19 @@
     background-color: rgb(3, 83, 3);
     color: rgb(255, 111, 0);
     /* box-shadow: -3px 3px 3px rgb(3, 83, 3); */
-    cursor: pointer;
     text-decoration: none;
+}
+
+.answerCardTop {
+    display: flex;
+    justify-content: space-between;
 }
 
 .answerOwnerDiv {
     margin-left: 1vw;
 }
+
+
 
 .likesAndDesciptionContainer {
     display: flex;

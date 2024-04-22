@@ -6,7 +6,6 @@ import { getQuestionDetails } from '../../../store/questions';
 import QuestionDetailsCard from '../QuestionDetailsCard/QuestionDetailsCard';
 import QuestionCommentsCard from '../QuestionCommentsCard/QuestionCommentsCard';
 import QuestionAnswersCard from '../QuestionAnswersCard/QuestionAnswersCard';
-import PostAnswer from '../PostAnswer/PostAnswer';
 
 function QuestionDetailsPage() {
     const dispatch = useDispatch();
@@ -16,7 +15,7 @@ function QuestionDetailsPage() {
     let question = useSelector((state) => state.questions[questionId]);
     useEffect(() => {
         dispatch(getQuestionDetails(questionId));
-    }, [dispatch, questionId]);
+    }, [dispatch]);
     // let user = useSelector((state) => state.session.user?.['id']);
     if(!question) {
         return <div>Loading...</div>;
@@ -32,7 +31,6 @@ function QuestionDetailsPage() {
                         <QuestionCommentsCard question={question} />
                     </div>
                     <QuestionAnswersCard question={question} />
-                    <PostAnswer question={question}/>
                 </div>
             </div>
         );

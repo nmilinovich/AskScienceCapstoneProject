@@ -5,17 +5,17 @@ import QuestionTile from '../QuestionTile/QuestionTile';
 
 function QuestionsLandingPage() {
     const dispatch = useDispatch();
-    const questions = useSelector((state) => Object.values(state.questions))
+    const questions = useSelector((state) => state.questions)
     useEffect(() => {
         dispatch(getQuestions())
     }, [dispatch])
-    if (!questions.length) {
+    if (!questions) {
         return <div>Loading...</div>
     }
     return (
         <div className='landingPageDiv'>
             <div className='questions-grid-container'>
-                {questions?.map((question) => {
+                {Object.values(questions)?.map((question) => {
                     return (
                         <QuestionTile key={question.id} question={question}/>
                     )

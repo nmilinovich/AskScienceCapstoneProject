@@ -29,7 +29,7 @@ export const getUserLikes = () => async (dispatch) => {
     const res = await csrfFetch("/api/likes/current");
     if (res.ok) {
       const data = await res.json();
-      dispatch(loadLikes(data));
+      await dispatch(loadLikes(data));
       return data;
     }
     return res;
@@ -48,7 +48,7 @@ export const postNewLike = (like) => async (dispatch) => {
     );
     if (resLike.ok) {
         const newLike = await resLike.json();
-        dispatch(postLike(newLike));
+        await dispatch(postLike(newLike));
         return newLike;
     }
     return resLike
@@ -66,8 +66,9 @@ export const editLike = (like) => async (dispatch) => {
     );
     if (resLike.ok) {
         const editedLike = await resLike.json();
-        dispatch(updateLike(editedLike));
-        return editedLike;
+        await dispatch(updateLike(editedLike))
+        await dispatch(getUserLikes())
+        return editedLike
     }
     return resLike
 };

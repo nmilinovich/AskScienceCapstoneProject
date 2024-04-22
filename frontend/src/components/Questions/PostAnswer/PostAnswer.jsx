@@ -4,10 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { postNewAnswer } from '../../../store/answers';
 import { postNewImages } from '../../../store/images';
 import { getQuestionDetails } from '../../../store/questions';
+import { useEffect } from 'react';
 // import UploadImages from '../../DragAndDropImages/UploadImages';
 import './PostAnswer.css'
 
-function PostAnswer() {
+function PostAnswer({ answers }) {
     let user = useSelector((state) => state.session.user?.id)
     let imageableType='answer'
     const dispatch = useDispatch();
@@ -16,6 +17,7 @@ function PostAnswer() {
     const [description, setDescription] = useState('');
     const [selectedImages, setSelectedImages] = useState([]);
     const [errors, setErrors] = useState({})
+    let hasAnswer = answers.find(answer => answer.userId === user)
 
     function convertImageToBase64(file) {
         const reader = new FileReader();
@@ -27,9 +29,9 @@ function PostAnswer() {
         });
     }
 
-    // useEffect(() => {
-    //     dispatch(getQuestionDetails(questionId));
-    // }, [dispatch, questionId]);
+    useEffect(() => {
+        dispatch(getQuestionDetails(questionId));
+    }, [dispatch, user]);
 
     const onSubmit = async (e) => {
         console.log(selectedImages)
@@ -64,7 +66,8 @@ function PostAnswer() {
     };
 
     return (
-        user ?
+        !user ? <div>Log in to post an answer!</div> :
+        !hasAnswer ?
             <div >
                 <form onSubmit={onSubmit} className='postAnswerForm'>
                     <h3 className='responseH3'>Your Response</h3>
@@ -101,8 +104,7 @@ function PostAnswer() {
                     <button disabled={!description} onSubmit={onSubmit}>Submit Answer</button>
                 </form>
             </div>
-        :
-        <div>Log in to post an answer!</div>
+            : null
   );
 }
 
