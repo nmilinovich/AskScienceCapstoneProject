@@ -96,9 +96,6 @@ router.get(
         const user = req.user
         const questionId = req.params.questionId;
         let query = {
-            where: {
-                id: questionId
-            },
             include: [
                 {
                 model: User,
@@ -158,18 +155,18 @@ router.get(
 
         };
 
-        const question = await Question.findOne(query);
-        const questionLikes = await Like.findAll({
-            where: {
-                dislike: false,
-                likeableType: 'question',
-                likeableId: questionId
-            },
-            attributes: [
-                [sequelize.fn('COUNT', sequelize.col('id')), 'numLikes']
-            ]
-        });
-        console.log(questionLikes)
+        const question = await Question.findByPk(questionId, query);
+        // const questionLikes = await Like.findAll({
+        //     where: {
+        //         dislike: false,
+        //         likeableType: 'question',
+        //         likeableId: questionId
+        //     },
+        //     attributes: [
+        //         [sequelize.fn('COUNT', sequelize.col('id')), 'numLikes']
+        //     ]
+        // });
+        // console.log(questionLikes)
 
         if (!question) {
             let err = new Error("Question couldn't be found");

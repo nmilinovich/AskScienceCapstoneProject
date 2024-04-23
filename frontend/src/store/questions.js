@@ -46,14 +46,13 @@ export const getQuestionDetails = (questionId) => async (dispatch) => {
     const res = await csrfFetch(`/api/questions/${questionId}`);
     if (res.ok) {
         const data = await res.json();
-        dispatch(loadQuestion(data));
+        await dispatch(loadQuestion(data));
         return data;
     }
     return res;
 };
 
 export const postNewQuestion = (question) => async (dispatch) => {
-    console.log(question)
     const resQuestion = await csrfFetch("/api/questions/current",
         {
             headers: {

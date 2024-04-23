@@ -1,31 +1,25 @@
-// import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 // import { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { postNewLike, editLike, removeLike } from '../../store/likes'
-// import { getQuestionDetails } from "../../store/questions";
-import './VotingComponent.css'
-import { useEffect } from "react";
-// const selectCompletedTodosCount = createSelector(
-//     (state) => state.todos,
-//     (_, completed) => completed,
-//     (todos, completed) =>
-//       todos.filter((todo) => todo.completed === completed).length,
-//   )
+import { postNewLike, editLike, removeLike } from '../../../../store/likes';
+import { getQuestionDetails } from "../../../../store/questions";
+// import './VotingComponent.css'
+// import { useEffect } from "react";
 
-function VotingComponent({ answer, likes }) {
+function QuestionVotingComponent() {
     const dispatch = useDispatch()
+    let { questionId } = useParams();
+    questionId = parseInt(questionId);
+    const question = useSelector((state) => state.questions[questionId])
     let user = useSelector((state) => state.session.user);
-    const userLikesObj = useSelector((state) => state.likes);
-    // const updated = useSelector((state) => state.likes[answer.id]);
-    console.log(answer)
-    // const answers = useSelector((state) => state.questions[answer.questionId].Answers)
+    let userLikesObj = useSelector((state) => state.likes);
     let userLikes = Object.values(userLikesObj)
-    let userLike = userLikes.find(like => like.likeableId === answer.id
-        && like.likeableType === 'answer'
+    let userLike = userLikes.find(like => like.likeableId === questionId
+        && like.likeableType === 'question'
     );
     let numLikes = 0;
-    likes.forEach((like) => {
-        if (like.dislike) {
+    question.Likes.forEach((like) => {
+        if (like.dislike === true) {
             numLikes -= 1;
         } else {
             numLikes += 1;
@@ -35,11 +29,11 @@ function VotingComponent({ answer, likes }) {
     const handleVote = async (isUpvote) => {
         if (user) {
             const newLike = {
-                likeableType: 'answer',
-                likeableId: answer.id,
+                likeableType: 'question',
+                likeableId: questionId,
                 dislike: !isUpvote,
             }
-            console.log(newLike)
+
             if (userLike) {
                 if (userLike.dislike === newLike.dislike) {
                     await dispatch(removeLike(userLike.id));
@@ -65,19 +59,16 @@ function VotingComponent({ answer, likes }) {
                     numLikes -= 1;
                 }
             }
+            dispatch(getQuestionDetails(questionId))
 
-            // if (response.answerOwner) {
-                // dispatch(getQuestionDetails(answer.questionId));
-            // } else {
-            // }
         }
     }
 
-    useEffect(() => {
-        // dispatch(getUserLikes());
-    }, [dispatch, userLikes])
+    // useEffect(() => {
+    // }, [dispatch])
 
-
+    // useEffect(() => {
+    // }, [dispatch, userLikesObj])
 
     return (
     <div className='likesContainer'>
@@ -89,4 +80,4 @@ function VotingComponent({ answer, likes }) {
 }
 
 
-export default VotingComponent
+export default QuestionVotingComponent

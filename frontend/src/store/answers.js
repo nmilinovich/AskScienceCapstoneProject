@@ -36,7 +36,6 @@ export const getUserAnswers = () => async (dispatch) => {
 };
 
 export const postNewAnswer = (answer) => async (dispatch) => {
-    console.log(answer)
     const resAnswer = await csrfFetch("/api/answers",
         {
             headers: {

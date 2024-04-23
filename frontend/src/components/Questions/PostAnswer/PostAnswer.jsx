@@ -4,12 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { postNewAnswer } from '../../../store/answers';
 import { postNewImages } from '../../../store/images';
 import { getQuestionDetails } from '../../../store/questions';
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 // import UploadImages from '../../DragAndDropImages/UploadImages';
 import './PostAnswer.css'
 
 function PostAnswer({ answers }) {
-    let user = useSelector((state) => state.session.user?.id)
+    const user = useSelector((state) => state.session.user?.id);
+    // const userAnswersObj = useSelector((state) => state.answers)
     let imageableType='answer'
     const dispatch = useDispatch();
     let { questionId } = useParams();
@@ -29,9 +30,9 @@ function PostAnswer({ answers }) {
         });
     }
 
-    useEffect(() => {
-        dispatch(getQuestionDetails(questionId));
-    }, [dispatch, user]);
+    // useEffect(() => {
+    //     dispatch(getQuestionDetails(questionId));
+    // }, [dispatch, user]);
 
     const onSubmit = async (e) => {
         console.log(selectedImages)
@@ -56,7 +57,6 @@ function PostAnswer({ answers }) {
             if (selectedImages.length) {
                 let imageableId = answer.id
                 const base64Images = await Promise.all(selectedImages.map(convertImageToBase64));
-                console.log(base64Images);
                 await new Promise(res => dispatch(postNewImages(base64Images, imageableType, imageableId)).then(res));
                 setSelectedImages([])
             }
