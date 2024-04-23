@@ -1,19 +1,26 @@
 import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { removeQuestion } from '../../../store/questions';
-import VotingComponent from '../../VotingComponent/VotingComponent'
+import { useEffect } from 'react';
+import { getUserLikes } from '../../../store/likes';
+import { getQuestionDetails, removeQuestion } from '../../../store/questions';
+import QuestionVotingComponent from './QuestionVotingComponent/QuestionVotingComponent';
 import './QuestionDetailsCard.css'
 
 function QuestionDetailsCard({ question }) {
+    const dispatch = useDispatch()
     const user = useSelector((state) => state.session.user.id);
+    // const questionLikes = useSelector((state => state.questions[question.id].Likes))
+    useEffect(() => {
+        dispatch(getUserLikes())
+        dispatch(getQuestionDetails(question.id))
+    }, [dispatch, question.id])
     let navigate = useNavigate();
-    const dispatch = useDispatch();
-    const deleteQuestion = (e) => {
+
+    const deleteQuestion = async (e) => {
         e.preventDefault();
         dispatch(removeQuestion(question.id))
         navigate('/')
     }
-    // console.log(userLikes)
 
     return (
         <div className='questionCard'>
@@ -27,7 +34,7 @@ function QuestionDetailsCard({ question }) {
                 <span className='questionCardType'>{question.type}</span>
             </div>
             <div className='questionCardLikesAndTitle'>
-                <VotingComponent className='questionLikes' key={question.id} response={question} likeableType='question' />
+                <QuestionVotingComponent className='questionLikes' />
                 <h1 className='questionCardTitle'>{question.title}</h1>
             </div>
             <div>

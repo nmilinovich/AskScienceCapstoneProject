@@ -36,7 +36,6 @@ export const getUserLikes = () => async (dispatch) => {
 };
 
 export const postNewLike = (like) => async (dispatch) => {
-    console.log(like)
     const resLike = await csrfFetch("/api/likes",
         {
             headers: {
@@ -48,7 +47,8 @@ export const postNewLike = (like) => async (dispatch) => {
     );
     if (resLike.ok) {
         const newLike = await resLike.json();
-        await dispatch(postLike(newLike));
+        dispatch(postLike(newLike));
+        // await dispatch(getUserLikes())
         return newLike;
     }
     return resLike
@@ -66,15 +66,14 @@ export const editLike = (like) => async (dispatch) => {
     );
     if (resLike.ok) {
         const editedLike = await resLike.json();
-        await dispatch(updateLike(editedLike))
-        await dispatch(getUserLikes())
+        dispatch(updateLike(editedLike))
+        // await dispatch(getUserLikes())
         return editedLike
     }
     return resLike
 };
 
 export const removeLike = (likeId) => async (dispatch) => {
-    console.log('LIKEID', likeId)
     const deletedLike = await csrfFetch(`/api/likes/${likeId}`,
         {
             headers: {
@@ -83,7 +82,8 @@ export const removeLike = (likeId) => async (dispatch) => {
             method: "DELETE",
         }
     );
-    await dispatch(deleteLike(likeId));
+    dispatch(deleteLike(likeId));
+    // await dispatch(getUserLikes())
     return deletedLike;
 }
 
@@ -101,10 +101,9 @@ const likesReducer = (state = {}, action) => {
             newState[action.like.id] = {...newState[action.like.id], ...action.like}
             return newState;
         case UPDATE_LIKE:
-            newState[action.like.id] = {...action.like}
+            newState[action.like.id] = {...newState[action.like.id], ...action.like}
             return newState;
             case DELETE_LIKE:
-                console.log(action.likeId)
                 delete newState[action.likeId]
                 return newState;
         default:

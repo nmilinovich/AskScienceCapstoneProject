@@ -42,7 +42,6 @@ function PostQuestionPage() {
             description,
             type,
         };
-        console.log(newQuestion)
         let errHits = {}
         // if (description.length < 30) {
         //     errHits.description = "Description must be more than 30 characters.";
