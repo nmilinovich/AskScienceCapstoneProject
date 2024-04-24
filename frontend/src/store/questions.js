@@ -21,14 +21,14 @@ export const postQuestion = (question) => ({
     question
 });
 
-export const deleteQuestion = (questionId) => ({
-    type: DELETE_QUESTION,
-    questionId
-});
-
 export const updateQuestion = (question) => ({
     type: UPDATE_QUESTION,
     question
+});
+
+export const deleteQuestion = (questionId) => ({
+    type: DELETE_QUESTION,
+    questionId
 });
 
 // thunks
@@ -70,6 +70,22 @@ export const postNewQuestion = (question) => async (dispatch) => {
     return resQuestion
 };
 
+export const editQuestion = (question, questionId) => async (dispatch) => {
+    console.log(question)
+    const resQuestion = await csrfFetch(`/api/questions/${questionId}`,
+        {
+            headers: {
+            'Content-Type': 'application/json'
+            },
+            method: "PUT",
+            body: JSON.stringify(question)
+        }
+    );
+    const editedQuestion = await resQuestion.json();
+    console.log(editQuestion)
+    dispatch(updateQuestion(editedQuestion));
+    return editedQuestion;
+};
 
 export const removeQuestion = (questionId) => async (dispatch) => {
 
@@ -84,39 +100,6 @@ export const removeQuestion = (questionId) => async (dispatch) => {
     await dispatch(deleteQuestion(questionId));
     return deletedQuestion;
 }
-
-export const editQuestion = (question) => async (dispatch) => {
-    const resQuestion = await csrfFetch(`/api/question/${question.id}`,
-        {
-            headers: {
-            'Content-Type': 'application/json'
-            },
-            method: "PUT",
-            body: JSON.stringify(question)
-        }
-    );
-    const editedQuestion = await resQuestion.json();
-    // const questionImgs = [];
-    // for (let i = 0; i < imageURLs.length; i++) {
-    //     const imgURL = imageURLs[i];
-    //     const newImage = await csrfFetch(`/api/spots/${editedSpot.id}/images`,
-    //         {
-    //             headers: {
-    //                 'Content-Type': 'application/json'
-    //             },
-    //             method: "POST",
-    //             body: JSON.stringify({
-    //                 url: imgURL,
-    //                 preview: i === 0,
-    //             })
-    //         }
-    //     );
-    //     spotImgs.push(newImage);
-    // }
-    // editedSpot.SpotImages = spotImgs;
-    dispatch(updateQuestion(editedQuestion));
-    return editedQuestion;
-};
 
 const questionsReducer = (state = {}, action) => {
     const newState = {...state}
@@ -135,7 +118,7 @@ const questionsReducer = (state = {}, action) => {
             newState[action.question.id] = {...newState[action.question.id], ...action.question}
             return newState;
         case UPDATE_QUESTION:
-            newState[action.question.id] = {...action.question}
+            newState[action.question.id] = {...newState[action.question.id], ...action.question}
             return newState;
         case DELETE_QUESTION:
             delete newState[action.questionId];

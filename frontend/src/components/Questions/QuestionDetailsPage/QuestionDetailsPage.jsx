@@ -33,8 +33,6 @@ function QuestionDetailsPage() {
                 <div>
                     <div className='questionSection'>
                         <QuestionDetailsCard question={question} />
-                        <h3 className='commentsH3'>Comments</h3>
-                        <QuestionCommentsCard question={question} />
                     </div>
                     <QuestionAnswersSection question={question} />
                 </div>

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from 'react-redux';
 // import { Link } from 'react-router-dom';
@@ -30,9 +29,9 @@ function UpdateQuestionModalButton({ user, response, imageableType }) {
     <OpenModalButton
       modalComponent={<UpdateQuestionForm user={user} response={response} imageableType={imageableType} />}
       buttonText={`Update ${imageableType}`}
-      // onButtonClick={openMenu}
+      onButtonClick={() => setShowMenu(false)}
       onModalClose={() => dispatch(getQuestionDetails(response.id))}
-      customClass={'updateQuestionButton'}
+      customClass={response.type + 'CardType' + ' updateQuestionModalButton'}
     />
   );
 }

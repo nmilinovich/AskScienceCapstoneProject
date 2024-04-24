@@ -5,6 +5,7 @@ import { getUserLikes } from '../../../store/likes';
 import { getQuestionDetails, removeQuestion } from '../../../store/questions';
 import QuestionVotingComponent from './QuestionVotingComponent/QuestionVotingComponent';
 import UpdateQuestionModalButton from '../UpdateQuestionModal/UpdateQuestionModalButton';
+import QuestionCommentsCard from '../QuestionCommentsCard/QuestionCommentsCard';
 import './QuestionDetailsCard.css'
 
 function QuestionDetailsCard({ question }) {
@@ -24,19 +25,20 @@ function QuestionDetailsCard({ question }) {
     }
 
     return (
-        <div className='questionCard'>
+        <div className={question.type + 'QuestionCard'}>
             <div className='questionCardTop'>
                 <span className='questionCardOwner'>{question.questionOwner.username}</span>
+                <div className='questionCardButtons'>
                 {
-                    question.userId === user ?
-                    <div className='questionCardButtons'>
-                        <button onClick={deleteQuestion}>Delete Question</button>
-                        <UpdateQuestionModalButton user={user} response={question} imageableType='question' />
-                    </div>
-
-                    : null
+                question.userId === user ?
+                <div >
+                    <button className={question.type + 'CardType' + ' deleteQuestionButton'} onClick={deleteQuestion}>Delete question</button>
+                    <UpdateQuestionModalButton user={user} response={question} imageableType='question' />
+                </div>
+                : null
                 }
-                <span className={question.type + ' questionCardType'}>{question.type}</span>
+                </div>
+                <div className={question.type + 'Type questionType'}>{question.type}</div>
             </div>
             <div className='questionCardLikesAndTitle'>
                 <QuestionVotingComponent className='questionLikes' />
@@ -54,6 +56,8 @@ function QuestionDetailsCard({ question }) {
                     )
                 })}
             </div>
+            <h3 className='commentsH3'>Comments</h3>
+            <QuestionCommentsCard question={question}/>
         </div>
     )
 }

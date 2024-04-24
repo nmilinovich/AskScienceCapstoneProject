@@ -173,4 +173,5 @@ input::file-selector-button {
     background-color: rgb(255, 111, 0);
     color: rgb(3, 83, 3);
     border-radius: 3px;
+    cursor: pointer;
 }
