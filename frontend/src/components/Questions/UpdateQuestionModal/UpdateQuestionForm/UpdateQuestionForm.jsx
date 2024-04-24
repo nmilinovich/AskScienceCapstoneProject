@@ -8,7 +8,7 @@ import './UpdateQuestionForm.css'
 // import UploadImages from '../../DragAndDropImages/UploadImages';
 // import './PostQuestionPage.css'
 
-function UpdateQuestionForm({user, response, closeMenu }) {
+function UpdateQuestionForm({user, response }) {
     // const navigate = useNavigate()
     const dispatch = useDispatch();
     const [title, setTitle] = useState(response.title || '');
@@ -55,10 +55,11 @@ function UpdateQuestionForm({user, response, closeMenu }) {
         console.log(typeof title.length)
         console.log(errors)
         if (!Object.values(errHits).length) {
-            const editedQuestion = await new Promise(res => dispatch(editQuestion(updatedQuestion, response.id)).then(res));
+            // const editedQuestion =
+            await new Promise(res => dispatch(editQuestion(updatedQuestion, response.id)).then(res));
 
             if (selectedImages.length) {
-                let imageableId = question.id
+                // let imageableId = question.id
                 const base64Images = await Promise.all(selectedImages.map(convertImageToBase64));
                 await new Promise(res => dispatch(postNewImages(base64Images, 'question', response.id)).then(res));
                 setSelectedImages([])

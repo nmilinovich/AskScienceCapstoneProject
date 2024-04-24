@@ -1,9 +1,9 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { getUserAnswers, removeAnswer } from '../../../../store/answers';
+import { removeAnswer } from '../../../../store/answers';
 import { getQuestionDetails } from '../../../../store/questions';
 import VotingComponent from '../../../VotingComponent/VotingComponent'
 import UpdateAnswerModalButton from './UpdateAnswerModalButton/UpdateAnswerModalButton';
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 
 function QuestionAnswersCard({ answer, questionAnswers }) {
     const user = useSelector((state) => state.session.user.id);

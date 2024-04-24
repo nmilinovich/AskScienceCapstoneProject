@@ -3,12 +3,12 @@ import { useState  } from 'react';
 import { useDispatch } from 'react-redux';
 import { useModal } from '../../../../../../context/Modal';
 import { getQuestionDetails } from '../../../../../../store/questions';
-import { getUserAnswers, editAnswer } from '../../../../../../store/answers';
+import { editAnswer } from '../../../../../../store/answers';
 import { postNewImages } from '../../../../../../store/images';
 // import { useNavigate } from "react-router-dom"
 // import UploadImages from '../../DragAndDropImages/UploadImages';
 
-function UpdateAnswerForm({user, answer, closeMenu }) {
+function UpdateAnswerForm({user, answer }) {
     // const navigate = useNavigate()
     const dispatch = useDispatch();
     const [description, setDescription] = useState(answer.description || '');
@@ -40,7 +40,8 @@ function UpdateAnswerForm({user, answer, closeMenu }) {
         setErrors(errHits);
         console.log(errors)
         if (!Object.values(errors).length) {
-            const editedAnswer = await new Promise(res => dispatch(editAnswer(updatedAnswer, answer.id)).then(res));
+            // const editedAnswer =
+            await new Promise(res => dispatch(editAnswer(updatedAnswer, answer.id)).then(res));
 
             if (selectedImages.length) {
                 const base64Images = await Promise.all(selectedImages.map(convertImageToBase64));
