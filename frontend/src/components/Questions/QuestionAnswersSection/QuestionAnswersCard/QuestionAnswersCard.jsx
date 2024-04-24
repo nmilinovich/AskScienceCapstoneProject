@@ -2,7 +2,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { removeAnswer } from '../../../../store/answers';
 import { getQuestionDetails } from '../../../../store/questions';
 import VotingComponent from '../../../VotingComponent/VotingComponent'
-// import './QuestionAnswersCard.css'
 // import { useEffect } from 'react';
 
 function QuestionAnswersCard({ answer }) {

@@ -1,8 +1,7 @@
 import { useDispatch } from 'react-redux'
 import { getUserAnswers } from '../../../store/answers';
-import QuestionAnswersCard from './QuestionAnswersCard/QuestionAnswersCard';
+import QuestionAnswersCard from './QuestionAnswersCard';
 import PostAnswer from '../PostAnswer/PostAnswer';
-import './QuestionAnswersSection.css'
 import { useEffect } from 'react';
 
 function QuestionAnswersSection({ question }) {

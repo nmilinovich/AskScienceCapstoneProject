@@ -11,6 +11,15 @@
 
 .questionCardType {
     margin-right: 0.5vh;
+}
+
+.biology {
+    margin-right: 0.5vh;
+    color: rgb(3, 83, 3);
+}
+
+.chemistry {
+    margin-right: 0.5vh;
     color: rgb(3, 83, 3);
 }
 

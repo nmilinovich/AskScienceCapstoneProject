@@ -15,7 +15,7 @@ function PostQuestionPage() {
     const dispatch = useDispatch();
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [type, setType] = useState('');
+    const [type, setType] = useState('biology');
     const [selectedImages, setSelectedImages] = useState([]);
     const [errors, setErrors] = useState({})
 
@@ -42,10 +42,11 @@ function PostQuestionPage() {
             description,
             type,
         };
-        let errHits = {}
-        // if (description.length < 30) {
-        //     errHits.description = "Description must be more than 30 characters.";
-        // }
+        let errHits = {};
+        if (20 < title.length < 300) errHits.description = "Title must be between 20 and 300 characters.";
+        if (100 < description.length < 2500) {
+            errHits.description = "Description must be between 100 and 10,000 characters.";
+        }
         setErrors(errHits);
         if (!Object.values(errors).length) {
             const question = await new Promise(res => dispatch(postNewQuestion(newQuestion)).then(res));
@@ -64,57 +65,67 @@ function PostQuestionPage() {
 
     return (
         user ?
+        <div className='formDiv'>
             <form onSubmit={onSubmit} className='postQuestionForm'>
-                <h3 className='responseH3'>Your Question</h3>
-                <div>
-                    <div>Please select a science field</div>
-                    <button onClick={() => setType('biology')} className={(type==='biology' ? 'bioSelect' : '') + 'TypeButton'}>Biology</button>
-                    <button onClick={() => setType('chemistry')} className={(type==='chemistry' ? 'chemSelect' : '') + 'TypeButton'}>Chemistry</button>
-                    <button onClick={() => setType('physics')} className={(type==='physics' ? 'physSelect' : '') + 'TypeButton'}>Physics</button>
+                <h1 className='responseH1'>Your New Question</h1>
+                <div className='typeSelector'>
+                    <div className='selectTypeRequestDiv'>Please select a science field</div>
+                    <span onClick={() => setType('biology')} className={(type==='biology' ? 'bioSelect' : '') + ' typeButton'}>Biology</span>
+                    <span onClick={() => setType('chemistry')} className={(type==='chemistry' ? 'chemSelect' : '') + ' typeButton'}>Chemistry</span>
+                    <span onClick={() => setType('physics')} className={(type==='physics' ? 'physSelect' : '') + ' typeButton'}>Physics</span>
                 </div>
-                <label htmlFor='description'>
-                    <input
-                        placeholder='Please write at least 30 characters'
+                <div className='newQTitle'>Question Title</div>
+                <textarea
+                        className='titleTextarea'
+                        placeholder='Give your question a clear and concise title. Length (20-300 characters)'
                         id='title'
                         type='text'
                         onChange={e => setTitle(e.target.value)}
                         value={title}
-                    />
-                </label>
-                <label htmlFor='description'>
-                    <textarea
-                        placeholder='Please write at least 30 characters'
-                        id='description'
-                        type='text'
-                        onChange={e => setDescription(e.target.value)}
-                        value={description}
-                    >
-                    </textarea>
-                </label>
-                <div className="imageUploadContainer">
-                    {selectedImages.map(img => (
-                        <div key={img}>
-                        <img
-                            alt="not found"
-                            width={"250px"}
-                            src={URL.createObjectURL(img)}
+                />
+                <div className={(title.length < 20 || title.length > 300 ? 'tooLong' : '') + ' lengthDiv'}>Title length: {title.length}</div>
+                <div className='newQDescription'>Question Description</div>
+                <textarea
+                    className='descriptionTextarea'
+                    placeholder='Describe the question in great detail. Length (100-2500 characters)'
+                    id='description'
+                    type='text'
+                    onChange={e => setDescription(e.target.value)}
+                    value={description}
+                >
+                </textarea>
+                <div className={(description.length < 100 || description.length > 2500 ? 'tooLong' : '') + ' lengthDiv'}>Description length: {description.length}</div>
+                    <div className='uploadedImagesDiv'>
+                        {selectedImages.map(img => (
+                            <div key={img} className='uploadedImgDivs'>
+                                <img
+                                    className='uploadedImg'
+                                    alt="not found"
+                                    // width={"250px"}
+                                    src={URL.createObjectURL(img)}
+                                />
+                                <span onClick={() => setSelectedImages(selectedImages.filter((keptImgs) => keptImgs !== img))} className='removeQImageButton'>Remove Image</span>
+                            </div>
+                        ))}
+                    </div>
+                    <div className='imageUploadDiv'>
+                        <input
+                            id='file-upload-button'
+                            type="file"
+                            accept="image/*"
+                            size='10%'
+                            onChange={(event) => {
+                            setSelectedImages(selectedImages => [...selectedImages, ...event.target.files]);
+                            }}
                         />
-                        <br />
-                        <button onClick={() => setSelectedImages(selectedImages.filter((keptImgs) => keptImgs !== img))}>Remove</button>
-                        </div>
-                    ))}
-                    <input
-                        type="file"
-                        accept="image/*"
-                        onChange={(event) => {
-                        setSelectedImages(selectedImages => [...selectedImages, ...event.target.files]);
-                        }}
-                    />
+                    </div>
+                <div className='submitQuestionDiv'>
+                    <button disabled={!description} onSubmit={onSubmit} className='submitQuestionButton'>Submit Question</button>
                 </div>
-                <button disabled={!description} onSubmit={onSubmit}>Submit Question</button>
             </form>
+        </div>
         :
-            <div>Log in to post a question!</div>
+        <div>Log in to post a question!</div>
   );
 }
 

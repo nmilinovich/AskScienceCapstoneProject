@@ -36,7 +36,7 @@ function QuestionDetailsCard({ question }) {
 
                     : null
                 }
-                <span className='questionCardType'>{question.type}</span>
+                <span className={question.type + ' questionCardType'}>{question.type}</span>
             </div>
             <div className='questionCardLikesAndTitle'>
                 <QuestionVotingComponent className='questionLikes' />
