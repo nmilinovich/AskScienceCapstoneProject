@@ -8,7 +8,6 @@ function OpenModalButton({
   onButtonClick, // optional: callback function that will be called once the button that opens the modal is clicked
   onModalClose, // optional: callback function that will be called once the modal is closed
   customClass, // optional: gives each subinstance of this component a different class
-  response
 }) {
   const { setModalContent, setOnModalClose } = useModal();
 
@@ -18,7 +17,7 @@ function OpenModalButton({
     if (typeof onButtonClick === "function") onButtonClick();
   };
 
-  return <button className={customClass} onClick={onClick} response={response}>{buttonText}</button>;
+  return <button className={customClass} onClick={onClick}>{buttonText}</button>;
 }
 
 export default OpenModalButton;

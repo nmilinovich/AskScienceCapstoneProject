@@ -2,4 +2,7 @@
 body {
     background-color: rgb(235, 226, 223);
     font-family:Verdana, Geneva, Tahoma, sans-serif;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
 }

@@ -1,18 +1,16 @@
 import { useState  } from 'react';
 // import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { getQuestionDetails, editQuestion } from '../../../../store/questions';
-import { postNewImages } from '../../../../store/images';
+// import { getQuestionDetails, editQuestion } from '../../../../store/questions';
+import { getUserAnswers, editAnswer } from '../../../../../../store/answers';
+import { postNewImages } from '../../../../../../store/images';
 // import { useNavigate } from "react-router-dom"
 // import UploadImages from '../../DragAndDropImages/UploadImages';
-// import './PostQuestionPage.css'
 
-function UpdateQuestionForm({user, response }) {
+function UpdateAnswerForm({user, answer }) {
     // const navigate = useNavigate()
     const dispatch = useDispatch();
-    const [title, setTitle] = useState(response.title || '');
-    const [description, setDescription] = useState(response.description || '');
-    const [type, setType] = useState(response.type || '');
+    const [description, setDescription] = useState(answer.description || '');
     const [selectedImages, setSelectedImages] = useState([]);
     const [errors, setErrors] = useState({})
 
@@ -26,63 +24,36 @@ function UpdateQuestionForm({user, response }) {
         })
     }
 
-    // useEffect(() => {
-    //     dispatch(getQuestionDetails(questionId));
-    // }, [dispatch, questionId]);
-
     const onSubmit = async (e) => {
         e.preventDefault();
         setErrors({});
-        const updatedQuestion = {
-            title,
-            description,
-            type,
+        const updatedAnswer = {
+            description
         };
         let errHits = {}
-        if (title.length < 20 || title.length > 300) {
-            errHits.title = "Title must be between 20 and 300 characters.";
+        if (description.length < 100 || description.length > 3000) {
+            errHits.description = "Description must be between 100 and 3,000 characters.";
         }
-        if (description.length < 100 || description.length > 2500) {
-            errHits.description = "Description must be between 100 and 2,500 characters.";
-        }
-        if (!type) {
-            errHits.type = "You must select a science subject."
-        }
-        console.log(type)
         setErrors(errHits);
+        console.log(errors)
         if (!Object.values(errors).length) {
-            const editedQuestion = await new Promise(res => dispatch(editQuestion(updatedQuestion, response.id)).then(res));
+            const editedAnswer = await new Promise(res => dispatch(editAnswer(updatedAnswer, answer.id)).then(res));
 
             if (selectedImages.length) {
-                let imageableId = question.id
                 const base64Images = await Promise.all(selectedImages.map(convertImageToBase64));
-                await new Promise(res => dispatch(postNewImages(base64Images, 'answer', response.id)).then(res));
+                await new Promise(res => dispatch(postNewImages(base64Images, 'answer', answer.id)).then(res));
                 setSelectedImages([])
             }
-            await new Promise(res => dispatch(getQuestionDetails(response.id)).then(res));
+            await new Promise(res => dispatch(getUserAnswers()).then(res));
         }
     };
     return (
         user ?
         <div className='formDiv'>
             <form onSubmit={onSubmit} className='postQuestionForm'>
-                <h1 className='responseH1'>Update Your Question</h1>
+                <h1 className='responseH1'>Update Your Answer</h1>
                 <div className='typeSelector'>
-                    <div className='selectTypeRequestDiv'>Please select a science field</div>
-                    <span onClick={() => setType('biology')} className={(type==='biology' ? 'bioSelect' : '') + ' typeButton'}>Biology</span>
-                    <span onClick={() => setType('chemistry')} className={(type==='chemistry' ? 'chemSelect' : '') + ' typeButton'}>Chemistry</span>
-                    <span onClick={() => setType('physics')} className={(type==='physics' ? 'physSelect' : '') + ' typeButton'}>Physics</span>
                 </div>
-                <div className='newQTitle'>Question Title</div>
-                <textarea
-                        className='titleTextarea'
-                        placeholder='Give your question a clear and concise title. Length (20-300 characters)'
-                        id='title'
-                        type='text'
-                        onChange={e => setTitle(e.target.value)}
-                        value={title}
-                />
-                <div className={(title.length < 20 || title.length > 300 ? 'tooLong' : '') + ' lengthDiv'}>Title length: {title.length}</div>
                 <div className='newQDescription'>Question Description</div>
                 <textarea
                     className='descriptionTextarea'
@@ -93,7 +64,7 @@ function UpdateQuestionForm({user, response }) {
                     value={description}
                 >
                 </textarea>
-                <div className={(description.length < 100 || description.length > 2500 ? 'tooLong' : '') + ' lengthDiv'}>Description length: {description.length}</div>
+                <div className={(description.length < 100 || description.length > 3000 ? 'tooLong' : '') + ' lengthDiv'}>Description length: {description.length}</div>
                     <div className='uploadedImagesDiv'>
                         {selectedImages.map(img => (
                             <div key={img} className='uploadedImgDivs'>
@@ -124,8 +95,8 @@ function UpdateQuestionForm({user, response }) {
             </form>
         </div>
         :
-        <div>Log in to post a question!</div>
+        <div>Log in to change your answer!</div>
   );
 }
 
-export default UpdateQuestionForm
+export default UpdateAnswerForm

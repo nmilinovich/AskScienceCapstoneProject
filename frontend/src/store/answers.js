@@ -53,8 +53,8 @@ export const postNewAnswer = (answer) => async (dispatch) => {
     return resAnswer
 };
 
-export const editAnswer = (answer) => async (dispatch) => {
-    const resAnswer = await csrfFetch("/api/answers",
+export const editAnswer = (answer, answerId) => async (dispatch) => {
+    const resAnswer = await csrfFetch(`/api/answers/${answerId}`,
         {
             headers: {
             'Content-Type': 'application/json'
@@ -66,7 +66,7 @@ export const editAnswer = (answer) => async (dispatch) => {
     if (resAnswer.ok) {
         const editedAnswer = await resAnswer.json();
         dispatch(updateAnswer(editedAnswer));
-        return editAnswer;
+        return editedAnswer;
     }
     return resAnswer
 };
@@ -98,7 +98,7 @@ const answersReducer = (state = {}, action) => {
             newState[action.answer.id] = {...newState[action.answer.id], ...action.answer}
             return newState;
         case UPDATE_ANSWER:
-            newState[action.answer.id] = {...action.answer}
+            newState[action.answer.id] = {...newState[action.answer.id], ...action.answer}
             return newState;
             case DELETE_ANSWER:
                 delete newState[action.answerId]

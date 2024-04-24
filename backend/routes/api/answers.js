@@ -88,14 +88,12 @@ router.post(
         const { questionId, description } = req.body;
 
         const question = await Question.findByPk(questionId);
-
         if(!question) {
             const err = new Error("Question couldn't be found");
             err.title = "Question couldn't be found";
             err.status = 404;
             return next(err);
         };
-
         const answerExists = await Answer.findOne({
             where: {
                 questionId,
@@ -123,7 +121,7 @@ router.post(
     }
 );
 
-router.put(
+router.patch(
     '/:answerId',
     requireAuth,
     async (req, res, next) => {

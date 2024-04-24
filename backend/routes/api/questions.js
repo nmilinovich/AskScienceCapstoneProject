@@ -408,7 +408,8 @@ router.put(
         const { title, description, type } = req.body;
 
         const question = await Question.findByPk(questionId);
-
+        console.log(req.body)
+        console.log(question)
         if (!title) {
             const err = new Error("Bad Request");
             err.message = "Bad Request";
