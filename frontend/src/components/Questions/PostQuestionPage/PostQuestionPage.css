@@ -1,0 +1,24 @@
+.postQuestionForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.TypeButton {
+    margin: 0.5vh;
+}
+
+.bioSelectTypeButton {
+    margin: 0.5vh;
+    background-color: green;
+}
+
+.chemSelectTypeButton {
+    margin: 0.5vh;
+    background-color: orange;
+}
+
+.physSelectTypeButton {
+    margin: 0.5vh;
+    background-color: blue;
+}

@@ -26,17 +26,14 @@ function UpdateQuestionModalButton({ user, response, imageableType }) {
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
 
-  console.log(response)
   return (
-
-            <OpenModalButton
-              modalComponent={<UpdateQuestionForm user={user} response={response} imageableType={imageableType} />}
-              buttonText={`Update ${imageableType}`}
-              // onButtonClick={openMenu}
-              onModalClose={() => dispatch(getQuestionDetails(response.id))}
-              customClass={'updateQuestionButton'}
-            />
-
+    <OpenModalButton
+      modalComponent={<UpdateQuestionForm user={user} response={response} imageableType={imageableType} />}
+      buttonText={`Update ${imageableType}`}
+      // onButtonClick={openMenu}
+      onModalClose={() => dispatch(getQuestionDetails(response.id))}
+      customClass={'updateQuestionButton'}
+    />
   );
 }
 
