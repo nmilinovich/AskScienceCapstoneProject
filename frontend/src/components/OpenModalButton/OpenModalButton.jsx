@@ -8,7 +8,7 @@ function OpenModalButton({
   customClass // optional: gives each subinstance of this component a different class
 }) {
   const { setModalContent, setOnModalClose } = useModal();
-
+  
   const onClick = () => {
     if (onModalClose) setOnModalClose(onModalClose);
     setModalContent(modalComponent);

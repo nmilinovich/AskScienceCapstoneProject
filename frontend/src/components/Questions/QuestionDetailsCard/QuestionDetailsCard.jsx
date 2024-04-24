@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { getUserLikes } from '../../../store/likes';
 import { getQuestionDetails, removeQuestion } from '../../../store/questions';
 import QuestionVotingComponent from './QuestionVotingComponent/QuestionVotingComponent';
+import UpdateQuestionModalButton from '../UpdateQuestionModal/UpdateQuestionModalButton';
 import './QuestionDetailsCard.css'
 
 function QuestionDetailsCard({ question }) {
@@ -28,7 +29,11 @@ function QuestionDetailsCard({ question }) {
                 <span className='questionCardOwner'>{question.questionOwner.username}</span>
                 {
                     question.userId === user ?
-                    <button onClick={deleteQuestion}>Delete Question</button>
+                    <div className='questionCardButtons'>
+                        <button onClick={deleteQuestion}>Delete Question</button>
+                        <UpdateQuestionModalButton user={user} response={question} imageableType='question' />
+                    </div>
+
                     : null
                 }
                 <span className='questionCardType'>{question.type}</span>
