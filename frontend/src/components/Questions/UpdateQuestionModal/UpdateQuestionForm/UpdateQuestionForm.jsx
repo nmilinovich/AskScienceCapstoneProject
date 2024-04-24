@@ -1,14 +1,13 @@
 import { useState  } from 'react';
 // import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { getQuestionDetails, postNewQuestion } from '../../../../store/questions';
+import { postNewQuestion } from '../../../../store/questions';
 import postNewImages from '../../../../store/images'
 // import { useNavigate } from "react-router-dom"
-// import { getQuestionDetails } from '../../../store/questions';
 // import UploadImages from '../../DragAndDropImages/UploadImages';
 // import './PostQuestionPage.css'
 
-function UpdateQuestionForm(user, response, imageableType) {
+function UpdateQuestionForm({user, response, imageableType}) {
     // const navigate = useNavigate()
     const dispatch = useDispatch();
     const [title, setTitle] = useState(response.title || '');
@@ -24,7 +23,7 @@ function UpdateQuestionForm(user, response, imageableType) {
                 res(reader.result);
             };
             reader.readAsDataURL(file);
-        });
+        })
     }
 
     // useEffect(() => {
@@ -58,14 +57,12 @@ function UpdateQuestionForm(user, response, imageableType) {
             // navigate(`/questions/${question.id}`)
         }
     };
-
     return (
         user ?
             <div >
                 <button onClick={() => setType('biology')}>Biology</button>
                 <button onClick={() => setType('chemistry')}>Chemistry</button>
                 <button onClick={() => setType('physics')}>Physics</button>
-                {console.log(type)}
                 <form onSubmit={onSubmit} className='postQuestionForm'>
                     <h3 className='responseH3'>Your Question</h3>
                     <label htmlFor='description'>

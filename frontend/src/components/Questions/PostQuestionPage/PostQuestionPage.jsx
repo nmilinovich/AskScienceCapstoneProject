@@ -64,57 +64,57 @@ function PostQuestionPage() {
 
     return (
         user ?
-            <div >
-                <button onClick={() => setType('biology')}>Biology</button>
-                <button onClick={() => setType('chemistry')}>Chemistry</button>
-                <button onClick={() => setType('physics')}>Physics</button>
-                {console.log(type)}
-                <form onSubmit={onSubmit} className='postQuestionForm'>
-                    <h3 className='responseH3'>Your Question</h3>
-                    <label htmlFor='description'>
-                        <input
-                            placeholder='Please write at least 30 characters'
-                            id='title'
-                            type='text'
-                            onChange={e => setTitle(e.target.value)}
-                            value={title}
+            <form onSubmit={onSubmit} className='postQuestionForm'>
+                <h3 className='responseH3'>Your Question</h3>
+                <div>
+                    <div>Please select a science field</div>
+                    <button onClick={() => setType('biology')} className={(type==='biology' ? 'bioSelect' : '') + 'TypeButton'}>Biology</button>
+                    <button onClick={() => setType('chemistry')} className={(type==='chemistry' ? 'chemSelect' : '') + 'TypeButton'}>Chemistry</button>
+                    <button onClick={() => setType('physics')} className={(type==='physics' ? 'physSelect' : '') + 'TypeButton'}>Physics</button>
+                </div>
+                <label htmlFor='description'>
+                    <input
+                        placeholder='Please write at least 30 characters'
+                        id='title'
+                        type='text'
+                        onChange={e => setTitle(e.target.value)}
+                        value={title}
+                    />
+                </label>
+                <label htmlFor='description'>
+                    <textarea
+                        placeholder='Please write at least 30 characters'
+                        id='description'
+                        type='text'
+                        onChange={e => setDescription(e.target.value)}
+                        value={description}
+                    >
+                    </textarea>
+                </label>
+                <div className="imageUploadContainer">
+                    {selectedImages.map(img => (
+                        <div key={img}>
+                        <img
+                            alt="not found"
+                            width={"250px"}
+                            src={URL.createObjectURL(img)}
                         />
-                    </label>
-                    <label htmlFor='description'>
-                        <textarea
-                            placeholder='Please write at least 30 characters'
-                            id='description'
-                            type='text'
-                            onChange={e => setDescription(e.target.value)}
-                            value={description}
-                        >
-                        </textarea>
-                    </label>
-                    <div className="imageUploadContainer">
-                        {selectedImages.map(img => (
-                            <div key={img}>
-                            <img
-                                alt="not found"
-                                width={"250px"}
-                                src={URL.createObjectURL(img)}
-                            />
-                            <br />
-                            <button onClick={() => setSelectedImages(selectedImages.filter((keptImgs) => keptImgs !== img))}>Remove</button>
-                            </div>
-                        ))}
-                        <input
-                            type="file"
-                            accept="image/*"
-                            onChange={(event) => {
-                            setSelectedImages(selectedImages => [...selectedImages, ...event.target.files]);
-                            }}
-                        />
-                    </div>
-                    <button disabled={!description} onSubmit={onSubmit}>Submit Question</button>
-                </form>
-            </div>
+                        <br />
+                        <button onClick={() => setSelectedImages(selectedImages.filter((keptImgs) => keptImgs !== img))}>Remove</button>
+                        </div>
+                    ))}
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(event) => {
+                        setSelectedImages(selectedImages => [...selectedImages, ...event.target.files]);
+                        }}
+                    />
+                </div>
+                <button disabled={!description} onSubmit={onSubmit}>Submit Question</button>
+            </form>
         :
-        <div>Log in to post a question!</div>
+            <div>Log in to post a question!</div>
   );
 }
 
