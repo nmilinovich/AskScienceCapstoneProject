@@ -31,9 +31,9 @@ function QuestionDetailsCard({ question }) {
                 <div className='questionCardButtons'>
                 {
                 question.userId === user ?
-                <div >
-                    <button className={question.type + 'CardType' + ' deleteQuestionButton'} onClick={deleteQuestion}>Delete question</button>
-                    <UpdateQuestionModalButton user={user} response={question} imageableType='question' />
+                <div>
+                    <button className={question.type + 'CardType' + ' deleteQuestionButton'} onClick={deleteQuestion}>Delete Question</button>
+                    <UpdateQuestionModalButton user={user} response={question} />
                 </div>
                 : null
                 }

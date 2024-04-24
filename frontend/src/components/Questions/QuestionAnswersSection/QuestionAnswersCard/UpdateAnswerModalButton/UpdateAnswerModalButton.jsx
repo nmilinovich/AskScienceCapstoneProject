@@ -2,11 +2,11 @@ import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from 'react-redux';
 // import { Link } from 'react-router-dom';
 // import * as sessionActions from '../../store/session';
-import OpenModalButton from "../../OpenModalButton/OpenModalButton";
-import UpdateQuestionForm from "./UpdateQuestionForm/UpdateQuestionForm";
-import { getQuestionDetails } from "../../../store/questions";
+import OpenModalButton from "../../../../OpenModalButton/OpenModalButton";
+import UpdateAnswerForm from "./UpdateAnswerForm/UpdateAnswerForm";
+import { getUserAnswers } from "../../../../../store/answers";
 
-function UpdateQuestionModalButton({ user, response, imageableType }) {
+function UpdateAnswerModalButton({ user, answer }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
@@ -27,13 +27,13 @@ function UpdateQuestionModalButton({ user, response, imageableType }) {
 
   return (
     <OpenModalButton
-      modalComponent={<UpdateQuestionForm user={user} response={response} imageableType={imageableType} />}
-      buttonText='Update Question'
+      modalComponent={<UpdateAnswerForm user={user} answer={answer} />}
+      buttonText='Update Answer'
       onButtonClick={() => setShowMenu(false)}
-      onModalClose={() => dispatch(getQuestionDetails(response.id))}
-      customClass={response.type + 'CardType' + ' updateQuestionModalButton'}
+      onModalClose={() => getUserAnswers()}
+      customClass={'CardType' + ' updateQuestionModalButton'}
     />
   );
 }
 
-export default UpdateQuestionModalButton;
+export default UpdateAnswerModalButton;

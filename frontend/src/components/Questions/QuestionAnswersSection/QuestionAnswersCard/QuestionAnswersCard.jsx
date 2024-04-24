@@ -2,35 +2,36 @@ import { useSelector, useDispatch } from 'react-redux'
 import { removeAnswer } from '../../../../store/answers';
 import { getQuestionDetails } from '../../../../store/questions';
 import VotingComponent from '../../../VotingComponent/VotingComponent'
+import UpdateAnswerModalButton from './UpdateAnswerModalButton/UpdateAnswerModalButton';
 // import { useEffect } from 'react';
 
-function QuestionAnswersCard({ answer }) {
+function QuestionAnswersCard({ answer, questionAnswers }) {
     console.log(answer)
     const user = useSelector((state) => state.session.user.id);
     const dispatch = useDispatch();
-    // let answers = useSelector((state) => state.questions[answer.questionId].Answers)
-    // const deleteAnswer = (e) => {
-    //     e.preventDefault();
-
-    //     dispatch(removeAnswer(question.id))
-    // }
-
-    // useEffect(() => {
-    //     dispatch(getQuestionDetails)
-    // }, [dispatch, answers])
-
 
     return (
         <div>
             <div className='answerCard'>
                 <div className='answerCardTop'>
                     <div className='answerOwnerDiv'>{answer.answerOwner.username}</div>
-                    {
-                    answer.userId === user ?
-                    <button onClick={async (e) => {e.preventDefault(); await dispatch(removeAnswer(answer.id)); await dispatch(getQuestionDetails(answer.questionId));
-                    }} className='de'>Delete Answer</button>
-                    : null
-                    }
+                    <div className='questionCardButtons'>
+                        {
+                        answer.userId === user ?
+                        <div>
+                            <button
+                                onClick={
+                                    async (e) => {e.preventDefault();
+                                    await dispatch(removeAnswer(answer.id));
+                                    await dispatch(getQuestionDetails(answer.questionId));
+                                }}
+                                className='deleteAnswerButton'>Delete Answer
+                            </button>
+                            <UpdateAnswerModalButton user={user} answer={answer} questionAnswers={questionAnswers} />
+                        </div>
+                        : null
+                        }
+                    </div>
                 </div>
                 <div className='likesAndDesciptionContainer'>
                     <VotingComponent key={answer.id} answer={answer} likes={answer.Likes}/>

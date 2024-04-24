@@ -47,7 +47,7 @@ function PostQuestionPage() {
             errHits.title = "Title must be between 20 and 300 characters.";
         }
         if (100 < description.length < 2500) {
-            errHits.description = "Description must be between 100 and 10,000 characters.";
+            errHits.description = "Description must be between 100 and 2,500 characters.";
         }
         if (!type) {
             errHits.type = "You must select a science subject."
