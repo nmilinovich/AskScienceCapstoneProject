@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import { getQuestionDetails } from '../../../store/questions';
 import { getUserLikes } from '../../../store/likes';
 import QuestionDetailsCard from '../QuestionDetailsCard/QuestionDetailsCard';
-import QuestionCommentsCard from '../QuestionCommentsCard/QuestionCommentsCard';
+// import QuestionCommentsCard from '../QuestionCommentsCard/QuestionCommentsCard';
 import QuestionAnswersSection from '../QuestionAnswersSection/';
 import { getUserAnswers } from '../../../store/answers';
 

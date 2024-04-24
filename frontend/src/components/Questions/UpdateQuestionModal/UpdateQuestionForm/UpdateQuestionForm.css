@@ -1,3 +1,8 @@
 .submitQuestionButton {
     cursor: pointer;
 }
+
+.error {
+    color: red;
+    text-align: center;
+}

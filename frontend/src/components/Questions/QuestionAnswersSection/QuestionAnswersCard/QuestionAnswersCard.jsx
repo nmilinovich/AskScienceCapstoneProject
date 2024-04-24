@@ -6,10 +6,8 @@ import UpdateAnswerModalButton from './UpdateAnswerModalButton/UpdateAnswerModal
 // import { useEffect } from 'react';
 
 function QuestionAnswersCard({ answer, questionAnswers }) {
-    console.log(answer)
     const user = useSelector((state) => state.session.user.id);
     const dispatch = useDispatch();
-
     return (
         <div>
             <div className='answerCard'>

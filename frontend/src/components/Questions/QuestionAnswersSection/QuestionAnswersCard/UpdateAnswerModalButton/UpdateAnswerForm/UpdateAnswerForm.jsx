@@ -1,8 +1,9 @@
 import { useState  } from 'react';
 // import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-// import { getQuestionDetails, editQuestion } from '../../../../store/questions';
-import { getUserAnswers, editAnswer } from '../../../../../../store/answers';
+import { useModal } from '../../../../../../context/Modal';
+import { getQuestionDetails } from '../../../../../../store/questions';
+import { editAnswer } from '../../../../../../store/answers';
 import { postNewImages } from '../../../../../../store/images';
 // import { useNavigate } from "react-router-dom"
 // import UploadImages from '../../DragAndDropImages/UploadImages';
@@ -24,6 +25,8 @@ function UpdateAnswerForm({user, answer }) {
         })
     }
 
+    const { closeModal } = useModal();
+
     const onSubmit = async (e) => {
         e.preventDefault();
         setErrors({});
@@ -37,14 +40,17 @@ function UpdateAnswerForm({user, answer }) {
         setErrors(errHits);
         console.log(errors)
         if (!Object.values(errors).length) {
-            const editedAnswer = await new Promise(res => dispatch(editAnswer(updatedAnswer, answer.id)).then(res));
+            // const editedAnswer =
+            await new Promise(res => dispatch(editAnswer(updatedAnswer, answer.id)).then(res));
 
             if (selectedImages.length) {
                 const base64Images = await Promise.all(selectedImages.map(convertImageToBase64));
                 await new Promise(res => dispatch(postNewImages(base64Images, 'answer', answer.id)).then(res));
                 setSelectedImages([])
             }
-            await new Promise(res => dispatch(getUserAnswers()).then(res));
+            dispatch(getQuestionDetails(answer.questionId))
+            .then(closeModal())
+
         }
     };
     return (

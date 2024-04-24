@@ -35,7 +35,6 @@ function PostAnswer({ answers }) {
     // }, [dispatch, user]);
 
     const onSubmit = async (e) => {
-        console.log(selectedImages)
         e.preventDefault();
         setErrors({});
         const newAnswer = {

@@ -10,8 +10,6 @@ router.get(
     requireAuth,
     async (req, res, next) => {
         const userId = req.user.id;
-        console.log(userId);
-
         let query = {
             where: {
                 userId: userId,
@@ -166,8 +164,6 @@ router.get(
         //         [sequelize.fn('COUNT', sequelize.col('id')), 'numLikes']
         //     ]
         // });
-        // console.log(questionLikes)
-
         if (!question) {
             let err = new Error("Question couldn't be found");
             err.title = "Question couldn't be found";
@@ -408,8 +404,6 @@ router.put(
         const { title, description, type } = req.body;
 
         const question = await Question.findByPk(questionId);
-        console.log(req.body)
-        console.log(question)
         if (!title) {
             const err = new Error("Bad Request");
             err.message = "Bad Request";

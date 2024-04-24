@@ -103,7 +103,6 @@ router.delete(
         const imageId = req.params.imageId
         const image = await Image.findByPk(imageId);
         if (!image) {
-            console.log('IMAGE: ', image)
             const err = new Error("Image couldn't be found");
             err.title = "Image couldn't be found";
             err.errors = "Image couldn't be found";
