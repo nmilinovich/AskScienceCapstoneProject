@@ -1,23 +1,18 @@
 // import { useParams } from 'react-router-dom';
 // import { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { postNewLike, editLike, removeLike } from '../../store/likes'
+import { getUserLikes, postNewLike, editLike, removeLike } from '../../store/likes'
 // import { getQuestionDetails } from "../../store/questions";
 import './VotingComponent.css'
 import { useEffect } from "react";
-// const selectCompletedTodosCount = createSelector(
-//     (state) => state.todos,
-//     (_, completed) => completed,
-//     (todos, completed) =>
-//       todos.filter((todo) => todo.completed === completed).length,
-//   )
+import { getQuestionDetails } from '../../store/questions';
+
 
 function VotingComponent({ answer, likes }) {
     const dispatch = useDispatch()
     let user = useSelector((state) => state.session.user);
     const userLikesObj = useSelector((state) => state.likes);
     // const updated = useSelector((state) => state.likes[answer.id]);
-    console.log(answer)
     // const answers = useSelector((state) => state.questions[answer.questionId].Answers)
     let userLikes = Object.values(userLikesObj)
     let userLike = userLikes.find(like => like.likeableId === answer.id
@@ -39,7 +34,6 @@ function VotingComponent({ answer, likes }) {
                 likeableId: answer.id,
                 dislike: !isUpvote,
             }
-            console.log(newLike)
             if (userLike) {
                 if (userLike.dislike === newLike.dislike) {
                     await dispatch(removeLike(userLike.id));
@@ -65,7 +59,7 @@ function VotingComponent({ answer, likes }) {
                     numLikes -= 1;
                 }
             }
-
+            await dispatch(getQuestionDetails(answer.questionId));
             // if (response.answerOwner) {
                 // dispatch(getQuestionDetails(answer.questionId));
             // } else {
@@ -73,9 +67,8 @@ function VotingComponent({ answer, likes }) {
         }
     }
 
-    useEffect(() => {
-        // dispatch(getUserLikes());
-    }, [dispatch, userLikes])
+    // useEffect(() => {
+    // }, [dispatch, userLikes])
 
 
 

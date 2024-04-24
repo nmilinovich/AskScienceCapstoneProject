@@ -1,13 +1,14 @@
 import { useState  } from 'react';
-// import { useParams } from 'react-router-dom';
+import { useModal } from '../../../../context/Modal';
 import { useDispatch } from 'react-redux';
 import { getQuestionDetails, editQuestion } from '../../../../store/questions';
 import { postNewImages } from '../../../../store/images';
+import './UpdateQuestionForm.css'
 // import { useNavigate } from "react-router-dom"
 // import UploadImages from '../../DragAndDropImages/UploadImages';
 // import './PostQuestionPage.css'
 
-function UpdateQuestionForm({user, response }) {
+function UpdateQuestionForm({user, response, closeMenu }) {
     // const navigate = useNavigate()
     const dispatch = useDispatch();
     const [title, setTitle] = useState(response.title || '');
@@ -15,6 +16,8 @@ function UpdateQuestionForm({user, response }) {
     const [type, setType] = useState(response.type || '');
     const [selectedImages, setSelectedImages] = useState([]);
     const [errors, setErrors] = useState({})
+
+    const { closeModal } = useModal()
 
     function convertImageToBase64(file) {
         const reader = new FileReader();
@@ -48,18 +51,19 @@ function UpdateQuestionForm({user, response }) {
         if (!type) {
             errHits.type = "You must select a science subject."
         }
-        console.log(type)
         setErrors(errHits);
-        if (!Object.values(errors).length) {
+        console.log(typeof title.length)
+        console.log(errors)
+        if (!Object.values(errHits).length) {
             const editedQuestion = await new Promise(res => dispatch(editQuestion(updatedQuestion, response.id)).then(res));
 
             if (selectedImages.length) {
                 let imageableId = question.id
                 const base64Images = await Promise.all(selectedImages.map(convertImageToBase64));
-                await new Promise(res => dispatch(postNewImages(base64Images, 'answer', response.id)).then(res));
+                await new Promise(res => dispatch(postNewImages(base64Images, 'question', response.id)).then(res));
                 setSelectedImages([])
             }
-            await new Promise(res => dispatch(getQuestionDetails(response.id)).then(res));
+            await new Promise(res => dispatch(getQuestionDetails(response.id)).then(res)).then(closeModal)
         }
     };
     return (
@@ -82,6 +86,7 @@ function UpdateQuestionForm({user, response }) {
                         onChange={e => setTitle(e.target.value)}
                         value={title}
                 />
+                <div>{errors.title && <div className='error'>{errors.title}</div>}</div>
                 <div className={(title.length < 20 || title.length > 300 ? 'tooLong' : '') + ' lengthDiv'}>Title length: {title.length}</div>
                 <div className='newQDescription'>Question Description</div>
                 <textarea
@@ -93,6 +98,7 @@ function UpdateQuestionForm({user, response }) {
                     value={description}
                 >
                 </textarea>
+                <div>{errors.description && <div className='error'>{errors.description}</div>}</div>
                 <div className={(description.length < 100 || description.length > 2500 ? 'tooLong' : '') + ' lengthDiv'}>Description length: {description.length}</div>
                     <div className='uploadedImagesDiv'>
                         {selectedImages.map(img => (

@@ -25,7 +25,6 @@ function QuestionAnswersSection({ question }) {
     return (
         <div>
             {questionAnswers.map((answer) => {
-                console.log(questionAnswers)
                 return (
                     <QuestionAnswersCard key={answer.id} answer={answer} questionAnswers={questionAnswers} />
                 )

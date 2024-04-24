@@ -71,7 +71,6 @@ export const postNewQuestion = (question) => async (dispatch) => {
 };
 
 export const editQuestion = (question, questionId) => async (dispatch) => {
-    console.log(question)
     const resQuestion = await csrfFetch(`/api/questions/${questionId}`,
         {
             headers: {
@@ -82,7 +81,6 @@ export const editQuestion = (question, questionId) => async (dispatch) => {
         }
     );
     const editedQuestion = await resQuestion.json();
-    console.log(editQuestion)
     dispatch(updateQuestion(editedQuestion));
     return editedQuestion;
 };
@@ -106,7 +104,7 @@ const questionsReducer = (state = {}, action) => {
     switch (action.type) {
         case LOAD_QUESTIONS:
             action.payload.Questions.forEach((question) => {
-            newState[question.id] = question;
+                newState[question.id] = question;
             });
             // newState["page"] = action.payload.page;
             // newState["size"] = action.payload.size;

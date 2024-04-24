@@ -34,7 +34,6 @@ function PostQuestionPage() {
     // }, [dispatch, questionId]);
 
     const onSubmit = async (e) => {
-        console.log(selectedImages)
         e.preventDefault();
         setErrors({});
         const newQuestion = {
@@ -61,7 +60,6 @@ function PostQuestionPage() {
             if (selectedImages.length) {
                 let imageableId = question.id
                 const base64Images = await Promise.all(selectedImages.map(convertImageToBase64));
-                console.log(base64Images);
                 await new Promise(res => dispatch(postNewImages(base64Images, imageableType, imageableId)).then(res));
                 setSelectedImages([])
             }

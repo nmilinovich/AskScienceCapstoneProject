@@ -1,13 +1,14 @@
 import { useState  } from 'react';
 // import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-// import { getQuestionDetails, editQuestion } from '../../../../store/questions';
+import { useModal } from '../../../../../../context/Modal';
+import { getQuestionDetails } from '../../../../../../store/questions';
 import { getUserAnswers, editAnswer } from '../../../../../../store/answers';
 import { postNewImages } from '../../../../../../store/images';
 // import { useNavigate } from "react-router-dom"
 // import UploadImages from '../../DragAndDropImages/UploadImages';
 
-function UpdateAnswerForm({user, answer }) {
+function UpdateAnswerForm({user, answer, closeMenu }) {
     // const navigate = useNavigate()
     const dispatch = useDispatch();
     const [description, setDescription] = useState(answer.description || '');
@@ -23,6 +24,8 @@ function UpdateAnswerForm({user, answer }) {
             reader.readAsDataURL(file);
         })
     }
+
+    const { closeModal } = useModal();
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -44,7 +47,9 @@ function UpdateAnswerForm({user, answer }) {
                 await new Promise(res => dispatch(postNewImages(base64Images, 'answer', answer.id)).then(res));
                 setSelectedImages([])
             }
-            await new Promise(res => dispatch(getUserAnswers()).then(res));
+            dispatch(getQuestionDetails(answer.questionId))
+            .then(closeModal())
+
         }
     };
     return (

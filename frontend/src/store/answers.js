@@ -88,9 +88,32 @@ const answersReducer = (state = {}, action) => {
     const newState = {...state}
     switch (action.type) {
         case LOAD_USERANSWERS:
-            action.payload.Answers.forEach((answer) => {
-            newState[answer.id] = answer;
+
+            action.payload.Answers.map((answer) => {
+                newState[answer.id] = answer
             });
+
+            // export function rootLevelReducer(state, action){
+            //     return {
+            //         ...state,
+            //         firstLevel: {
+            //             ...state.firstLevel,
+            //             secondLevel: {
+            //                 ...state.firstLevel.secondLevel,
+            //                 thirdLevel: {
+            //                     ...state.firstLevel.secondLevel.thirdLevel,
+            //                     property1: action.data
+            //                 }
+            //             }
+            //         }
+            //     }
+            // }
+            // action.payload.Answersanswer.Images.forEach((image) => {
+            //     newState.images[image.id] = {id: image.id, userId: image.userId, url: image.url, imageableType: image.imageableType, imageableId: image.imageableId}
+            // })
+            // answer.Images.forEach((image) => {
+            //     newState[answer.Id].Images[image?.id] = {...newState[answer.Id].Images[image.id], ...image}
+            // })
             // newState["page"] = action.payload.page;
             // newState["size"] = action.payload.size;
             return newState;
