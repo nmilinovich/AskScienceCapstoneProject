@@ -1,11 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 // import { useDispatch } from 'react-redux';
-// import { Link } from 'react-router-dom';
-// import * as sessionActions from '../../store/session';
+// import { useSelector } from "react-redux";
 import OpenModalButton from "../../../../OpenModalButton/OpenModalButton";
 import UpdateAnswerForm from "./UpdateAnswerForm/UpdateAnswerForm";
 
-function UpdateAnswerModalButton({ user, answer }) {
+function UpdateAnswerModalButton({ answer }) {
   // const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
@@ -29,7 +28,7 @@ function UpdateAnswerModalButton({ user, answer }) {
 
   return (
     <OpenModalButton
-      modalComponent={<UpdateAnswerForm user={user} answer={answer} closeMenu={closeMenu} />}
+      modalComponent={<UpdateAnswerForm answer={answer} closeMenu={closeMenu} />}
       buttonText='Update Answer'
       onButtonClick={closeMenu}
       onModalClose

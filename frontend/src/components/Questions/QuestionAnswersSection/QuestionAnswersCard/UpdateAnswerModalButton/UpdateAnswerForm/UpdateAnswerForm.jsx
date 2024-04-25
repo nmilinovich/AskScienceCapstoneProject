@@ -8,8 +8,9 @@ import { postNewImages } from '../../../../../../store/images';
 // import { useNavigate } from "react-router-dom"
 // import UploadImages from '../../DragAndDropImages/UploadImages';
 
-function UpdateAnswerForm({user, answer }) {
+function UpdateAnswerForm({ answer }) {
     // const navigate = useNavigate()
+    // const user = useSelector((state) => state.session.user.id)
     const dispatch = useDispatch();
     const [description, setDescription] = useState(answer.description || '');
     const [selectedImages, setSelectedImages] = useState([]);
@@ -54,7 +55,6 @@ function UpdateAnswerForm({user, answer }) {
         }
     };
     return (
-        user ?
         <div className='formDiv'>
             <form onSubmit={onSubmit} className='postQuestionForm'>
                 <h1 className='responseH1'>Update Your Answer</h1>
@@ -100,8 +100,7 @@ function UpdateAnswerForm({user, answer }) {
                 </div>
             </form>
         </div>
-        :
-        <div>Log in to change your answer!</div>
+        // <div>Log in to change your answer!</div>
   );
 }
 

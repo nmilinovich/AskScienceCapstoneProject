@@ -26,7 +26,7 @@ function QuestionAnswersSection({ question }) {
         <div>
             {questionAnswers.map((answer) => {
                 return (
-                    <QuestionAnswersCard key={answer.id} answer={answer} questionAnswers={questionAnswers} />
+                    <QuestionAnswersCard key={answer.id} question={question} answer={answer} questionAnswers={questionAnswers} />
                 )
             })}
             <PostAnswer answers={questionAnswers}/>

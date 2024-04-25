@@ -6,7 +6,7 @@ import UpdateAnswerModalButton from './UpdateAnswerModalButton/UpdateAnswerModal
 // import { useEffect } from 'react';
 
 function QuestionAnswersCard({ answer, questionAnswers }) {
-    const user = useSelector((state) => state.session.user.id);
+    let user = useSelector((state) => state.session);
     const dispatch = useDispatch();
     return (
         <div>
@@ -15,7 +15,7 @@ function QuestionAnswersCard({ answer, questionAnswers }) {
                     <div className='answerOwnerDiv'>{answer.answerOwner.username}</div>
                     <div className='questionCardButtons'>
                         {
-                        answer.userId === user ?
+                        user.user?.id && answer.userId === user ?
                         <div>
                             <button
                                 onClick={
@@ -25,7 +25,7 @@ function QuestionAnswersCard({ answer, questionAnswers }) {
                                 }}
                                 className='deleteAnswerButton'>Delete Answer
                             </button>
-                            <UpdateAnswerModalButton user={user} answer={answer} questionAnswers={questionAnswers} />
+                            <UpdateAnswerModalButton answer={answer} questionAnswers={questionAnswers} />
                         </div>
                         : null
                         }
