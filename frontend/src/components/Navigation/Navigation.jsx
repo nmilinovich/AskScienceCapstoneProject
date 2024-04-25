@@ -28,9 +28,9 @@ function Navigation({ isLoaded }) {
             </NavLink>
         </div>
         <div className='filterTags'>
-            <button className='bioTag'>Biology</button>
-            <button className='chemTag'>Chemistry</button>
-            <button className='physTag'>Physics</button>
+            <button onClick={() => alert('feature coming soon')} className='bioTag'>Biology</button>
+            <button onClick={() => alert('feature coming soon')} className='chemTag'>Chemistry</button>
+            <button onClick={() => alert('feature coming soon')} className='physTag'>Physics</button>
         </div>
         {isLoaded && sessionLinks}
     </div>
