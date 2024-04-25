@@ -30,7 +30,7 @@ function LoginFormPage() {
           setErrors(data.errors);
         }
       }
-    ).then(navigate(state.prev.pathname))
+    ).then(navigate(state.prev?.pathname || '/'))
   };
 
   return (

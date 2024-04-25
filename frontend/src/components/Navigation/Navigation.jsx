@@ -1,7 +1,7 @@
 import { NavLink, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
-import logo from '../../../public/favicon.ico'
+import logo from '/src/favicon.ico'
 import './Navigation.css'
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
@@ -14,7 +14,7 @@ function Navigation({ isLoaded }) {
   ) : (
     <div className='login-signup-div'>
         <NavLink to="/login" state={{ prev: location }} ><button className='nav-Btn'>Login</button></NavLink>
-        <NavLink to="/signup"><button className='nav-Btn'>Sign Up</button></NavLink>
+        <NavLink to="/signup" state={{ prev: location }}><button className='nav-Btn'>Sign Up</button></NavLink>
     </div>
   );
 

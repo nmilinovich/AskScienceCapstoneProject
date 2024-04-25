@@ -40,7 +40,7 @@ function ProfileButton({ user }) {
     <div className='rightsideNav'>
       <button onClick={() => navigate('/questions/new')} className='askQuestionButton'>Ask a Question</button>
       <button onClick={toggleMenu} className="profile-btn">
-        <i className="fas fa-user-circle" />
+        <i className="fa fa-user-circle" aria-hidden='true' />
       </button>
       <div className={ulClassName} ref={ulRef}> {/* <-- Attach it here */}
         <div>{user.username}</div>
