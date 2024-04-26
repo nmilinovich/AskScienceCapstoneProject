@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useModal } from '../../../../../../context/Modal';
 import { getQuestionDetails } from '../../../../../../store/questions';
 import { editAnswer } from '../../../../../../store/answers';
-import { postNewImages } from '../../../../../../store/images';
+// import { postNewImages } from '../../../../../../store/images';
 // import { useNavigate } from "react-router-dom"
 // import UploadImages from '../../DragAndDropImages/UploadImages';
 
@@ -13,18 +13,18 @@ function UpdateAnswerForm({ answer }) {
     // const user = useSelector((state) => state.session.user.id)
     const dispatch = useDispatch();
     const [description, setDescription] = useState(answer.description || '');
-    const [selectedImages, setSelectedImages] = useState([]);
+    // const [selectedImages, setSelectedImages] = useState([]);
     const [errors, setErrors] = useState({})
 
-    function convertImageToBase64(file) {
-        const reader = new FileReader();
-        return new Promise(res => {
-            reader.onload = () => {
-                res(reader.result);
-            };
-            reader.readAsDataURL(file);
-        })
-    }
+    // function convertImageToBase64(file) {
+    //     const reader = new FileReader();
+    //     return new Promise(res => {
+    //         reader.onload = () => {
+    //             res(reader.result);
+    //         };
+    //         reader.readAsDataURL(file);
+    //     })
+    // }
 
     const { closeModal } = useModal();
 
@@ -42,15 +42,17 @@ function UpdateAnswerForm({ answer }) {
         console.log(errors)
         if (!Object.values(errors).length) {
             // const editedAnswer =
-            await new Promise(res => dispatch(editAnswer(updatedAnswer, answer.id)).then(res));
+            await new Promise(res => dispatch(editAnswer(updatedAnswer, answer.id)).then(res))
+            await new Promise(res => dispatch(getQuestionDetails(answer.questionId)).then(res))
+            .then(closeModal)
 
-            if (selectedImages.length) {
-                const base64Images = await Promise.all(selectedImages.map(convertImageToBase64));
-                await new Promise(res => dispatch(postNewImages(base64Images, 'answer', answer.id)).then(res));
-                setSelectedImages([])
-            }
-            dispatch(getQuestionDetails(answer.questionId))
-            .then(closeModal())
+            // if (selectedImages.length) {
+            //     const base64Images = await Promise.all(selectedImages.map(convertImageToBase64));
+            //     await new Promise(res => dispatch(postNewImages(base64Images, 'answer', answer.id)).then(res));
+            //     setSelectedImages([])
+            // }
+            // dispatch(getQuestionDetails(answer.questionId))
+            // .then(closeModal())
 
         }
     };
@@ -63,7 +65,7 @@ function UpdateAnswerForm({ answer }) {
                 <div className='newQDescription'>Question Description</div>
                 <textarea
                     className='descriptionTextarea'
-                    placeholder='Describe the question in great detail. Length (100-2500 characters)'
+                    placeholder='Describe the question in great detail. Length (100-3,000 characters)'
                     id='description'
                     type='text'
                     onChange={e => setDescription(e.target.value)}
@@ -71,7 +73,7 @@ function UpdateAnswerForm({ answer }) {
                 >
                 </textarea>
                 <div className={(description.length < 100 || description.length > 3000 ? 'tooLong' : '') + ' lengthDiv'}>Answer length: {description.length}</div>
-                <div className='uploadedImagesDiv'>
+                {/* <div className='uploadedImagesDiv'>
                     {selectedImages.map(img => (
                         <div key={img} className='uploadedImgDivs'>
                             <img
@@ -94,7 +96,7 @@ function UpdateAnswerForm({ answer }) {
                         setSelectedImages(selectedImages => [...selectedImages, ...event.target.files]);
                         }}
                     />
-                </div>
+                </div> */}
                 <div className='submitQuestionDiv'>
                     <button disabled={!description} onSubmit={onSubmit} className='submitQuestionButton'>Submit Question</button>
                 </div>
