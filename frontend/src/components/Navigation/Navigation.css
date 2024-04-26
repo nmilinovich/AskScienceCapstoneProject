@@ -63,21 +63,6 @@
     cursor: pointer;
 }
 
-.askQuestionButton {
-    height: 6vh;
-    width: 10vw;
-    border: 2px solid rgb(3, 83, 3);
-    border-radius: 5px;
-    background-color: rgb(255, 111, 0);
-    color: green;
-    box-shadow: -3px 3px 3px rgb(3, 83, 3);
-    cursor: pointer;
-}
-
-.rightsideNav {
-    float: right;
-}
-
 .login-signup-div {
     display: flex;
     flex-direction: row;
@@ -106,6 +91,23 @@
     cursor: pointer;
 }
 
+.rightsideNav {
+    display: flex;
+    float: right;
+}
+
+.askQuestionButton {
+    width: 10vw;
+    height: 6vh;
+    padding: 0;
+    margin-left: 0.5vw;
+    border: 2px solid rgb(3, 83, 3);
+    background-color: rgb(255, 111, 0);
+    box-shadow: -3px 3px 3px rgb(3, 83, 3);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
 .profile-btn {
     width: 6vw;
     height: 6vh;
@@ -118,7 +120,9 @@
     cursor: pointer;
 }
 
-.fas {
+
+
+.fa {
     font-size: 3vh;
 }
 

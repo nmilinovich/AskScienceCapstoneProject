@@ -52,7 +52,6 @@ function UpdateQuestionForm({ response }) {
             errHits.type = "You must select a science subject."
         }
         setErrors(errHits);
-        console.log(typeof title.length)
         console.log(errors)
         if (!Object.values(errHits).length) {
             // const editedQuestion =

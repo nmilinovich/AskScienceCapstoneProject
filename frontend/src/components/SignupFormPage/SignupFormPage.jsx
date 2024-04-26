@@ -14,11 +14,9 @@ function SignupFormPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
-  console.log(errors)
 
   if (sessionUser) {
     if (state.prev?.pathname) {
-      console.log(state.prev.pathname)
       navigate(state.prev.pathname)
     }
     return navigate('/')

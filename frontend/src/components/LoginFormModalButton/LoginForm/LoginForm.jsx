@@ -12,7 +12,6 @@ function LoginForm() {
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
-  // console.log(state)
 
   const handleLogin = async (e) => {
     e.preventDefault();
