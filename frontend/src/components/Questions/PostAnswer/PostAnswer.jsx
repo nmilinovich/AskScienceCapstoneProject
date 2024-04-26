@@ -47,7 +47,7 @@ function PostAnswer() {
             errHits.questionId = "Related Question could not be found";
         }
         if (description.length < 100 || description.length > 3000) {
-            errHits.description = "Description must be more than 30 characters.";
+            errHits.description = "Answer must be between 100 and 3,000 characters.";
         }
         setErrors(errHits);
         if (!Object.values(errHits).length) {

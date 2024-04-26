@@ -22,4 +22,6 @@
     background-color: rgb(235, 226, 223);
     border-radius: 1vw;
     padding: 1vh 1vw;
+    overflow: scroll;
+    max-height: 90vh;
   }
