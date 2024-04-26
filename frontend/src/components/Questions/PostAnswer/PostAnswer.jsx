@@ -18,8 +18,6 @@ function PostAnswer({ answers }) {
     const [description, setDescription] = useState('');
     const [selectedImages, setSelectedImages] = useState([]);
     const [errors, setErrors] = useState({})
-    let hasAnswer = answers.find(answer => answer.userId === user)
-
     function convertImageToBase64(file) {
         const reader = new FileReader();
         return new Promise(res => {
@@ -65,8 +63,7 @@ function PostAnswer({ answers }) {
     };
 
     return (
-        !user ? <div>Log in to post an answer!</div> :
-        !hasAnswer ?
+        !user ? <div className='loginToPostAnswer'>Log in to post an answer!</div> :
             <div >
                 <form onSubmit={onSubmit} className='postAnswerForm'>
                     <h3 className='responseH3'>Your Response</h3>
@@ -103,7 +100,6 @@ function PostAnswer({ answers }) {
                     <button disabled={!description} onSubmit={onSubmit}>Submit Answer</button>
                 </form>
             </div>
-            : null
   );
 }
 

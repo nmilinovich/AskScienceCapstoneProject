@@ -23,11 +23,11 @@ function SignupFormPage() {
     }
     return navigate('/')
   }
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
       setErrors({});
       if (password === confirmPassword) {
-        return dispatch(
+        await dispatch(
           sessionActions.signup({
             email,
             username,

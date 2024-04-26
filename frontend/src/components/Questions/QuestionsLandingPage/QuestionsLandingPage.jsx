@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { getQuestions } from '../../../store/questions';
 import { useDispatch, useSelector } from "react-redux";
 import QuestionTile from '../QuestionTile/QuestionTile';
+import './QuestionsLandingPage.css'
 
 function QuestionsLandingPage() {
     const dispatch = useDispatch();

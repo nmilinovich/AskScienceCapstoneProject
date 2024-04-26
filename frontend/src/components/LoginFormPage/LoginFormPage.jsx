@@ -12,14 +12,13 @@ function LoginFormPage() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   console.log(state)
+
   if (sessionUser) {
-    if (state.prev?.pathname) {
-      navigate(state.prev.pathname)
-    }
     return navigate('/')
   }
 
-  const handleSubmit = (e) => {
+  const handleLogin = async (e) => {
+    console.log(sessionActions)
     e.preventDefault();
     setErrors({});
     dispatch(sessionActions.login({ credential, password }))
@@ -30,35 +29,40 @@ function LoginFormPage() {
           setErrors(data.errors);
         }
       }
-    ).then(navigate(state.prev?.pathname || '/'))
+    )
   };
 
+  const handleDemoUser = (e) => {
+    return dispatch(sessionActions.login({ credential: 'Demo-lition', password: 'password' }))
+    .then(closeModal)
+  }
+
   return (
-    <>
-      <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
+    <div className='loginPage'>
+      <h1 className='loginH1'>Log In</h1>
+      <form className='loginForm'>
         <label>
-          Username or Email
-          <input
-            type="text"
-            value={credential}
-            onChange={(e) => setCredential(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        {errors.credential && <p>{errors.credential}</p>}
-        <button type="submit">Log In</button>
+            Username or Email
+            <input
+              type="text"
+              value={credential}
+              onChange={(e) => setCredential(e.target.value)}
+              required
+            />
+          </label>
+          <label>
+            Password
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </label>
+          {errors.credential && <p>{errors.credential}</p>}
+          <button onClick={handleLogin} type="submit">Log In</button>
       </form>
-    </>
+    </div>
   );
 }
 

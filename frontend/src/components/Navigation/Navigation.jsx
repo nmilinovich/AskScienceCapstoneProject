@@ -7,14 +7,13 @@ function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
   const location = useLocation()
   const sessionLinks = sessionUser ? (
-    <div>
-
+    <div className='login-signup-div'>
       <ProfileButton user={sessionUser} />
     </div>
   ) : (
     <div className='login-signup-div'>
-        <NavLink to="/login" state={{ prev: location }} ><button className='nav-Btn'>Login</button></NavLink>
-        <NavLink to="/signup" state={{ prev: location }}><button className='nav-Btn'>Sign Up</button></NavLink>
+        <NavLink className='loginNavLink' to="/login" state={{ prev: location }} ><button className='navBtnLogin'>Login</button></NavLink>
+        <NavLink className='loginNavLink' to="/signup" state={{ prev: location }}><button className='navBtnSignup'>Sign Up</button></NavLink>
     </div>
   );
 

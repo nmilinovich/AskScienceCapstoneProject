@@ -1,4 +1,13 @@
+.loginToPostAnswer {
+    text-align: center;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+}
+
 .postAnswerForm {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
     padding-top: 1vh;
     margin-top: 1vh;
     border-top: 1px black solid;

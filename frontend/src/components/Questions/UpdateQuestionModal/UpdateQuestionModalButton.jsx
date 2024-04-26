@@ -6,13 +6,13 @@ import OpenModalButton from "../../OpenModalButton/OpenModalButton";
 import UpdateQuestionForm from "./UpdateQuestionForm/UpdateQuestionForm";
 // import { getQuestionDetails } from "../../../store/questions";
 
-function UpdateQuestionModalButton({ user, response, imageableType }) {
+function UpdateQuestionModalButton({ response, imageableType }) {
   // const dispatch = useDispatch();
   // const ulRef = useRef();
 
   return (
     <OpenModalButton
-      modalComponent={<UpdateQuestionForm user={user} response={response} imageableType={imageableType} />}
+      modalComponent={<UpdateQuestionForm response={response} imageableType={imageableType} />}
       buttonText='Update Question'
       customClass={response.type + 'CardType' + ' updateQuestionModalButton'}
     />

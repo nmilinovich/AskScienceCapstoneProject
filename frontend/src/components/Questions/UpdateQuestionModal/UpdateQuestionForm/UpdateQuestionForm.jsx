@@ -8,7 +8,7 @@ import './UpdateQuestionForm.css'
 // import UploadImages from '../../DragAndDropImages/UploadImages';
 // import './PostQuestionPage.css'
 
-function UpdateQuestionForm({user, response }) {
+function UpdateQuestionForm({ response }) {
     // const navigate = useNavigate()
     const dispatch = useDispatch();
     const [title, setTitle] = useState(response.title || '');
@@ -68,7 +68,6 @@ function UpdateQuestionForm({user, response }) {
         }
     };
     return (
-        user ?
         <div className='formDiv'>
             <form onSubmit={onSubmit} className='postQuestionForm'>
                 <h1 className='responseH1'>Update Your Question</h1>
@@ -130,8 +129,6 @@ function UpdateQuestionForm({user, response }) {
                 </div>
             </form>
         </div>
-        :
-        <div>Log in to post a question!</div>
   );
 }
 
