@@ -9,6 +9,7 @@
     cursor: pointer;
     margin-top: 1vh;
     text-decoration: none;
+    color: rgb(255, 111, 0);
 }
 
 .chemistryQuestionTile {
@@ -22,6 +23,7 @@
     cursor: pointer;
     margin-top: 1vh;
     text-decoration: none;
+    color: blue
 }
 
 .physicsQuestionTile {
@@ -35,10 +37,15 @@
     cursor: pointer;
     margin-top: 1vh;
     text-decoration: none;
+    color: green
 }
 
 .type {
   padding-right: 0.3vw;
+}
+
+.physicsType {
+    color: green;
 }
 
 .questionTileTop {

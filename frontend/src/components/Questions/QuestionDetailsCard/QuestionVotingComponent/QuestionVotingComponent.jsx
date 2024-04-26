@@ -68,7 +68,7 @@ function QuestionVotingComponent() {
 
     useEffect(() => {
         dispatch(getUserLikes())
-    }, [dispatch])
+    }, [dispatch, user])
 
     return (
     <div className='likesContainer'>

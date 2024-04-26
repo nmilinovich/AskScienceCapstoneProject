@@ -86,23 +86,10 @@
     width: 33.3%;
 }
 
-.loginNavLink {
+.signupNavLink {
     display: flex;
-    text-align: right;
+    text-align: center;
     justify-content: right;
-}
-
-.navBtnLogin {
-    width: 8vw;
-    height: 6vh;
-    float: right;
-    /* align-items: center; */
-    border: 2px solid rgb(3, 83, 3);
-    border-radius: 5px;
-    background-color: rgb(255, 111, 0);
-    color: green;
-    box-shadow: -3px 3px 3px rgb(3, 83, 3);
-    cursor: pointer;
 }
 
 .navBtnSignup {
@@ -136,8 +123,7 @@
 }
 
 .profile-dropdown {
-    right: .8vw;
-    top: 7vh;
+    right: 0px;
     width: fit-content;
     margin: 0;
     padding: 4px;

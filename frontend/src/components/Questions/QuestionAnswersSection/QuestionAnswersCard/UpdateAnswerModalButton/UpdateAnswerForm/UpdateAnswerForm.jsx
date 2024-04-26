@@ -70,31 +70,31 @@ function UpdateAnswerForm({ answer }) {
                     value={description}
                 >
                 </textarea>
-                <div className={(description.length < 100 || description.length > 3000 ? 'tooLong' : '') + ' lengthDiv'}>Description length: {description.length}</div>
-                    <div className='uploadedImagesDiv'>
-                        {selectedImages.map(img => (
-                            <div key={img} className='uploadedImgDivs'>
-                                <img
-                                    className='uploadedImg'
-                                    alt="not found"
-                                    // width={"250px"}
-                                    src={URL.createObjectURL(img)}
-                                />
-                                <span onClick={() => setSelectedImages(selectedImages.filter((keptImgs) => keptImgs !== img))} className='removeQImageButton'>Remove Image</span>
-                            </div>
-                        ))}
-                    </div>
-                    <div className='imageUploadDiv'>
-                        <input
-                            id='file-upload-button'
-                            type="file"
-                            accept="image/*"
-                            size='10%'
-                            onChange={(event) => {
-                            setSelectedImages(selectedImages => [...selectedImages, ...event.target.files]);
-                            }}
-                        />
-                    </div>
+                <div className={(description.length < 100 || description.length > 3000 ? 'tooLong' : '') + ' lengthDiv'}>Answer length: {description.length}</div>
+                <div className='uploadedImagesDiv'>
+                    {selectedImages.map(img => (
+                        <div key={img} className='uploadedImgDivs'>
+                            <img
+                                className='uploadedImg'
+                                alt="not found"
+                                // width={"250px"}
+                                src={URL.createObjectURL(img)}
+                            />
+                            <span onClick={() => setSelectedImages(selectedImages.filter((keptImgs) => keptImgs !== img))} className='removeQImageButton'>Remove Image</span>
+                        </div>
+                    ))}
+                </div>
+                <div className='imageUploadDiv'>
+                    <input
+                        id='file-upload-button'
+                        type="file"
+                        accept="image/*"
+                        size='10%'
+                        onChange={(event) => {
+                        setSelectedImages(selectedImages => [...selectedImages, ...event.target.files]);
+                        }}
+                    />
+                </div>
                 <div className='submitQuestionDiv'>
                     <button disabled={!description} onSubmit={onSubmit} className='submitQuestionButton'>Submit Question</button>
                 </div>

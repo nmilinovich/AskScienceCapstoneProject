@@ -2,13 +2,27 @@
     text-align: center;
     margin-top: 2vh;
     margin-bottom: 2vh;
+    font-weight: 900;
+}
+
+.postAnswerSection {
+    text-align: center;
 }
 
 .postAnswerForm {
     display: flex;
     flex-direction: column;
-    align-self: center;
+    justify-content: center;
     padding-top: 1vh;
     margin-top: 1vh;
     border-top: 1px black solid;
+}
+
+.responseH3 {
+    font-weight: 900;
+}
+
+.postAnswerDescription {
+    width: 70vw;
+    height: 40vh;
 }

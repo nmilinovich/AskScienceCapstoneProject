@@ -13,7 +13,7 @@ function QuestionDetailsPage() {
     let { questionId } = useParams();
     questionId = parseInt(questionId);
     // dispatch(getQuestionDetails(questionId));
-    const user = useSelector((state) => state.session)
+    // const user = useSelector((state) => state.session)
     const question = useSelector((state) => state.questions[questionId]);
 
     useEffect(() => {
@@ -21,10 +21,7 @@ function QuestionDetailsPage() {
         dispatch(getUserLikes())
         dispatch(getUserAnswers())
     }, [dispatch, questionId]);
-    // const user = useSelector((state) => state.session.user?.['id']);
-    // if(!question) {
-    //     return <div>Loading...</div>;
-    // }
+
     if (!question) {
         <div>loading</div>
     }

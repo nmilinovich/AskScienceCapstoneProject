@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { removeAnswer } from '../../../../store/answers';
+import { getUserAnswers, removeAnswer } from '../../../../store/answers';
 import { getQuestionDetails } from '../../../../store/questions';
 import VotingComponent from '../../../VotingComponent/VotingComponent'
 import UpdateAnswerModalButton from './UpdateAnswerModalButton/UpdateAnswerModalButton';
@@ -15,13 +15,14 @@ function QuestionAnswersCard({ answer, questionAnswers }) {
                     <div className='answerOwnerDiv'>{answer.answerOwner.username}</div>
                     <div className='questionCardButtons'>
                         {
-                        user.user?.id && answer.userId === user ?
+                        answer.userId === user.user?.id ?
                         <div>
                             <button
                                 onClick={
                                     async (e) => {e.preventDefault();
                                     await dispatch(removeAnswer(answer.id));
-                                    await dispatch(getQuestionDetails(answer.questionId));
+                                    await dispatch(getUserAnswers());
+                                    await dispatch(getQuestionDetails(answer.questionId))
                                 }}
                                 className='deleteAnswerButton'>Delete Answer
                             </button>
