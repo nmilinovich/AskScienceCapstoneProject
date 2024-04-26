@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import * as sessionActions from '../../store/session';
 import './SignupForm.css';
 
 function SignupFormPage() {
+  const navigate = useNavigate();
+  const { state } = useLocation();
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
   const [email, setEmail] = useState("");
@@ -13,28 +15,28 @@ function SignupFormPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
 
-  if (sessionUser) return <Navigate to="/" replace={true} />;
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (password === confirmPassword) {
-      setErrors({});
-      return dispatch(
-        sessionActions.signup({
-          email,
-          username,
-          password
-        })
-      ).catch(async (res) => {
-        const data = await res.json();
-        if (data?.errors) {
-          setErrors(data.errors);
-        }
-      });
+  if (sessionUser) {
+    if (state.prev?.pathname) {
+      navigate(state.prev.pathname)
     }
-    return setErrors({
-      confirmPassword: "Confirm Password field must be the same as the Password field"
-    });
+    return navigate('/')
+  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+      setErrors({});
+      if (password === confirmPassword) {
+        await dispatch(
+          sessionActions.signup({
+            email,
+            username,
+            password
+        })).catch(async (res) => {
+              const data = await res.json();
+              setErrors(data.errors);
+        }).then(navigate(state.prev.pathname || '/'))
+      } else {
+      setErrors({...errors, confirmPassword: 'passwords need to match'})
+      }
   };
 
   return (
@@ -50,7 +52,7 @@ function SignupFormPage() {
             required
           />
         </label>
-        {errors.email && <p>{errors.email}</p>}
+        {errors.email && <span>{errors.email}</span>}
         <label>
           Username
           <input
@@ -60,7 +62,7 @@ function SignupFormPage() {
             required
           />
         </label>
-        {errors.username && <p>{errors.username}</p>}
+        {errors.username && <span>{errors.username}</span>}
         <label>
           Password
           <input
@@ -70,7 +72,7 @@ function SignupFormPage() {
             required
           />
         </label>
-        {errors.password && <p>{errors.password}</p>}
+        {errors.password && <span>{errors.password}</span>}
         <label>
           Confirm Password
           <input
@@ -80,8 +82,8 @@ function SignupFormPage() {
             required
           />
         </label>
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <button type="submit">Sign Up</button>
+        {errors.confirmPassword && <span>{errors.confirmPassword}</span>}
+        <button disabled={!email || !username || ! password || ! confirmPassword} type="submit">Sign Up</button>
       </form>
     </>
   );

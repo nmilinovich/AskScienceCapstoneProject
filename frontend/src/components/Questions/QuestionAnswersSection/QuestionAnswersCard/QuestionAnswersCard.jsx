@@ -1,12 +1,12 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { removeAnswer } from '../../../../store/answers';
+import { getUserAnswers, removeAnswer } from '../../../../store/answers';
 import { getQuestionDetails } from '../../../../store/questions';
 import VotingComponent from '../../../VotingComponent/VotingComponent'
 import UpdateAnswerModalButton from './UpdateAnswerModalButton/UpdateAnswerModalButton';
 // import { useEffect } from 'react';
 
 function QuestionAnswersCard({ answer, questionAnswers }) {
-    const user = useSelector((state) => state.session.user.id);
+    let user = useSelector((state) => state.session);
     const dispatch = useDispatch();
     return (
         <div>
@@ -15,17 +15,18 @@ function QuestionAnswersCard({ answer, questionAnswers }) {
                     <div className='answerOwnerDiv'>{answer.answerOwner.username}</div>
                     <div className='questionCardButtons'>
                         {
-                        answer.userId === user ?
+                        answer.userId === user.user?.id ?
                         <div>
                             <button
                                 onClick={
                                     async (e) => {e.preventDefault();
                                     await dispatch(removeAnswer(answer.id));
-                                    await dispatch(getQuestionDetails(answer.questionId));
+                                    await dispatch(getUserAnswers());
+                                    await dispatch(getQuestionDetails(answer.questionId))
                                 }}
                                 className='deleteAnswerButton'>Delete Answer
                             </button>
-                            <UpdateAnswerModalButton user={user} answer={answer} questionAnswers={questionAnswers} />
+                            <UpdateAnswerModalButton answer={answer} questionAnswers={questionAnswers} />
                         </div>
                         : null
                         }

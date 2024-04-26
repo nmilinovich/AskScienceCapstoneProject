@@ -1,17 +1,17 @@
 import { useParams } from 'react-router-dom';
 // import { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { postNewLike, editLike, removeLike } from '../../../../store/likes';
+import { postNewLike, editLike, removeLike, getUserLikes } from '../../../../store/likes';
 import { getQuestionDetails } from "../../../../store/questions";
 // import './VotingComponent.css'
-// import { useEffect } from "react";
+import { useEffect } from "react";
 
 function QuestionVotingComponent() {
     const dispatch = useDispatch()
     let { questionId } = useParams();
     questionId = parseInt(questionId);
     const question = useSelector((state) => state.questions[questionId])
-    let user = useSelector((state) => state.session.user);
+    const user = useSelector((state) => state.session.user);
     let userLikesObj = useSelector((state) => state.likes);
     let userLikes = Object.values(userLikesObj)
     let userLike = userLikes.find(like => like.likeableId === questionId
@@ -60,15 +60,15 @@ function QuestionVotingComponent() {
                 }
             }
             dispatch(getQuestionDetails(questionId))
-
         }
     }
 
     // useEffect(() => {
     // }, [dispatch])
 
-    // useEffect(() => {
-    // }, [dispatch, userLikesObj])
+    useEffect(() => {
+        dispatch(getUserLikes())
+    }, [dispatch, user])
 
     return (
     <div className='likesContainer'>

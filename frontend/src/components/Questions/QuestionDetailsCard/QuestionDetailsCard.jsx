@@ -10,7 +10,7 @@ import './QuestionDetailsCard.css'
 
 function QuestionDetailsCard({ question }) {
     const dispatch = useDispatch()
-    const user = useSelector((state) => state.session.user.id);
+    const user = useSelector((state) => state.session);
     // const questionLikes = useSelector((state => state.questions[question.id].Likes))
     useEffect(() => {
         dispatch(getUserLikes())
@@ -30,7 +30,7 @@ function QuestionDetailsCard({ question }) {
                 <span className='questionCardOwner'>{question.questionOwner.username}</span>
                 <div className='questionCardButtons'>
                 {
-                question.userId === user ?
+                question.userId === user.user?.id ?
                 <div>
                     <button className={question.type + 'CardType' + ' deleteQuestionButton'} onClick={deleteQuestion}>Delete Question</button>
                     <UpdateQuestionModalButton user={user} response={question} />

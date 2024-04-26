@@ -8,8 +8,9 @@ import { postNewImages } from '../../../../../../store/images';
 // import { useNavigate } from "react-router-dom"
 // import UploadImages from '../../DragAndDropImages/UploadImages';
 
-function UpdateAnswerForm({user, answer }) {
+function UpdateAnswerForm({ answer }) {
     // const navigate = useNavigate()
+    // const user = useSelector((state) => state.session.user.id)
     const dispatch = useDispatch();
     const [description, setDescription] = useState(answer.description || '');
     const [selectedImages, setSelectedImages] = useState([]);
@@ -54,7 +55,6 @@ function UpdateAnswerForm({user, answer }) {
         }
     };
     return (
-        user ?
         <div className='formDiv'>
             <form onSubmit={onSubmit} className='postQuestionForm'>
                 <h1 className='responseH1'>Update Your Answer</h1>
@@ -70,38 +70,37 @@ function UpdateAnswerForm({user, answer }) {
                     value={description}
                 >
                 </textarea>
-                <div className={(description.length < 100 || description.length > 3000 ? 'tooLong' : '') + ' lengthDiv'}>Description length: {description.length}</div>
-                    <div className='uploadedImagesDiv'>
-                        {selectedImages.map(img => (
-                            <div key={img} className='uploadedImgDivs'>
-                                <img
-                                    className='uploadedImg'
-                                    alt="not found"
-                                    // width={"250px"}
-                                    src={URL.createObjectURL(img)}
-                                />
-                                <span onClick={() => setSelectedImages(selectedImages.filter((keptImgs) => keptImgs !== img))} className='removeQImageButton'>Remove Image</span>
-                            </div>
-                        ))}
-                    </div>
-                    <div className='imageUploadDiv'>
-                        <input
-                            id='file-upload-button'
-                            type="file"
-                            accept="image/*"
-                            size='10%'
-                            onChange={(event) => {
-                            setSelectedImages(selectedImages => [...selectedImages, ...event.target.files]);
-                            }}
-                        />
-                    </div>
+                <div className={(description.length < 100 || description.length > 3000 ? 'tooLong' : '') + ' lengthDiv'}>Answer length: {description.length}</div>
+                <div className='uploadedImagesDiv'>
+                    {selectedImages.map(img => (
+                        <div key={img} className='uploadedImgDivs'>
+                            <img
+                                className='uploadedImg'
+                                alt="not found"
+                                // width={"250px"}
+                                src={URL.createObjectURL(img)}
+                            />
+                            <span onClick={() => setSelectedImages(selectedImages.filter((keptImgs) => keptImgs !== img))} className='removeQImageButton'>Remove Image</span>
+                        </div>
+                    ))}
+                </div>
+                <div className='imageUploadDiv'>
+                    <input
+                        id='file-upload-button'
+                        type="file"
+                        accept="image/*"
+                        size='10%'
+                        onChange={(event) => {
+                        setSelectedImages(selectedImages => [...selectedImages, ...event.target.files]);
+                        }}
+                    />
+                </div>
                 <div className='submitQuestionDiv'>
                     <button disabled={!description} onSubmit={onSubmit} className='submitQuestionButton'>Submit Question</button>
                 </div>
             </form>
         </div>
-        :
-        <div>Log in to change your answer!</div>
+        // <div>Log in to change your answer!</div>
   );
 }
 

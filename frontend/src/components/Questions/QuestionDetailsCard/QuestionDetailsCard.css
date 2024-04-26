@@ -3,6 +3,7 @@
     border: 2px solid rgb(255, 111, 0);
     border-radius: 2px;
     background-color: rgb(3, 83, 3);
+    border-radius: 1vw;
 }
 
 .chemistryQuestionCard {
@@ -10,6 +11,7 @@
     border: 2px solid blue;
     border-radius: 2px;
     background-color: rgb(255, 111, 0);
+    border-radius: 1vw;
 }
 
 .physicsQuestionCard {
@@ -17,6 +19,7 @@
     border: 2px solid rgb(3, 83, 3);
     border-radius: 2px;
     background-color: blue;
+    border-radius: 1vw;
 }
 
 .questionCardTop {

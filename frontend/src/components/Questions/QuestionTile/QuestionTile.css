@@ -1,0 +1,80 @@
+.biologyQuestionTile {
+    height: fit-content;
+    /* width: 98vw; */
+    border: 2px solid rgb(255, 111, 0);
+    border-radius: 5px;
+    background-color: rgb(3, 83, 3);
+    /* color: green; */
+    box-shadow: -3px 3px 3px rgb(255, 111, 0);
+    cursor: pointer;
+    margin-top: 1vh;
+    text-decoration: none;
+    color: rgb(255, 111, 0);
+}
+
+.chemistryQuestionTile {
+    height: fit-content;
+    /* width: 98vw; */
+    border: 2px solid blue;
+    border-radius: 5px;
+    background-color: rgb(255, 111, 0);
+    /* color: green; */
+    box-shadow: -3px 3px 3px blue;
+    cursor: pointer;
+    margin-top: 1vh;
+    text-decoration: none;
+    color: blue
+}
+
+.physicsQuestionTile {
+    height: fit-content;
+    /* width: 98vw; */
+    border: 2px solid rgb(3, 83, 3);
+    border-radius: 5px;
+    background-color: blue;
+    /* color: green; */
+    box-shadow: -3px 3px 3px rgb(3, 83, 3);
+    cursor: pointer;
+    margin-top: 1vh;
+    text-decoration: none;
+    color: green
+}
+
+.type {
+  padding-right: 0.3vw;
+}
+
+.physicsType {
+    color: green;
+}
+
+.questionTileTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.questionTileOwner {
+    margin-left: 0.5vh;
+}
+
+.questionTileType {
+    margin-right: 0.5vh;
+    color: rgb(3, 83, 3);
+}
+
+.questionTileTitle {
+    text-align: justify;
+    margin-left: 0.5vw;
+    margin-right: 0.5vw;
+    margin-top: 0.5vh;
+    margin-bottom: 0.5vh;
+
+}
+
+.questionTileDescription {
+    margin-left: 0.5vw;
+    margin-top: 0.5vh;
+    margin-bottom: 0.5vh;
+    text-align: justify;
+}

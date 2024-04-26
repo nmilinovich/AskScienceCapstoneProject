@@ -1,0 +1,72 @@
+.loginH1 {
+    text-align: center;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+}
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    width: 30vw;
+    margin: 2vh 2vw 0.5vh 2vw;
+}
+
+.usernameLoginDiv {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5vh 0.3vw;
+    border: 1px solid black;
+    border-radius: 2px;
+    margin-bottom: 0.5vh;
+}
+
+.usernameLoginSpan {
+
+}
+
+.usernameLoginInput {
+    background-color: antiquewhite;
+}
+
+.passwordLoginDiv {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5vh 0.3vw;
+    border: 1px solid black;
+    border-radius: 2px;
+}
+
+.usernameLoginSpan {
+
+}
+
+.passwordLoginInput {
+    background-color: antiquewhite;
+}
+
+.userLoginButton {
+    /* width: 10vw; */
+    border: 2px solid rgb(3, 83, 3);
+    border-radius: 5px;
+    background-color: rgb(255, 111, 0);
+    color: green;
+    box-shadow: -3px 3px 3px rgb(3, 83, 3);
+    cursor: pointer;
+    margin-top: 0.5vh;
+}
+
+.demoUserLoginDiv {
+    text-align: center;
+}
+
+.demoUserLoginButton {
+    /* width: 10vw; */
+    border: 2px solid rgb(3, 83, 3);
+    border-radius: 5px;
+    background-color: rgb(255, 111, 0);
+    color: green;
+    box-shadow: -3px 3px 3px rgb(3, 83, 3);
+    cursor: pointer;
+    margin-top: 0.5vh;
+    width: 30vw;
+}
