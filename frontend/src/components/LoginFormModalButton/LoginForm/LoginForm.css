@@ -20,9 +20,9 @@
     margin-bottom: 0.5vh;
 }
 
-.usernameLoginSpan {
+/* .usernameLoginSpan {
 
-}
+} */
 
 .usernameLoginInput {
     background-color: antiquewhite;
@@ -36,9 +36,9 @@
     border-radius: 2px;
 }
 
-.usernameLoginSpan {
+/* .usernameLoginSpan {
 
-}
+} */
 
 .passwordLoginInput {
     background-color: antiquewhite;

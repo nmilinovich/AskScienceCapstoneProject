@@ -33,59 +33,70 @@ function SignupFormPage() {
         })).catch(async (res) => {
               const data = await res.json();
               setErrors(data.errors);
-        }).then(navigate(state.prev.pathname || '/'))
+        })
+        // .then(console.log(res) && res.ok ? navigate(state.prev.pathname || '/') : null)
       } else {
-      setErrors({...errors, confirmPassword: 'passwords need to match'})
+        if (username.length < 4) {
+          setErrors({...errors, confirmPassword: 'Passwords need to match', username: 'Username must be longer than 4 characters'})
+        } else {
+          setErrors({...errors, confirmPassword: 'Passwords need to match'})
+        }
       }
   };
 
   return (
-    <>
-      <h1>Sign Up</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email
+    <div className='signupPage'>
+      <h1 className='signupH1'>Sign Up</h1>
+      <form onSubmit={handleSubmit} className='signupForm'>
+        <div className='emailSignupDiv'>
+          <span className='emailSignupSpan'>Email:</span>
           <input
+            className='emailSignupInput'
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-        </label>
-        {errors.email && <span>{errors.email}</span>}
-        <label>
-          Username
+        </div>
+        {errors.email && <p className='error'>{errors.email}</p>}
+        <div className='usernameSignupDiv'>
+          <span className='usernameSignupSpan'>Username:</span>
           <input
+            className='usernameSignupInput'
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
           />
-        </label>
-        {errors.username && <span>{errors.username}</span>}
-        <label>
-          Password
+        </div>
+        {errors.username && <p className='error'>{errors.username}</p>}
+        <div className='passwordSignupDiv'>
+          <span className='passwordSignupSpan'>Password:</span>
           <input
+            className='passwordSignupInput'
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        </label>
-        {errors.password && <span>{errors.password}</span>}
-        <label>
-          Confirm Password
+        </div>
+        {errors.password && <p className='error'>{errors.password}</p>}
+        <div className='confirmPasswordSignupDiv'>
+          <span className='confirmPasswordSignupSpan'>Confirm Password:</span>
           <input
+            className='confirmPasswordSignupInput'
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
-          />
-        </label>
-        {errors.confirmPassword && <span>{errors.confirmPassword}</span>}
-        <button disabled={!email || !username || ! password || ! confirmPassword} type="submit">Sign Up</button>
+            />
+        </div>
+        {errors.confirmPassword && <p className='error'>{errors.confirmPassword}</p>}
+        <button disabled={!email || !username || ! password || ! confirmPassword}
+          type="submit" className='userSignupButton'>Sign Up
+        </button>
       </form>
-    </>
+    </div>
   );
 }
 

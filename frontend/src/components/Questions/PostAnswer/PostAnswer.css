@@ -26,3 +26,13 @@
     width: 70vw;
     height: 40vh;
 }
+
+.submitAnswerBtn {
+    width: 10vw;
+    text-align: center;
+    margin-bottom: 2vh;
+    border-radius: 0.2vw;
+    background-color: rgb(3,83,3);
+    color: rgb(255, 111, 0);
+    cursor: pointer;
+}

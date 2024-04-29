@@ -1,0 +1,6 @@
+.updateQuestionModalButton {
+    border-radius: 3px;
+    padding: 0.5vh 0.5vw 0.5vh 0.5vw;
+    background-color: rgb(255, 111, 0);
+    cursor: pointer;
+}
