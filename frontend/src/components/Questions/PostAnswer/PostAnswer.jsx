@@ -108,7 +108,9 @@ function PostAnswer() {
                             }}
                         />
                     </div>
-                    <button disabled={!description} onSubmit={onSubmit}>Submit Answer</button>
+                    <div>
+                        <button disabled={!description} onSubmit={onSubmit} className='submitAnswerBtn'>Submit Answer</button>
+                    </div>
                 </form>
             </div>
         : null

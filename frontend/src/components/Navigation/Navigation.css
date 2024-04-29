@@ -127,7 +127,8 @@
 }
 
 .profile-dropdown {
-    right: 0px;
+    right: 0.1vw;
+    top: 6vh;
     width: fit-content;
     margin: 0;
     padding: 4px;
