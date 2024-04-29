@@ -34,13 +34,8 @@ function SignupFormPage() {
               const data = await res.json();
               setErrors(data.errors);
         })
-        // .then(console.log(res) && res.ok ? navigate(state.prev.pathname || '/') : null)
       } else {
-        if (username.length < 4) {
-          setErrors({...errors, confirmPassword: 'Passwords need to match', username: 'Username must be longer than 4 characters'})
-        } else {
           setErrors({...errors, confirmPassword: 'Passwords need to match'})
-        }
       }
   };
 
