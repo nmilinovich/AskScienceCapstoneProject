@@ -42,8 +42,9 @@
     margin-bottom: 0.5vh;
     margin-left: 1vw;
     margin-right: 1vw;
-    width: 100%;
+    max-width: 90%;
     float: right;
+    word-wrap: break-word;
 }
 
 .answerCommentDescription {

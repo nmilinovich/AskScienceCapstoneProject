@@ -69,12 +69,11 @@
     margin-right: 0.5vw;
     margin-top: 0.5vh;
     margin-bottom: 0.5vh;
-
+    word-wrap: break-word;
 }
 
 .questionTileDescription {
-    margin-left: 0.5vw;
-    margin-top: 0.5vh;
-    margin-bottom: 0.5vh;
+    margin: 0.5vh 0.5vw;
     text-align: justify;
+    word-wrap: break-word;
 }
