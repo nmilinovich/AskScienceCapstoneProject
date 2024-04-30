@@ -30,7 +30,7 @@
 
 .likesAndDesciptionContainer {
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     border-top: 1px solid black;
     margin-top: 0.5vh;
     padding-top: 1vh;
@@ -43,7 +43,6 @@
     margin-left: 1vw;
     margin-right: 1vw;
     max-width: 90%;
-    float: right;
     word-wrap: break-word;
 }
 
