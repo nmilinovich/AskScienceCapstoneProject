@@ -38,6 +38,8 @@
 }
 
 .answerCommentDescription {
+    display: flex;
+    justify-content: space-between;
     /* width: 99%; */
     margin-top: 0.5vh;
     margin-bottom: 0.5vh;

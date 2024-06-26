@@ -1,13 +1,22 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { removeAnswer } from '../../../../store/answers';
 import { getQuestionDetails } from '../../../../store/questions';
-import VotingComponent from '../../../VotingComponent/VotingComponent'
+import VotingComponent from '../../../VotingComponent/VotingComponent';
+import UpdateCommentModalButton from '../../CommentModalButton/UpdateCommentModalButton';
 import UpdateAnswerModalButton from './UpdateAnswerModalButton/UpdateAnswerModalButton';
+
 // import { useEffect } from 'react';
 
 function QuestionAnswersCard({ answer, questionAnswers }) {
     console.log(answer)
     const user = useSelector((state) => state.session.user.id);
+    let hasComment = false;
+    let usersAnswer = answer.userId === user;
+    answer.Comments.forEach((comment) => {
+        if (comment.userId === user) {
+            hasComment = true
+        }
+    });
     const dispatch = useDispatch();
 
     return (
@@ -50,9 +59,18 @@ function QuestionAnswersCard({ answer, questionAnswers }) {
                 <div>
                     {answer.Comments?.map((answerComment) => {
                         return (
-                            <div className='answerCommentDescription' key={answerComment.id}>{answerComment.description}</div>
+                            <div className='answerCommentDescription' key={answerComment.id}>
+                                {answerComment.description}
+                                {answerComment.userId === user ? <UpdateCommentModalButton user={user} comment={answerComment} response={answerComment} commentableType='answer' />: null}
+                            </div>
                         )
                     })}
+                </div>
+                <div>
+                    {!hasComment && !usersAnswer ?
+                        <button>Add a Comment</button>
+                    : null
+                    }
                 </div>
             </div>
         </div>

@@ -3,6 +3,7 @@ import thunk from 'redux-thunk';
 import sessionReducer from './session';
 import questionsReducer from './questions';
 import answersReducer from './answers';
+import commentsReducer from './comments';
 import likesReducer from './likes';
 
 const rootReducer = combineReducers({
@@ -10,7 +11,8 @@ const rootReducer = combineReducers({
   session: sessionReducer,
   questions: questionsReducer,
   answers: answersReducer,
-  likes: likesReducer
+  comments: commentsReducer,
+  likes: likesReducer,
 });
 
 let enhancer;
