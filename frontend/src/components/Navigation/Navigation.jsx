@@ -20,17 +20,23 @@ function Navigation({ isLoaded }) {
   );
 
   return (
-    <div className='navbar'>
+    <div className={window.location.href === 'https://searchingsciencecapstoneproject.onrender.com/' ? 'navbarHome' : 'navbar'}>
         <div className='leftsideNav'>
             <NavLink to="/" className='homeBtn'>
               <img className='logo' src={logo} alt=''/>
             </NavLink>
         </div>
+        {
+        window.location.href === 'https://searchingsciencecapstoneproject.onrender.com/'
+        ?
         <div className='filterTags'>
             <button onClick={() => alert('feature coming soon')} className='bioTag'>Biology</button>
             <button onClick={() => alert('feature coming soon')} className='chemTag'>Chemistry</button>
             <button onClick={() => alert('feature coming soon')} className='physTag'>Physics</button>
         </div>
+        :
+        <div></div>
+        }
         {isLoaded && sessionLinks}
     </div>
   );

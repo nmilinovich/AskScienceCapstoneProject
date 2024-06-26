@@ -2,11 +2,19 @@
     display: none;
 }
 
+.navbarHome {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    height: 6vh;
+}
+
 .navbar {
     display: flex;
     flex-direction: row;
     margin: 0;
     height: 6vh;
+    justify-content: space-between;
 }
 
 .leftsideNav {
@@ -89,6 +97,11 @@
     color: green;
     box-shadow: -3px 3px 3px rgb(3, 83, 3);
     cursor: pointer;
+}
+
+.rightsideNavHome {
+    display: flex;
+    float: right;
 }
 
 .rightsideNav {
