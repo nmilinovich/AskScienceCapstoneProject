@@ -14,6 +14,7 @@ const validateLogin = [
       .withMessage('Please provide a valid email or username.'),
     check('password')
       .exists({ checkFalsy: true })
+      .isAlphanumeric()
       .withMessage('Please provide a password.'),
     handleValidationErrors
   ];
@@ -22,7 +23,6 @@ router.get(
     '/',
     async (req, res) => {
       const { user } = req;
-      console.log(user)
       if (!user) {
         return res.json({ user: null })
       }

@@ -3,6 +3,7 @@
     border: 2px solid rgb(255, 111, 0);
     border-radius: 2px;
     background-color: rgb(3, 83, 3);
+    border-radius: 1vw;
 }
 
 .chemistryQuestionCard {
@@ -10,6 +11,7 @@
     border: 2px solid blue;
     border-radius: 2px;
     background-color: rgb(255, 111, 0);
+    border-radius: 1vw;
 }
 
 .physicsQuestionCard {
@@ -17,6 +19,7 @@
     border: 2px solid rgb(3, 83, 3);
     border-radius: 2px;
     background-color: blue;
+    border-radius: 1vw;
 }
 
 .questionCardTop {
@@ -98,13 +101,15 @@
     margin-bottom: 0.5vh;
     margin-left: 1vw;
     margin-right: 1vw;
-    width: 100%;
-    float: right;
+    max-width: 90%;
+    word-wrap: break-word;
 }
 
 .questionCardDescription {
+    max-width: 99%;
     margin-left: 0.5vw;
     text-align: justify;
+    word-wrap: break-word;
 }
 
 .questionImgsContainer {

@@ -34,7 +34,6 @@ function PostQuestionPage() {
     // }, [dispatch, questionId]);
 
     const onSubmit = async (e) => {
-        console.log(selectedImages)
         e.preventDefault();
         setErrors({});
         const newQuestion = {
@@ -43,17 +42,17 @@ function PostQuestionPage() {
             type,
         };
         let errHits = {};
-        if (20 < title.length < 300) {
+        if (title.length < 20 || title.length > 300) {
             errHits.title = "Title must be between 20 and 300 characters.";
         }
-        if (100 < description.length < 2500) {
+        if (description.length < 100 || description.length > 2500) {
             errHits.description = "Description must be between 100 and 2,500 characters.";
         }
         if (!type) {
             errHits.type = "You must select a science subject."
         }
         setErrors(errHits);
-        if (!Object.values(errors).length) {
+        if (!Object.values(errHits).length) {
             const question = await new Promise(res => dispatch(postNewQuestion(newQuestion)).then(res));
             setTitle('')
             setDescription('')
@@ -61,7 +60,6 @@ function PostQuestionPage() {
             if (selectedImages.length) {
                 let imageableId = question.id
                 const base64Images = await Promise.all(selectedImages.map(convertImageToBase64));
-                console.log(base64Images);
                 await new Promise(res => dispatch(postNewImages(base64Images, imageableType, imageableId)).then(res));
                 setSelectedImages([])
             }
@@ -81,6 +79,7 @@ function PostQuestionPage() {
                     <span onClick={() => setType('chemistry')} className={(type==='chemistry' ? 'chemSelect' : '') + ' typeButton'}>Chemistry</span>
                     <span onClick={() => setType('physics')} className={(type==='physics' ? 'physSelect' : '') + ' typeButton'}>Physics</span>
                 </div>
+                {errors.type && <p className='error'>{errors.type}</p>}
                 <div className='newQTitle'>Question Title</div>
                 <textarea
                         className='titleTextarea'
@@ -90,6 +89,7 @@ function PostQuestionPage() {
                         onChange={e => setTitle(e.target.value)}
                         value={title}
                 />
+                <div>{errors.title && <div className='error'>{errors.title}</div>}</div>
                 <div className={(title.length < 20 || title.length > 300 ? 'tooLong' : '') + ' lengthDiv'}>Title length: {title.length}</div>
                 <div className='newQDescription'>Question Description</div>
                 <textarea
@@ -101,6 +101,7 @@ function PostQuestionPage() {
                     value={description}
                 >
                 </textarea>
+                <div>{errors.description && <div className='error'>{errors.description}</div>}</div>
                 <div className={(description.length < 100 || description.length > 2500 ? 'tooLong' : '') + ' lengthDiv'}>Description length: {description.length}</div>
                     <div className='uploadedImagesDiv'>
                         {selectedImages.map(img => (

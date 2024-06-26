@@ -6,13 +6,12 @@ import { useEffect } from 'react';
 
 function QuestionAnswersSection({ question }) {
     const dispatch = useDispatch()
-
     // const questionAnswersObj = useSelector((state) => state.questions[question.id])
     let questionAnswers = Object.values(question.Answers)
     useEffect(() => {
         dispatch(getUserAnswers())
         // dispatch(getUserLikes())
-    }, [dispatch])
+    }, [dispatch, questionAnswers])
     //     const answer = useCallback(
     //     () => (answer),
     //     [answer]
@@ -25,12 +24,11 @@ function QuestionAnswersSection({ question }) {
     return (
         <div>
             {questionAnswers.map((answer) => {
-                console.log(questionAnswers)
                 return (
-                    <QuestionAnswersCard key={answer.id} answer={answer} questionAnswers={questionAnswers} />
+                    <QuestionAnswersCard key={answer.id} question={question} answer={answer} questionAnswers={questionAnswers} />
                 )
             })}
-            <PostAnswer answers={questionAnswers}/>
+            <PostAnswer />
         </div>
     )
 }

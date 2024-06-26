@@ -1,0 +1,80 @@
+.signupPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.signupH1 {
+    text-align: center;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+}
+
+.signupForm {
+    width: fit-content;
+    margin: 2vh 2vw 0.5vh 2vw;
+    text-align: center;
+}
+
+.emailSignupDiv {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5vh 0.3vw;
+    border: 1px solid black;
+    border-radius: 2px;
+    margin-bottom: 0.5vh;
+}
+
+.emailSignupInput {
+    background-color: antiquewhite;
+}
+
+.usernameSignupDiv {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5vh 0.3vw;
+    border: 1px solid black;
+    border-radius: 2px;
+    margin-bottom: 0.5vh;
+}
+
+.usernameSignupInput {
+    background-color: antiquewhite;
+}
+
+.passwordSignupDiv {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5vh 0.3vw;
+    border: 1px solid black;
+    border-radius: 2px;
+    margin-bottom: 0.5vh;
+}
+
+.passwordSignupInput {
+    background-color: antiquewhite;
+}
+
+.confirmPasswordSignupDiv {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5vh 0.3vw;
+    border: 1px solid black;
+    border-radius: 2px;
+    margin-bottom: 0.5vh;
+}
+
+.confirmPasswordSignupInput {
+    background-color: antiquewhite;
+}
+
+.userSignupButton {
+    /* width: 10vw; */
+    border: 2px solid rgb(3, 83, 3);
+    border-radius: 5px;
+    background-color: rgb(255, 111, 0);
+    color: green;
+    box-shadow: -3px 3px 3px rgb(3, 83, 3);
+    cursor: pointer;
+    margin-top: 0.5vh;
+}

@@ -1,34 +1,47 @@
-import { useState  } from 'react';
-// import { useParams } from 'react-router-dom';
+import { useState } from 'react';
+import { useModal } from '../../../../context/Modal';
 import { useDispatch } from 'react-redux';
-import { getQuestionDetails, editQuestion } from '../../../../store/questions';
-import { postNewImages } from '../../../../store/images';
+import { editQuestion } from '../../../../store/questions';
+// import { postNewImages } from '../../../../store/images';
+import './UpdateQuestionForm.css'
 // import { useNavigate } from "react-router-dom"
 // import UploadImages from '../../DragAndDropImages/UploadImages';
 // import './PostQuestionPage.css'
 
-function UpdateQuestionForm({user, response }) {
+function UpdateQuestionForm({ response }) {
     // const navigate = useNavigate()
+    let oldImagesObj = response.Images;
+    let oldImages = Object.values(oldImagesObj);
+    console.log(oldImages)
     const dispatch = useDispatch();
     const [title, setTitle] = useState(response.title || '');
     const [description, setDescription] = useState(response.description || '');
-    const [type, setType] = useState(response.type || '');
-    const [selectedImages, setSelectedImages] = useState([]);
+    // const [type, setType] = useState(response.type || '');
+    // const [selectedImages, setSelectedImages] = useState(oldImages);
     const [errors, setErrors] = useState({})
 
-    function convertImageToBase64(file) {
-        const reader = new FileReader();
-        return new Promise(res => {
-            reader.onload = () => {
-                res(reader.result);
-            };
-            reader.readAsDataURL(file);
-        })
-    }
+    const { closeModal } = useModal()
 
-    // useEffect(() => {
-    //     dispatch(getQuestionDetails(questionId));
-    // }, [dispatch, questionId]);
+    // function convertImageToBase64(file) {
+    //     const reader = new FileReader();
+    //     return new Promise(res => {
+    //         reader.onload = () => {
+    //             res(reader.result);
+    //         };
+    //         reader.readAsDataURL(file);
+    //     })
+    // }
+
+    // const removeOldImage = async (img) => {
+    //     selectedImages.forEach((img) => {
+    //         if (img.id) {
+    //             dispatch(removeImage(img.id))
+    //         }
+    //     })
+
+    //     selectedImages.filter((keptImg) => keptImg !== img)
+
+    // }
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -36,7 +49,7 @@ function UpdateQuestionForm({user, response }) {
         const updatedQuestion = {
             title,
             description,
-            type,
+            type: response.type,
         };
         let errHits = {}
         if (title.length < 20 || title.length > 300) {
@@ -45,47 +58,43 @@ function UpdateQuestionForm({user, response }) {
         if (description.length < 100 || description.length > 2500) {
             errHits.description = "Description must be between 100 and 2,500 characters.";
         }
-        if (!type) {
-            errHits.type = "You must select a science subject."
-        }
-        console.log(type)
+        // if (!type) {
+        //     errHits.type = "You must select a science subject."
+        // }
+        console.log(response.Images)
         setErrors(errHits);
-        if (!Object.values(errors).length) {
-            const editedQuestion = await new Promise(res => dispatch(editQuestion(updatedQuestion, response.id)).then(res));
+        if (!Object.values(errHits).length) {
+            // const editedQuestion =
+            await new Promise(res => dispatch(editQuestion(updatedQuestion, response.id)).then(res))
+            .then(closeModal)
 
-            if (selectedImages.length) {
-                let imageableId = question.id
-                const base64Images = await Promise.all(selectedImages.map(convertImageToBase64));
-                await new Promise(res => dispatch(postNewImages(base64Images, 'answer', response.id)).then(res));
-                setSelectedImages([])
-            }
-            await new Promise(res => dispatch(getQuestionDetails(response.id)).then(res));
+            // if (selectedImages.length) {
+            //     // let imageableId = question.id
+            //     const base64Images = await Promise.all(selectedImages.map(convertImageToBase64));
+            //     await new Promise(res => dispatch(postNewImages(base64Images, 'question', response.id)).then(res));
+            //     setSelectedImages([])
+            // }
+            // await new Promise(res => dispatch(getQuestionDetails(response.id)).then(res)).then(closeModal)
         }
     };
     return (
-        user ?
-        <div className='formDiv'>
+        <div className='updateQuestionFormDiv'>
             <form onSubmit={onSubmit} className='postQuestionForm'>
                 <h1 className='responseH1'>Update Your Question</h1>
-                <div className='typeSelector'>
-                    <div className='selectTypeRequestDiv'>Please select a science field</div>
-                    <span onClick={() => setType('biology')} className={(type==='biology' ? 'bioSelect' : '') + ' typeButton'}>Biology</span>
-                    <span onClick={() => setType('chemistry')} className={(type==='chemistry' ? 'chemSelect' : '') + ' typeButton'}>Chemistry</span>
-                    <span onClick={() => setType('physics')} className={(type==='physics' ? 'physSelect' : '') + ' typeButton'}>Physics</span>
-                </div>
                 <div className='newQTitle'>Question Title</div>
                 <textarea
-                        className='titleTextarea'
+                        className='updateQtitleTextarea'
                         placeholder='Give your question a clear and concise title. Length (20-300 characters)'
                         id='title'
                         type='text'
                         onChange={e => setTitle(e.target.value)}
                         value={title}
                 />
+                <div>{errors.title && <div className='error'>{errors.title}</div>}</div>
                 <div className={(title.length < 20 || title.length > 300 ? 'tooLong' : '') + ' lengthDiv'}>Title length: {title.length}</div>
                 <div className='newQDescription'>Question Description</div>
                 <textarea
-                    className='descriptionTextarea'
+                    className='updateQdescriptionTextarea'
                     placeholder='Describe the question in great detail. Length (100-2500 characters)'
                     id='description'
                     type='text'
@@ -93,17 +102,19 @@ function UpdateQuestionForm({user, response }) {
                     value={description}
                 >
                 </textarea>
+                <div>{errors.description && <div className='error'>{errors.description}</div>}</div>
                 <div className={(description.length < 100 || description.length > 2500 ? 'tooLong' : '') + ' lengthDiv'}>Description length: {description.length}</div>
-                    <div className='uploadedImagesDiv'>
+                    {/* <div className='editQUploadedImagesDiv'>
                         {selectedImages.map(img => (
-                            <div key={img} className='uploadedImgDivs'>
+                            // if ()
+                            <div key={img.id || img.name} className='updateQUploadedImgDivs'>
                                 <img
-                                    className='uploadedImg'
+                                    className='updateQUploadedImg'
                                     alt="not found"
                                     // width={"250px"}
-                                    src={URL.createObjectURL(img)}
+                                    src={img.id ? img.url : URL.createObjectURL(img)}
                                 />
-                                <span onClick={() => setSelectedImages(selectedImages.filter((keptImgs) => keptImgs !== img))} className='removeQImageButton'>Remove Image</span>
+                                <div key={img.id} onClick={() => {setSelectedImages(selectedImages.forEach((keptImg) => {if (keptImg.id && keptImg !== img) {dispatch(removeImage(keptImg)) } else {return keptImg}  }           ))}} className='editQRemoveImageButton'>Remove Image</div>
                             </div>
                         ))}
                     </div>
@@ -117,14 +128,12 @@ function UpdateQuestionForm({user, response }) {
                             setSelectedImages(selectedImages => [...selectedImages, ...event.target.files]);
                             }}
                         />
-                    </div>
+                    </div> */}
                 <div className='submitQuestionDiv'>
                     <button disabled={!description} onSubmit={onSubmit} className='submitQuestionButton'>Submit Question</button>
                 </div>
             </form>
         </div>
-        :
-        <div>Log in to post a question!</div>
   );
 }
 

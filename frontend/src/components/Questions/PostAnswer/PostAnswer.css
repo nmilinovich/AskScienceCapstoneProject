@@ -1,5 +1,38 @@
+.loginToPostAnswer {
+    text-align: center;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    font-weight: 900;
+}
+
+.postAnswerSection {
+    text-align: center;
+}
+
 .postAnswerForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     padding-top: 1vh;
     margin-top: 1vh;
     border-top: 1px black solid;
+}
+
+.responseH3 {
+    font-weight: 900;
+}
+
+.postAnswerDescription {
+    width: 70vw;
+    height: 40vh;
+}
+
+.submitAnswerBtn {
+    width: 10vw;
+    text-align: center;
+    margin-bottom: 2vh;
+    border-radius: 0.2vw;
+    background-color: rgb(3,83,3);
+    color: rgb(255, 111, 0);
+    cursor: pointer;
 }

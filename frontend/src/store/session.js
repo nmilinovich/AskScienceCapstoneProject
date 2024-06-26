@@ -2,7 +2,6 @@ import { csrfFetch } from "./csrf";
 
 export const LOGIN_USER = 'user/login';
 export const LOGOUT_USER = 'user/logout';
-export const GET_USER_SPOTS = 'user/spots';
 
 export const loginUser = (payload) => ({
     type: LOGIN_USER,
@@ -24,9 +23,9 @@ export const login = (payload) => async (dispatch) => {
         }),
     });
     if (user.ok) {
-      const data = await user.json();
-      dispatch(loginUser(data.user));
-      return data;
+        const data = await user.json();
+        await dispatch(loginUser(data.user));
+        return data;
     }
     return user;
 };

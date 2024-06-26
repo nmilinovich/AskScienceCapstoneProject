@@ -1,0 +1,13 @@
+.navBtnLogin {
+    width: 8vw;
+    height: 6vh;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    border: 2px solid rgb(3, 83, 3);
+    border-radius: 5px;
+    background-color: rgb(255, 111, 0);
+    color: green;
+    box-shadow: -3px 3px 3px rgb(3, 83, 3);
+    cursor: pointer;
+}

@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import { getQuestionDetails } from '../../../store/questions';
 import { getUserLikes } from '../../../store/likes';
 import QuestionDetailsCard from '../QuestionDetailsCard/QuestionDetailsCard';
-import QuestionCommentsCard from '../QuestionCommentsCard/QuestionCommentsCard';
+// import QuestionCommentsCard from '../QuestionCommentsCard/QuestionCommentsCard';
 import QuestionAnswersSection from '../QuestionAnswersSection/';
 import { getUserAnswers } from '../../../store/answers';
 
@@ -13,16 +13,15 @@ function QuestionDetailsPage() {
     let { questionId } = useParams();
     questionId = parseInt(questionId);
     // dispatch(getQuestionDetails(questionId));
+    // const user = useSelector((state) => state.session)
+    const question = useSelector((state) => state.questions[questionId]);
+
     useEffect(() => {
         dispatch(getQuestionDetails(questionId));
         dispatch(getUserLikes())
         dispatch(getUserAnswers())
     }, [dispatch, questionId]);
-    const question = useSelector((state) => state.questions[questionId]);
-    // const user = useSelector((state) => state.session.user?.['id']);
-    // if(!question) {
-    //     return <div>Loading...</div>;
-    // }
+
     if (!question) {
         <div>loading</div>
     }
