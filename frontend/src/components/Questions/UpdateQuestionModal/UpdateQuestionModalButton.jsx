@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useDispatch } from 'react-redux';
 // import { Link } from 'react-router-dom';
 // import * as sessionActions from '../../store/session';

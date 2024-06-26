@@ -37,7 +37,7 @@ function UpdateAnswerForm({user, answer }) {
         setErrors(errHits);
         console.log(errors)
         if (!Object.values(errors).length) {
-            const editedAnswer = await new Promise(res => dispatch(editAnswer(updatedAnswer, answer.id)).then(res));
+            await new Promise(res => dispatch(editAnswer(updatedAnswer, answer.id)).then(res));
 
             if (selectedImages.length) {
                 const base64Images = await Promise.all(selectedImages.map(convertImageToBase64));

@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useDispatch } from 'react-redux';
+import { useState, useEffect, useRef } from "react";
 // import { Link } from 'react-router-dom';
 // import * as sessionActions from '../../store/session';
 import OpenModalButton from "../../../../OpenModalButton/OpenModalButton";
@@ -7,7 +6,6 @@ import UpdateAnswerForm from "./UpdateAnswerForm/UpdateAnswerForm";
 import { getUserAnswers } from "../../../../../store/answers";
 
 function UpdateAnswerModalButton({ user, answer }) {
-  const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
 

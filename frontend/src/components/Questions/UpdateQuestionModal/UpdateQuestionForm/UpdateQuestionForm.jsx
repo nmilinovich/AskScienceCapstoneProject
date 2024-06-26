@@ -51,10 +51,10 @@ function UpdateQuestionForm({user, response }) {
         console.log(type)
         setErrors(errHits);
         if (!Object.values(errors).length) {
-            const editedQuestion = await new Promise(res => dispatch(editQuestion(updatedQuestion, response.id)).then(res));
+            await new Promise(res => dispatch(editQuestion(updatedQuestion, response.id)).then(res));
 
             if (selectedImages.length) {
-                let imageableId = question.id
+                // let imageableId = question.id
                 const base64Images = await Promise.all(selectedImages.map(convertImageToBase64));
                 await new Promise(res => dispatch(postNewImages(base64Images, 'answer', response.id)).then(res));
                 setSelectedImages([])

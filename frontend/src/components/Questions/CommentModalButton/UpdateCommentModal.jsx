@@ -1,5 +1,4 @@
 import { useState  } from 'react';
-import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getQuestionDetails } from '../../../store/questions';
 import { editComment } from '../../../store/comments';
@@ -7,7 +6,7 @@ import { useModal } from '../../../context/Modal';
 // import { useNavigate } from "react-router-dom"
 // import UploadImages from '../../DragAndDropImages/UploadImages';
 
-function UpdateCommentForm({user, comment, response, commentableType }) {
+function UpdateCommentForm({user, comment }) {
     // const navigate = useNavigate()
     const dispatch = useDispatch();
     const [description, setDescription] = useState('');
