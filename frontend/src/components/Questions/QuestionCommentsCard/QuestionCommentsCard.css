@@ -16,7 +16,7 @@
     background-color: rgb(255, 111, 0);
 }
 
-.noQuesitonComments {
-    margin-left: 0.5vh;
-    padding-left: 0.3vw;
+.noQuestionComments {
+    margin-left: 0.5vw;
+    margin-bottom: 0.5vh;
 }

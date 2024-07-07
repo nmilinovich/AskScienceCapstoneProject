@@ -9,7 +9,7 @@ import UpdateAnswerModalButton from './UpdateAnswerModalButton/UpdateAnswerModal
 
 function QuestionAnswersCard({ answer, questionAnswers }) {
     console.log(answer)
-    const user = useSelector((state) => state.session.user.id);
+    const user = useSelector((state) => state.session.user?.id);
     let hasComment = false;
     let usersAnswer = answer.userId === user;
     answer.Comments.forEach((comment) => {

@@ -29,12 +29,14 @@
 
 .answerDescription {
     text-align: justify;
+    word-break: break-all;
     margin-top: 0.3vh;
     margin-bottom: 0.5vh;
     margin-left: 1vw;
     margin-right: 1vw;
     width: 100%;
     float: right;
+    word-break: break-word;
 }
 
 .answerCommentDescription {

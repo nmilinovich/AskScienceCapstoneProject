@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-// import './Questions/LandingPage.css'
+import '../QuestionsLandingPage/QuestionsLandingPage.css'
 
 function QuestionTile({ question }) {
     return (

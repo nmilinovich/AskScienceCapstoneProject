@@ -100,11 +100,14 @@
     margin-right: 1vw;
     width: 100%;
     float: right;
+    word-break: break-word;
 }
 
 .questionCardDescription {
     margin-left: 0.5vw;
+    margin-right: 0.5vw;
     text-align: justify;
+    word-break: break-word;
 }
 
 .questionImgsContainer {
