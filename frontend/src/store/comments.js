@@ -45,6 +45,7 @@ export const postNewComment = (comment) => async (dispatch) => {
             body: JSON.stringify(comment)
         }
     );
+    console.log(resComment)
     if (resComment.ok) {
         const newComment = await resComment.json();
         dispatch(postComment(newComment));
