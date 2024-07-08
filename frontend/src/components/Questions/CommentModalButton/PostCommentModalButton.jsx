@@ -2,10 +2,10 @@ import { useState, useEffect, useRef } from "react";
 // import { Link } from 'react-router-dom';
 // import * as sessionActions from '../../store/session';
 import OpenModalButton from "../../OpenModalButton/OpenModalButton";
-import UpdateCommentForm from "./UpdateCommentModal";
+import PostCommentForm from "./PostCommentModal";
 // import { getQuestionDetails } from "../../../store/questions";
 
-function UpdateCommentModalButton({comment, response, commentableType }) {
+function PostCommentModalButton({commentableId, commentableType }) {
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
 
@@ -25,13 +25,13 @@ function UpdateCommentModalButton({comment, response, commentableType }) {
 
   return (
     <OpenModalButton
-      modalComponent={<UpdateCommentForm comment={comment} response={response} commentableType={commentableType} />}
-      buttonText='Update Comment'
+      modalComponent={<PostCommentForm commentableId={commentableId} commentableType={commentableType} />}
+      buttonText='Post Comment'
       onButtonClick={() => setShowMenu(false)}
       // onModalClose={() => dispatch(getQuestionDetails(response.id))}
-      customClass={response.type + 'CardType' + ' updateQuestionModalButton'}
+    //   customClass={response.type + 'CardType' + ' updateQuestionModalButton'}
     />
   );
 }
 
-export default UpdateCommentModalButton;
+export default PostCommentModalButton;

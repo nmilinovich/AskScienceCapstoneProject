@@ -1,12 +1,12 @@
 import { useState  } from 'react';
 import { useDispatch } from 'react-redux';
 import { getQuestionDetails } from '../../../store/questions';
-import { editComment } from '../../../store/comments';
+import { postNewComment } from '../../../store/comments';
 import { useModal } from '../../../context/Modal';
 // import { useNavigate } from "react-router-dom"
 // import UploadImages from '../../DragAndDropImages/UploadImages';
 
-function UpdateCommentForm({user, comment }) {
+function PostCommentForm({commentableId, commentableType }) {
     // const navigate = useNavigate()
     const dispatch = useDispatch();
     const [description, setDescription] = useState('');
@@ -19,8 +19,11 @@ function UpdateCommentForm({user, comment }) {
         e.preventDefault();
         setErrors({});
         const newComment = {
+            commentableType,
+            commentableId,
             description
         };
+        console.log(newComment)
         let errHits = {}
         if (description.length < 5 || description.length > 3000) {
             errHits.description = "Comment must be between 5 and 3,000 characters.";
@@ -28,7 +31,7 @@ function UpdateCommentForm({user, comment }) {
         setErrors(errHits);
         console.log(errors)
         if (!Object.values(errors).length) {
-            await dispatch(editComment(newComment, comment.id));
+            await dispatch(postNewComment(newComment));
             dispatch(getQuestionDetails(questionId));
             closeModal();
         }
@@ -36,10 +39,10 @@ function UpdateCommentForm({user, comment }) {
     return (
         <div className='formDiv'>
             <form onSubmit={onSubmit} className='postAnswerCommentForm'>
-                <h1 className='responseH1'>Update Your Comment</h1>
+                <h1 className='responseH1'>Post Your Comment</h1>
                 <div className='typeSelector'>
                 </div>
-                <div className='newQDescription'>Question Description</div>
+                <div className='newQDescription'>Comment</div>
                 <textarea
                     className='descriptionTextarea'
                     placeholder='Your Comment'
@@ -57,4 +60,4 @@ function UpdateCommentForm({user, comment }) {
   );
 }
 
-export default UpdateCommentForm
+export default PostCommentForm

@@ -83,7 +83,7 @@ router.post(
                 err.status = 404;
                 return next(err);
             } else {
-                const newComment = await answer.createImage({
+                const newComment = await answer.createComment({
                     userId,
                     commentableType,
                     commentableId,
