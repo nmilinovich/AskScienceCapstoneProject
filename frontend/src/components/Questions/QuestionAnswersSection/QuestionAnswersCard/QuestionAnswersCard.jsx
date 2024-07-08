@@ -5,6 +5,7 @@ import VotingComponent from '../../../VotingComponent/VotingComponent';
 import UpdateCommentModalButton from '../../CommentModalButton/UpdateCommentModalButton';
 import UpdateAnswerModalButton from './UpdateAnswerModalButton/UpdateAnswerModalButton';
 import PostCommentModalButton from '../../CommentModalButton/PostCommentModalButton';
+import DeleteCommentModalButton from '../../CommentModalButton/DeleteCommentModalButton';
 // import { useEffect } from 'react';
 
 function QuestionAnswersCard({ answer, questionAnswers }) {
@@ -60,7 +61,13 @@ function QuestionAnswersCard({ answer, questionAnswers }) {
                         return (
                             <div className='answerCommentDescription' key={answerComment.id}>
                                 {answerComment.description}
-                                {answerComment.userId === user ? <UpdateCommentModalButton comment={answerComment} response={answerComment} commentableType='answer' />: null}
+                                {answerComment.userId === user ?
+                                <div>
+                                    <UpdateCommentModalButton comment={answerComment} response={answerComment} commentableType='answer' />
+                                    <DeleteCommentModalButton comment={answerComment} />
+                                </div>
+
+                                : null}
                             </div>
                         )
                     })}
