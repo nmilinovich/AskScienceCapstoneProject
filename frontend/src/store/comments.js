@@ -73,7 +73,7 @@ export const editComment = (comment, commentId) => async (dispatch) => {
 };
 
 export const removeComment = (commentId) => async (dispatch) => {
-    const deletedComment = await csrfFetch(`/api/comment/${commentId}`,
+    const deletedComment = await csrfFetch(`/api/comments/${commentId}`,
         {
             headers: {
             'Content-Type': 'application/json'

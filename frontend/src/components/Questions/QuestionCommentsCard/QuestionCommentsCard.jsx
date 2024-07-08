@@ -2,6 +2,7 @@ import './QuestionCommentsCard.css'
 import PostCommentModalButton from '../CommentModalButton/PostCommentModalButton'
 import UpdateCommentModalButton from '../CommentModalButton/UpdateCommentModalButton';
 import { useSelector } from 'react-redux'
+import DeleteCommentModalButton from '../CommentModalButton/DeleteCommentModalButton';
 
 function QuestionCommentsCard({ question }) {
     let user = useSelector((state) => state.session.user?.id);
@@ -18,7 +19,12 @@ function QuestionCommentsCard({ question }) {
                     return (
                         <div className='answerCommentDescription' key={questionComment.id}>
                             {questionComment.description}
-                            {questionComment.userId === user ? <UpdateCommentModalButton comment={questionComment} response={questionComment} commentableType='question' />: null}
+                            {questionComment.userId === user ?
+                            <div>
+                                <UpdateCommentModalButton comment={questionComment} response={questionComment} commentableType='question' />
+                                <DeleteCommentModalButton comment={questionComment}/>
+                            </div>
+                            : null}
                         </div>
                     )
                 })}
