@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import * as sessionActions from '../../store/session';
-import { FaUserCircle } from 'react-icons/fa';
+import { FaMailBulk, FaUserCircle } from 'react-icons/fa';
 
 function ProfileButton({ user }) {
   const navigate = useNavigate()
@@ -46,8 +46,14 @@ function ProfileButton({ user }) {
         <FaUserCircle size={24}/>
       </div>
       <div className={ulClassName} ref={ulRef}> {/* <-- Attach it here */}
-        <div>{user.username}</div>
-        <div>{user.email}</div>
+        <div className='dropdown-username'>
+          <FaUserCircle className='usernameIcon'/>
+          {user.username}
+        </div>
+        <div className='dropdown-email'>
+          <FaMailBulk size={15} className='emailIcon'/>
+          {user.email}
+        </div>
         <div className='dropdown-logout'>
           <div onClick={logout} className='dropdownBtn'>Log Out</div>
         </div>
