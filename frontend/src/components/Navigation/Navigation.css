@@ -6,10 +6,10 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 100vw;
     margin: 0;
-    padding-top: 0.11vh;
     height: 6vh;
+    padding: 0 20px;
+    padding-top: 15px;
 }
 
 .leftsideNav {
@@ -30,35 +30,31 @@
     /* justify-content: space-between; */
 }
 
-.bioTag {
+.navTag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 6vh;
     width: 10vw;
-    border: 2px solid rgb(3, 83, 3);
     border-radius: 5px;
-    background-color: rgb(255, 111, 0);
-    color: green;
-    box-shadow: -3px 3px 3px rgb(3, 83, 3);
+    color: black;
     cursor: pointer;
+    font-size: 16px;
+    gap: 6px;
+}
+
+.navTag:hover {
+    filter: grayscale(70%);
+}
+
+.bioTag {
+    background-color: rgb(102, 212, 102);
 }
 .chemTag {
-    height: 6vh;
-    width: 10vw;
-    border: 2px solid rgb(3, 83, 3);
-    border-radius: 5px;
-    background-color: rgb(255, 111, 0);
-    color: green;
-    box-shadow: -3px 3px 3px rgb(3, 83, 3);
-    cursor: pointer;
+    background-color: rgb(212, 126, 104);
 }
 .physTag {
-    height: 6vh;
-    width: 10vw;
-    border: 2px solid rgb(3, 83, 3);
-    border-radius: 5px;
-    background-color: rgb(255, 111, 0);
-    color: green;
-    box-shadow: -3px 3px 3px rgb(3, 83, 3);
-    cursor: pointer;
+    background-color: rgb(138, 128, 249);
 }
 
 .rightsideNav {
@@ -71,14 +67,20 @@
 }
 
 .askQuestionButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 6vh;
     width: 10vw;
-    border: 2px solid rgb(3, 83, 3);
     border-radius: 5px;
-    background-color: rgb(255, 111, 0);
-    color: green;
-    box-shadow: -3px 3px 3px rgb(3, 83, 3);
+    background-color: white;
+    color: black;
     cursor: pointer;
+    font-size: 14px;
+}
+
+.askQuestionButton:hover {
+    background-color: rgb(242, 242, 242);
 }
 
 .login-signup-div {
@@ -86,37 +88,43 @@
     flex-direction: row;
     justify-content: right;
     width: 33.3vw;
+    gap: 12px;
 }
 
 
 
 .nav-Btn {
-    width: 8vw;
-    height: 6vh;
-    margin-right: 0.3vw;
-    text-align: center;
+    display: flex;
     align-items: center;
-    border: 2px solid rgb(3, 83, 3);
+    justify-content: center;
+    height: 6vh;
+    width: 10vw;
     border-radius: 5px;
-    background-color: rgb(255, 111, 0);
-    color: green;
-    box-shadow: -3px 3px 3px rgb(3, 83, 3);
+    background-color: white;
+    color: black;
     cursor: pointer;
+    font-size: 16px;
+    border: 0;
 }
 
 .profile-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 6vw;
     height: 6vh;
     padding: 0;
-    margin-left: 5px;
-    margin-right: 5px;
+    margin-left: 10px;
     padding-left: 5px;
     padding-right: 5px;
-    border: 2px solid rgb(3, 83, 3);
-    background-color: rgb(255, 111, 0);
-    box-shadow: -3px 3px 3px rgb(3, 83, 3);
+    background-color: white;
+    color: black;
     border-radius: 4px;
     cursor: pointer;
+}
+
+.profile-btn:hover {
+    background-color: rgb(242, 242, 242);
 }
 
 .fas {
@@ -133,7 +141,6 @@
     /* left: 40px; */
     /* top: 22px; */
     position: absolute;
-    border: 2px solid rgb(3, 83, 3);
     border-radius: 5px;
     background-color: rgb(255, 111, 0);
     box-shadow: -3px 3px 3px #121212;

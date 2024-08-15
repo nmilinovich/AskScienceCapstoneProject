@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import * as sessionActions from '../../store/session';
+import { FaUserCircle } from 'react-icons/fa';
 
 function ProfileButton({ user }) {
   const navigate = useNavigate()
@@ -38,15 +39,17 @@ function ProfileButton({ user }) {
 
   return (
     <div className='rightsideNav'>
-      <button onClick={() => navigate('/questions/new')} className='askQuestionButton'>Ask a Question</button>
-      <button onClick={toggleMenu} className="profile-btn">
-        <i className="fas fa-user-circle" />
-      </button>
+      <div onClick={() => navigate('/questions/new')} className='askQuestionButton'>
+        Ask a Question
+      </div>
+      <div onClick={toggleMenu} className="profile-btn">
+        <FaUserCircle size={24}/>
+      </div>
       <div className={ulClassName} ref={ulRef}> {/* <-- Attach it here */}
         <div>{user.username}</div>
         <div>{user.email}</div>
         <div className='dropdown-logout'>
-          <button onClick={logout} className='dropdownBtn'>Log Out</button>
+          <div onClick={logout} className='dropdownBtn'>Log Out</div>
         </div>
       </div>
     </div>

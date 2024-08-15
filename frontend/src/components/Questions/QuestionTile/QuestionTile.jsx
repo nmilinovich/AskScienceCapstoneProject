@@ -1,22 +1,27 @@
 import { Link } from 'react-router-dom';
+import { FaRegUser, FaThumbsUp } from "react-icons/fa";
 import '../QuestionsLandingPage/QuestionsLandingPage.css'
 
 function QuestionTile({ question }) {
     return (
         <Link to={`/questions/${question.id}`} className='questionTile'>
-            <div className='questionTileTop'>
-                <span className='questionTileOwner'>{question.questionOwner.username}</span>
-                <span>Likes: {question.numLikes}</span>
-                <span className='questionTileType'>{question.type}</span>
-            </div>
             <div className='questionTileCenter'>
-                <h1 className='questionTileTitle'>{question.title}</h1>
-
+                <div className='questionTileTitle'>{question.title}</div>
             </div>
             <div>
-                <p className='questionTileDescription'>{question.description}</p>
+                <div className='questionTileDescription'>{question.description}</div>
             </div>
-
+            <div className='questionTileTop'>
+                <span className='questionTileLikes'>
+                    <FaThumbsUp />
+                    {question.numLikes}
+                </span>
+                <span className='questionTileOwner'>
+                    <FaRegUser />
+                    {question.questionOwner.username}
+                </span>
+                <span className='questionTileType'>{question.type}</span>
+            </div>
 
             {/* <div className='questionTileLeft'>
                 {question.numLikes}
