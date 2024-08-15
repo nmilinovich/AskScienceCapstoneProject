@@ -1,16 +1,16 @@
 .landingPageDiv {
-    padding-top: 1vh;
+    /* padding-top: 1vh; */
 }
 
 .questions-grid-container {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .questionTile {
-
     height: fit-content;
-    width: 98vw;
+    width: 99vw;
     border: 2px solid rgb(3, 83, 3);
     border-radius: 5px;
     background-color: rgb(235, 226, 223);

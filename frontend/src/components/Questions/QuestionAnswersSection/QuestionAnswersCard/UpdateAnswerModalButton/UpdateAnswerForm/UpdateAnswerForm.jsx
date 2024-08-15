@@ -11,18 +11,18 @@ function UpdateAnswerForm({user, answer }) {
     // const navigate = useNavigate()
     const dispatch = useDispatch();
     const [description, setDescription] = useState(answer.description || '');
-    const [selectedImages, setSelectedImages] = useState([]);
+    // const [selectedImages, setSelectedImages] = useState([]);
     const [errors, setErrors] = useState({})
 
-    function convertImageToBase64(file) {
-        const reader = new FileReader();
-        return new Promise(res => {
-            reader.onload = () => {
-                res(reader.result);
-            };
-            reader.readAsDataURL(file);
-        })
-    }
+    // function convertImageToBase64(file) {
+    //     const reader = new FileReader();
+    //     return new Promise(res => {
+    //         reader.onload = () => {
+    //             res(reader.result);
+    //         };
+    //         reader.readAsDataURL(file);
+    //     })
+    // }
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -65,7 +65,7 @@ function UpdateAnswerForm({user, answer }) {
                 >
                 </textarea>
                 <div className={(description.length < 100 || description.length > 3000 ? 'tooLong' : '') + ' lengthDiv'}>Description length: {description.length}</div>
-                    <div className='uploadedImagesDiv'>
+                    {/* <div className='uploadedImagesDiv'>
                         {selectedImages.map(img => (
                             <div key={img} className='uploadedImgDivs'>
                                 <img
@@ -88,7 +88,7 @@ function UpdateAnswerForm({user, answer }) {
                             setSelectedImages(selectedImages => [...selectedImages, ...event.target.files]);
                             }}
                         />
-                    </div>
+                    </div> */}
                 <div className='submitQuestionDiv'>
                     <button disabled={!description} onSubmit={onSubmit} className='submitQuestionButton'>Submit Question</button>
                 </div>

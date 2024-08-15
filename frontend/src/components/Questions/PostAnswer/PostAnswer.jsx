@@ -44,12 +44,12 @@ function PostAnswer({ answers }) {
         };
 
         let errHits = {}
-        // if (!questionId) {
-        //     errHits.questionId = "Related Question could not be found";
-        // }
-        // if (description.length < 30) {
-        //     errHits.description = "Description must be more than 30 characters.";
-        // }
+        if (!questionId) {
+            errHits.questionId = "Related Question could not be found";
+        }
+        if (description.length < 30) {
+            errHits.description = "Description must be more than 30 characters.";
+        }
         setErrors(errHits);
         if (!Object.values(errors).length) {
             const answer = await new Promise(res => dispatch(postNewAnswer(newAnswer)).then(res));
@@ -66,21 +66,22 @@ function PostAnswer({ answers }) {
     };
 
     return (
-        !user ? <div>Log in to post an answer!</div> :
+        !user ? <div className='loginToPostAnswer'>Log in to post an answer!</div> :
         !hasAnswer ?
-            <div >
+            <div className='postAnswerDiv'>
                 <form onSubmit={onSubmit} className='postAnswerForm'>
                     <h3 className='responseH3'>Your Response</h3>
                     <label htmlFor='description'>
                         <textarea
                             placeholder='Please write at least 30 characters'
-                            id='description'
+                            id='postAnswerDescription'
                             type='text'
                             onChange={e => setDescription(e.target.value)}
                             value={description}
                         >
                         </textarea>
                     </label>
+                    <div className={(description.length < 30 || description.length > 3000 ? 'tooLong' : '') + ' lengthDiv'}>Description length: {description.length}</div>
                     <div className="imageUploadContainer">
                         {selectedImages.map(img => (
                             <div key={img}>
@@ -101,7 +102,9 @@ function PostAnswer({ answers }) {
                             }}
                         />
                     </div>
-                    <button disabled={!description} onSubmit={onSubmit}>Submit Answer</button>
+                    <div className='submitNewAnswer'>
+                        <button disabled={description.length < 30 || description.length > 3000} onSubmit={onSubmit}>Submit Answer</button>
+                    </div>
                 </form>
             </div>
             : null

@@ -13,18 +13,18 @@ function UpdateQuestionForm({user, response }) {
     const [title, setTitle] = useState(response.title || '');
     const [description, setDescription] = useState(response.description || '');
     const [type, setType] = useState(response.type || '');
-    const [selectedImages, setSelectedImages] = useState([]);
+    // const [selectedImages, setSelectedImages] = useState([]);
     const [errors, setErrors] = useState({})
 
-    function convertImageToBase64(file) {
-        const reader = new FileReader();
-        return new Promise(res => {
-            reader.onload = () => {
-                res(reader.result);
-            };
-            reader.readAsDataURL(file);
-        })
-    }
+    // function convertImageToBase64(file) {
+    //     const reader = new FileReader();
+    //     return new Promise(res => {
+    //         reader.onload = () => {
+    //             res(reader.result);
+    //         };
+    //         reader.readAsDataURL(file);
+    //     })
+    // }
 
     // useEffect(() => {
     //     dispatch(getQuestionDetails(questionId));
@@ -94,7 +94,7 @@ function UpdateQuestionForm({user, response }) {
                 >
                 </textarea>
                 <div className={(description.length < 100 || description.length > 2500 ? 'tooLong' : '') + ' lengthDiv'}>Description length: {description.length}</div>
-                    <div className='uploadedImagesDiv'>
+                    {/* <div className='uploadedImagesDiv'>
                         {selectedImages.map(img => (
                             <div key={img} className='uploadedImgDivs'>
                                 <img
@@ -117,7 +117,7 @@ function UpdateQuestionForm({user, response }) {
                             setSelectedImages(selectedImages => [...selectedImages, ...event.target.files]);
                             }}
                         />
-                    </div>
+                    </div> */}
                 <div className='submitQuestionDiv'>
                     <button disabled={!description} onSubmit={onSubmit} className='submitQuestionButton'>Submit Question</button>
                 </div>

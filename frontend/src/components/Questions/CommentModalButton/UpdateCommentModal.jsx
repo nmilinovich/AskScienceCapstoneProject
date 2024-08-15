@@ -9,7 +9,7 @@ import { useModal } from '../../../context/Modal';
 function UpdateCommentForm({user, comment }) {
     // const navigate = useNavigate()
     const dispatch = useDispatch();
-    const [description, setDescription] = useState('');
+    const [description, setDescription] = useState(comment.description);
     const { closeModal } = useModal()
     const [errors, setErrors] = useState({})
     let url = window.location.href.split('/');

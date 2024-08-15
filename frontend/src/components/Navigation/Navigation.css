@@ -5,17 +5,17 @@
 .navbar {
     display: flex;
     flex-direction: row;
-    /* justify-content: space-between; */
-    width: 99vw;
+    justify-content: space-between;
+    width: 100vw;
     margin: 0;
-    padding: 1vh, 1vw;
+    padding-top: 0.11vh;
     height: 6vh;
 }
 
 .leftsideNav {
     display: flex;
     align-items: center;
-    width: 33vw;
+    width: 33.3vw;
 }
 
 .logo {
@@ -26,7 +26,7 @@
 .filterTags {
     justify-content: space-between;
     display: flex;
-    width: 33vw;
+    width: 33.3vw;
     /* justify-content: space-between; */
 }
 
@@ -61,7 +61,6 @@
     cursor: pointer;
 }
 
-
 .rightsideNav {
     display: flex;
     flex-direction: row;
@@ -86,7 +85,7 @@
     display: flex;
     flex-direction: row;
     justify-content: right;
-    width: 33vw;
+    width: 33.3vw;
 }
 
 
@@ -94,7 +93,7 @@
 .nav-Btn {
     width: 8vw;
     height: 6vh;
-    margin-right: 1vw;
+    margin-right: 0.3vw;
     text-align: center;
     align-items: center;
     border: 2px solid rgb(3, 83, 3);
