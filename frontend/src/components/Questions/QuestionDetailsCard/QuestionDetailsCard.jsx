@@ -25,21 +25,7 @@ function QuestionDetailsCard({ question }) {
     }
 
     return (
-        <div className={question.type + 'QuestionCard'}>
-            <div className='questionCardTop'>
-                <span className='questionCardOwner'>{question.questionOwner.username}</span>
-                <div className='questionCardButtons'>
-                {
-                question.userId === user && user ?
-                <div>
-                    <button className={question.type + 'CardType' + ' deleteQuestionButton'} onClick={deleteQuestion}>Delete Question</button>
-                    <UpdateQuestionModalButton user={user} response={question} />
-                </div>
-                : null
-                }
-                </div>
-                <div className={question.type + 'Type questionType'}>{question.type}</div>
-            </div>
+        <div className={question.type + ' questionCard'}>
             <div className='questionCardLikesAndTitle'>
                 <QuestionVotingComponent className='questionLikes' />
                 <h1 className='questionCardTitle'>{question.title}</h1>
@@ -55,6 +41,20 @@ function QuestionDetailsCard({ question }) {
                         </div>
                     )
                 })}
+            </div>
+            <div className='questionCardTop'>
+                <span className='questionCardOwner'>{question.questionOwner.username}</span>
+                <div className='questionCardButtons'>
+                {
+                question.userId === user && user ?
+                <div>
+                    <button className={question.type + 'CardType' + ' deleteQuestionButton'} onClick={deleteQuestion}>Delete Question</button>
+                    <UpdateQuestionModalButton user={user} response={question} />
+                </div>
+                : null
+                }
+                </div>
+                <div className={question.type + 'Type questionType'}>{question.type}</div>
             </div>
             <h3 className='commentsH3'>Comments</h3>
             <QuestionCommentsCard question={question}/>
