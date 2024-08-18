@@ -16,6 +16,29 @@
     background-color: rgb(255, 111, 0);
 }
 
+
+
+.questionCommentDescription {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.5vh;
+    margin-bottom: 0.5vh;
+    margin-left: 0.5vw;
+    margin-right: 0.5vw;
+    padding-left: 0.3vw;
+    padding-top: 0.3vw;
+    padding-bottom: 0.3vw;
+    /* border: 2px solid rgb(3, 83, 3); */
+    border-radius: 8px;
+    background-color: rgb(249, 249, 249);
+    gap: 5px;
+}
+
+.questionCommentButtons {
+    padding-right: 5px;
+}
+
 .noQuestionComments {
     margin-left: 0.5vw;
     margin-bottom: 0.5vh;

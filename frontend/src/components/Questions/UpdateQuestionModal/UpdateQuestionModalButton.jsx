@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import OpenModalButton from "../../OpenModalButton/OpenModalButton";
 import UpdateQuestionForm from "./UpdateQuestionForm/UpdateQuestionForm";
 import { getQuestionDetails } from "../../../store/questions";
+import { FaRegEdit } from "react-icons/fa";
 
 function UpdateQuestionModalButton({ user, response, imageableType }) {
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ function UpdateQuestionModalButton({ user, response, imageableType }) {
   return (
     <OpenModalButton
       modalComponent={<UpdateQuestionForm user={user} response={response} imageableType={imageableType} />}
-      buttonText='Update Question'
+      buttonText={<FaRegEdit size={25}/>}
       onButtonClick={() => setShowMenu(false)}
       onModalClose={() => dispatch(getQuestionDetails(response.id))}
       customClass={response.type + 'CardType' + ' updateQuestionModalButton'}

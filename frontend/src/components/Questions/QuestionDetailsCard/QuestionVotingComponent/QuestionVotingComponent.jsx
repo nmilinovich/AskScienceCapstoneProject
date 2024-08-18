@@ -5,6 +5,8 @@ import { postNewLike, editLike, removeLike } from '../../../../store/likes';
 import { getQuestionDetails } from "../../../../store/questions";
 // import './VotingComponent.css'
 // import { useEffect } from "react";
+import { FaCircleArrowUp } from 'react-icons/fa6';
+import { FaCircleArrowDown } from 'react-icons/fa6';
 
 function QuestionVotingComponent() {
     const dispatch = useDispatch()
@@ -72,9 +74,9 @@ function QuestionVotingComponent() {
 
     return (
     <div className='likesContainer'>
-        <img onClick={() => handleVote(true)} className={userLike && userLike.dislike === false ? 'liked' : 'notLiked'} src='https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Eo_circle_green_arrow-up.svg/2048px-Eo_circle_green_arrow-up.svg.png' alt='Up Arrow'/>
+        <FaCircleArrowUp size={50} onClick={() => handleVote(true)} className={userLike && userLike.dislike === false ? 'liked' : 'notLiked'} alt='Up Arrow'/>
         <span className='totalLikes'>{numLikes}</span>
-        <img onClick={() => handleVote(false)} className={userLike && userLike.dislike === true ? 'disliked' : 'notLiked'} src='https://www.pngall.com/wp-content/uploads/14/Down-Arrow-PNG-Images-HD.png' alt='Down Arrow'/>
+        <FaCircleArrowDown size={50} onClick={() => handleVote(false)} className={userLike && userLike.dislike === true ? 'disliked' : 'notLiked'} alt='Down Arrow'/>
     </div>
     )
 }

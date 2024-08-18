@@ -18,7 +18,7 @@
     width: 50%;
     object-fit: cover;
     border-radius: 100%;
-    filter:sepia(1) hue-rotate(149deg);
+    color: rgb(182, 24, 50);
 }
 
 .liked {
@@ -26,7 +26,7 @@
     width: 50%;
     object-fit: cover;
     border-radius: 100%;
-    filter:sepia(1) hue-rotate(149deg);
+    color: green;
 }
 
 .notLiked {

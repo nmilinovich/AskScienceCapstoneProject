@@ -7,6 +7,8 @@ import QuestionVotingComponent from './QuestionVotingComponent/QuestionVotingCom
 import UpdateQuestionModalButton from '../UpdateQuestionModal/UpdateQuestionModalButton';
 import QuestionCommentsCard from '../QuestionCommentsCard/QuestionCommentsCard';
 import './QuestionDetailsCard.css'
+import { FaRegEdit } from "react-icons/fa";
+import { MdDelete } from 'react-icons/md';
 
 function QuestionDetailsCard({ question }) {
     const dispatch = useDispatch()
@@ -30,6 +32,20 @@ function QuestionDetailsCard({ question }) {
                 <QuestionVotingComponent className='questionLikes' />
                 <h1 className='questionCardTitle'>{question.title}</h1>
             </div>
+            <div className='questionCardTop'>
+                <span className='questionCardOwner'>{'by: ' + question.questionOwner.username}</span>
+                <div className='questionCardButtons'>
+                {
+                question.userId === user && user ?
+                <div className='questionDetailsButtonDiv'>
+                    <MdDelete className='deleteQuestionButton' onClick={deleteQuestion} />
+                    <UpdateQuestionModalButton user={user} response={question} />
+                </div>
+                : null
+                }
+                </div>
+                <div className={question.type + 'Type questionType'}>{question.type}</div>
+            </div>
             <div>
                 <p className='questionCardDescription'>{question.description}</p>
             </div>
@@ -41,20 +57,6 @@ function QuestionDetailsCard({ question }) {
                         </div>
                     )
                 })}
-            </div>
-            <div className='questionCardTop'>
-                <span className='questionCardOwner'>{question.questionOwner.username}</span>
-                <div className='questionCardButtons'>
-                {
-                question.userId === user && user ?
-                <div>
-                    <button className={question.type + 'CardType' + ' deleteQuestionButton'} onClick={deleteQuestion}>Delete Question</button>
-                    <UpdateQuestionModalButton user={user} response={question} />
-                </div>
-                : null
-                }
-                </div>
-                <div className={question.type + 'Type questionType'}>{question.type}</div>
             </div>
             <h3 className='commentsH3'>Comments</h3>
             <QuestionCommentsCard question={question}/>
