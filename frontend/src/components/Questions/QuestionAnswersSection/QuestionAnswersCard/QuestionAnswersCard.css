@@ -1,13 +1,15 @@
 .answerCard {
-    /* padding-right: .5vw; */
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
     height: fit-content;
-    margin-top: 0.5vh;
-    border: 2px solid rgb(255, 111, 0);
-    border-radius: 2px;
-    background-color: rgb(3, 83, 3);
-    color: rgb(255, 111, 0);
-    /* box-shadow: -3px 3px 3px rgb(3, 83, 3); */
+    border-radius: 10px;
+    background-color: white;
+    padding: 15px;
+    color: black;
     text-decoration: none;
+    row-gap: 15px;
+    margin: 0 20px 20px 20px;
 }
 
 .answerCardTop {
@@ -22,7 +24,6 @@
 .likesAndDesciptionContainer {
     display: flex;
     justify-content: space-between;
-    border-top: 1px solid black;
     margin-top: 0.5vh;
     padding-top: 1vh;
 }
@@ -42,17 +43,53 @@
 .answerCommentDescription {
     display: flex;
     justify-content: space-between;
-    /* width: 99%; */
+    align-items: center;
     margin-top: 0.5vh;
     margin-bottom: 0.5vh;
     margin-left: 0.5vw;
     margin-right: 0.5vw;
-    padding-left: 0.3vw;
-    padding-top: 0.3vw;
-    padding-bottom: 0.3vw;
-    border: 1px solid rgb(255, 111, 0);
-    border-radius: 2px;
-    /* background-color: rgb(255, 111, 0); */
+    padding: 4px 8px;
+    height: 25px;
+    /* border: 2px solid rgb(3, 83, 3); */
+    border-radius: 8px;
+    background-color: rgb(249, 249, 249);
+    gap: 5px;
+}
+
+.deleteAnswerButton {
+    border-radius: 8px;
+    padding: 4px 8px;
+    margin-top: 5px;
+    color: white;
+    margin-left: 0.5vw;
+    /* display: flex; */
+    /* justify-content: center;
+    align-items: center; */
+    background-color: rgb(0, 0, 0);
+    cursor: pointer;
+    border: none;
+}
+
+.deleteAnswerButton:hover {
+    background-color: rgb(42, 42, 42);
+}
+
+.updateAnswerModalButton {
+    border-radius: 8px;
+    padding: 4px 8px;
+    margin-top: 5px;
+    color: white;
+    margin-left: 0.5vw;
+    /* display: flex; */
+    /* justify-content: center;
+    align-items: center; */
+    background-color: rgb(0, 0, 0);
+    cursor: pointer;
+    border: none;
+}
+
+.updateAnswerModalButton:hover {
+    background-color: rgb(42, 42, 42);
 }
 
 .answerImgsContainer {

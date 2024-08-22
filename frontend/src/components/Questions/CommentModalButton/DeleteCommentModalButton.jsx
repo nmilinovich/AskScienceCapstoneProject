@@ -29,7 +29,7 @@ function DeleteCommentModalButton({comment}) {
       buttonText={<MdDelete size={20}/>}
       onButtonClick={() => setShowMenu(false)}
       // onModalClose={() => dispatch(getQuestionDetails(response.id))}
-    //   customClass={response.type + 'CardType' + ' updateQuestionModalButton'}
+      customClass='commentModalButton'
     />
   );
 }

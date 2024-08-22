@@ -29,7 +29,7 @@ function UpdateCommentModalButton({comment, response, commentableType }) {
       buttonText={<FaRegEdit size={20}/>}
       onButtonClick={() => setShowMenu(false)}
       // onModalClose={() => dispatch(getQuestionDetails(response.id))}
-      customClass={response.type + 'CardType' + ' updateQuestionModalButton'}
+      customClass='commentModalButton'
     />
   );
 }

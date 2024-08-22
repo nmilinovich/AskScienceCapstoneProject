@@ -1,37 +1,43 @@
 .likesContainer {
     display: flex;
-    flex-direction: column;
-    width: 10%;
-    /* justify-content: space-between; */
+    align-self: center;
+    background-color: rgb(237, 237, 237);
+    border-radius: 12px;
+    height: 100%;
+    /* flex-direction: column; */
+    /* width: fit-content; */
+    justify-content: space-between;
     align-items: center;
 }
 
-
-
 .totalLikes {
-    font-size:xx-large;
-    font-weight: bolder;
+    width: 55px;
+    height: 100%;
+    text-align: center;
+    font-size:large;
+}
+
+.likeBtn {
+    cursor: pointer;
+    /* width: 50%; */
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.likeBtn:hover {
+    background-color: rgb(192, 192, 192);
 }
 
 .disliked {
-    cursor: pointer;
-    width: 50%;
-    object-fit: cover;
-    border-radius: 100%;
     color: rgb(182, 24, 50);
+    background-color: rgb(213, 161, 161);
 }
 
 .liked {
     cursor: pointer;
-    width: 50%;
+    /* width: 50%; */
     object-fit: cover;
     border-radius: 100%;
     color: green;
-}
-
-.notLiked {
-    cursor: pointer;
-    width: 50%;
-    object-fit: cover;
-    border-radius: 100%;
+    background-color: rgb(212, 230, 204);
 }

@@ -20,7 +20,7 @@ function QuestionTile({ question }) {
                     <FaRegUser />
                     {question.questionOwner.username}
                 </span>
-                <span className='questionTileType'>{question.type}</span>
+                <span className={question.type + ' questionTileType'}>{question.type}</span>
             </div>
 
             {/* <div className='questionTileLeft'>

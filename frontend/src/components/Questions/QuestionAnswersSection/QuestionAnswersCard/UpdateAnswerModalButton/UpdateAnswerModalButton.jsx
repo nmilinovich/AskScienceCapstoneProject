@@ -29,7 +29,7 @@ function UpdateAnswerModalButton({ user, answer }) {
       buttonText='Update Answer'
       onButtonClick={() => setShowMenu(false)}
       onModalClose={() => getUserAnswers()}
-      customClass={'CardType' + ' updateQuestionModalButton'}
+      customClass='updateAnswerModalButton'
     />
   );
 }

@@ -5,8 +5,8 @@ import { postNewLike, editLike, removeLike } from '../../../../store/likes';
 import { getQuestionDetails } from "../../../../store/questions";
 // import './VotingComponent.css'
 // import { useEffect } from "react";
-import { FaCircleArrowUp } from 'react-icons/fa6';
-import { FaCircleArrowDown } from 'react-icons/fa6';
+import { FaArrowUp } from 'react-icons/fa6';
+import { FaArrowDown } from 'react-icons/fa6';
 
 function QuestionVotingComponent() {
     const dispatch = useDispatch()
@@ -62,7 +62,6 @@ function QuestionVotingComponent() {
                 }
             }
             dispatch(getQuestionDetails(questionId))
-
         }
     }
 
@@ -74,9 +73,9 @@ function QuestionVotingComponent() {
 
     return (
     <div className='likesContainer'>
-        <FaCircleArrowUp size={50} onClick={() => handleVote(true)} className={userLike && userLike.dislike === false ? 'liked' : 'notLiked'} alt='Up Arrow'/>
+        <FaArrowUp size={20} onClick={() => handleVote(true)} className={userLike && userLike.dislike === false ? 'liked likeBtn' : 'notLiked likeBtn'} alt='Up Arrow'/>
         <span className='totalLikes'>{numLikes}</span>
-        <FaCircleArrowDown size={50} onClick={() => handleVote(false)} className={userLike && userLike.dislike === true ? 'disliked' : 'notLiked'} alt='Down Arrow'/>
+        <FaArrowDown size={20} onClick={() => handleVote(false)} className={userLike && userLike.dislike === true ? 'disliked likeBtn' : 'notLiked likeBtn'} alt='Down Arrow'/>
     </div>
     )
 }
