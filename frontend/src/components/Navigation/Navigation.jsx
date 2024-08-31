@@ -4,7 +4,7 @@ import ProfileButton from './ProfileButton';
 import logo from '../../../public/favicon.ico'
 import './Navigation.css'
 import { FaBugs } from 'react-icons/fa6';
-import { FaFlask, FaSpaceShuttle } from 'react-icons/fa';
+import { FaFlask } from 'react-icons/fa';
 import { IoTelescope } from 'react-icons/io5';
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);

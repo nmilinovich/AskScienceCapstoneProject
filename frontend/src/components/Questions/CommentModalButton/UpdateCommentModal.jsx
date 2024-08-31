@@ -6,7 +6,10 @@ import { useModal } from '../../../context/Modal';
 // import { useNavigate } from "react-router-dom"
 // import UploadImages from '../../DragAndDropImages/UploadImages';
 
-function UpdateCommentForm({user, comment }) {
+function UpdateCommentForm({
+    // user,
+    comment
+}) {
     // const navigate = useNavigate()
     const dispatch = useDispatch();
     const [description, setDescription] = useState(comment.description);
