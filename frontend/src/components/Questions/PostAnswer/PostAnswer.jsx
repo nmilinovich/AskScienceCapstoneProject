@@ -44,12 +44,12 @@ function PostAnswer({ answers }) {
         };
 
         let errHits = {}
-        // if (!questionId) {
-        //     errHits.questionId = "Related Question could not be found";
-        // }
-        // if (description.length < 30) {
-        //     errHits.description = "Description must be more than 30 characters.";
-        // }
+        if (!questionId) {
+            errHits.questionId = "Related Question could not be found";
+        }
+        if (description.length < 30) {
+            errHits.description = "Description must be more than 30 characters.";
+        }
         setErrors(errHits);
         if (!Object.values(errors).length) {
             const answer = await new Promise(res => dispatch(postNewAnswer(newAnswer)).then(res));
@@ -66,42 +66,54 @@ function PostAnswer({ answers }) {
     };
 
     return (
-        !user ? <div>Log in to post an answer!</div> :
+        !user ? <div className='loginToPostAnswer'>Log in to post an answer!</div> :
         !hasAnswer ?
-            <div >
+            <div className='postAnswerDiv'>
                 <form onSubmit={onSubmit} className='postAnswerForm'>
                     <h3 className='responseH3'>Your Response</h3>
-                    <label htmlFor='description'>
+                    <div className='descriptionContainer'>
                         <textarea
-                            placeholder='Please write at least 30 characters'
+                            className='descriptionTextarea'
+                            placeholder='(30 char min)'
                             id='description'
                             type='text'
                             onChange={e => setDescription(e.target.value)}
                             value={description}
                         >
                         </textarea>
-                    </label>
-                    <div className="imageUploadContainer">
-                        {selectedImages.map(img => (
-                            <div key={img}>
+                        <div className={(description.length < 30 || description.length > 3000 ? 'tooLong' : '') + ' lengthDiv'}>Description length: {description.length}</div>
+                    </div>
+                    <div className='uploadedImagesDiv'>
+                    {selectedImages.map(img => (
+                        <div key={img} className='uploadedImgDivs'>
                             <img
+                                className='uploadedImg'
                                 alt="not found"
-                                width={"250px"}
+                                // width={"250px"}
                                 src={URL.createObjectURL(img)}
                             />
-                            <br />
-                            <button onClick={() => setSelectedImages(selectedImages.filter((keptImgs) => keptImgs !== img))}>Remove</button>
-                            </div>
-                        ))}
-                        <input
-                            type="file"
-                            accept="image/*"
-                            onChange={(event) => {
+                            <span onClick={() => setSelectedImages(selectedImages.filter((keptImgs) => keptImgs !== img))} className='removeQImageButton'>Remove Image</span>
+                        </div>
+                    ))}
+                </div>
+                <div className='imageUploadDiv'>
+                    <input
+                        id='file-upload-button'
+                        type="file"
+                        title=' '
+                        accept="image/*"
+                        size='10%'
+                        onChange={(event) => {
                             setSelectedImages(selectedImages => [...selectedImages, ...event.target.files]);
-                            }}
-                        />
+                        }}
+                    />
+                    <button type='button' className='replacementFileUploadBtn' onClick={() => document.getElementById('file-upload-button').click()}>
+                        Choose File
+                    </button>
+                </div>
+                    <div className='submitNewAnswer'>
+                        <button className='submitNewAnswerBtn' disabled={description.length < 30 || description.length > 3000} onSubmit={onSubmit}>Submit Answer</button>
                     </div>
-                    <button disabled={!description} onSubmit={onSubmit}>Submit Answer</button>
                 </form>
             </div>
             : null

@@ -13,18 +13,18 @@ function UpdateQuestionForm({user, response }) {
     const [title, setTitle] = useState(response.title || '');
     const [description, setDescription] = useState(response.description || '');
     const [type, setType] = useState(response.type || '');
-    const [selectedImages, setSelectedImages] = useState([]);
+    // const [selectedImages, setSelectedImages] = useState([]);
     const [errors, setErrors] = useState({})
 
-    function convertImageToBase64(file) {
-        const reader = new FileReader();
-        return new Promise(res => {
-            reader.onload = () => {
-                res(reader.result);
-            };
-            reader.readAsDataURL(file);
-        })
-    }
+    // function convertImageToBase64(file) {
+    //     const reader = new FileReader();
+    //     return new Promise(res => {
+    //         reader.onload = () => {
+    //             res(reader.result);
+    //         };
+    //         reader.readAsDataURL(file);
+    //     })
+    // }
 
     // useEffect(() => {
     //     dispatch(getQuestionDetails(questionId));
@@ -73,28 +73,30 @@ function UpdateQuestionForm({user, response }) {
                     <span onClick={() => setType('chemistry')} className={(type==='chemistry' ? 'chemSelect' : '') + ' typeButton'}>Chemistry</span>
                     <span onClick={() => setType('physics')} className={(type==='physics' ? 'physSelect' : '') + ' typeButton'}>Physics</span>
                 </div>
-                <div className='newQTitle'>Question Title</div>
-                <textarea
-                        className='titleTextarea'
-                        placeholder='Give your question a clear and concise title. Length (20-300 characters)'
-                        id='title'
+                <div className='titleContainer'>
+                    <input
+                            className='titleInput'
+                            placeholder='Question Title. Length (20-300 characters)'
+                            id='title'
+                            type='text'
+                            onChange={e => setTitle(e.target.value)}
+                            value={title}
+                    />
+                    <div className={(title.length < 20 || title.length > 300 ? 'tooLong' : '') + ' lengthDiv'}>Title length: {title.length}</div>
+                </div>
+                <div className='descriptionContainer'>
+                    <textarea
+                        className='descriptionTextarea'
+                        placeholder='Question Description. Length (100-2500 characters)'
+                        id='description'
                         type='text'
-                        onChange={e => setTitle(e.target.value)}
-                        value={title}
-                />
-                <div className={(title.length < 20 || title.length > 300 ? 'tooLong' : '') + ' lengthDiv'}>Title length: {title.length}</div>
-                <div className='newQDescription'>Question Description</div>
-                <textarea
-                    className='descriptionTextarea'
-                    placeholder='Describe the question in great detail. Length (100-2500 characters)'
-                    id='description'
-                    type='text'
-                    onChange={e => setDescription(e.target.value)}
-                    value={description}
-                >
-                </textarea>
-                <div className={(description.length < 100 || description.length > 2500 ? 'tooLong' : '') + ' lengthDiv'}>Description length: {description.length}</div>
-                    <div className='uploadedImagesDiv'>
+                        onChange={e => setDescription(e.target.value)}
+                        value={description}
+                    >
+                    </textarea>
+                    <div className={(description.length < 100 || description.length > 2500 ? 'tooLong' : '') + ' lengthDiv'}>Description length: {description.length}</div>
+                </div>
+                    {/* <div className='uploadedImagesDiv'>
                         {selectedImages.map(img => (
                             <div key={img} className='uploadedImgDivs'>
                                 <img
@@ -117,7 +119,7 @@ function UpdateQuestionForm({user, response }) {
                             setSelectedImages(selectedImages => [...selectedImages, ...event.target.files]);
                             }}
                         />
-                    </div>
+                    </div> */}
                 <div className='submitQuestionDiv'>
                     <button disabled={!description} onSubmit={onSubmit} className='submitQuestionButton'>Submit Question</button>
                 </div>

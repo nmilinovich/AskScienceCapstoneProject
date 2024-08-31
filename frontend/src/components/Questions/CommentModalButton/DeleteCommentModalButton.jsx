@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import OpenModalButton from "../../OpenModalButton/OpenModalButton";
 import DeleteCommentForm from "./DeleteCommentModal";
 // import { getQuestionDetails } from "../../../store/questions";
-
+import { MdDelete } from "react-icons/md";
 function DeleteCommentModalButton({comment}) {
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
@@ -26,10 +26,10 @@ function DeleteCommentModalButton({comment}) {
   return (
     <OpenModalButton
       modalComponent={<DeleteCommentForm comment={comment} />}
-      buttonText='Delete Comment'
+      buttonText={<MdDelete size={20}/>}
       onButtonClick={() => setShowMenu(false)}
       // onModalClose={() => dispatch(getQuestionDetails(response.id))}
-    //   customClass={response.type + 'CardType' + ' updateQuestionModalButton'}
+      customClass='commentModalButton'
     />
   );
 }

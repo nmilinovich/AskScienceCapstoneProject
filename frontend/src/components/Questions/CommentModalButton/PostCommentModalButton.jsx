@@ -29,7 +29,7 @@ function PostCommentModalButton({commentableId, commentableType }) {
       buttonText='Post Comment'
       onButtonClick={() => setShowMenu(false)}
       // onModalClose={() => dispatch(getQuestionDetails(response.id))}
-    //   customClass={response.type + 'CardType' + ' updateQuestionModalButton'}
+      customClass='commentModalButton'
     />
   );
 }

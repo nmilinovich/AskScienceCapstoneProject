@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import OpenModalButton from "../../OpenModalButton/OpenModalButton";
 import UpdateCommentForm from "./UpdateCommentModal";
 // import { getQuestionDetails } from "../../../store/questions";
-
+import { FaRegEdit } from "react-icons/fa";
 function UpdateCommentModalButton({comment, response, commentableType }) {
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
@@ -26,10 +26,10 @@ function UpdateCommentModalButton({comment, response, commentableType }) {
   return (
     <OpenModalButton
       modalComponent={<UpdateCommentForm comment={comment} response={response} commentableType={commentableType} />}
-      buttonText='Update Comment'
+      buttonText={<FaRegEdit size={20}/>}
       onButtonClick={() => setShowMenu(false)}
       // onModalClose={() => dispatch(getQuestionDetails(response.id))}
-      customClass={response.type + 'CardType' + ' updateQuestionModalButton'}
+      customClass='commentModalButton'
     />
   );
 }

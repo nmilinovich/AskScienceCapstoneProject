@@ -23,7 +23,7 @@ function QuestionAnswersCard({ answer, questionAnswers }) {
         <div>
             <div className='answerCard'>
                 <div className='answerCardTop'>
-                    <div className='answerOwnerDiv'>{answer.answerOwner.username}</div>
+                    <div className='answerOwnerDiv'>by: {answer.answerOwner.username}</div>
                     <div className='questionCardButtons'>
                         {
                         answer.userId === user ?

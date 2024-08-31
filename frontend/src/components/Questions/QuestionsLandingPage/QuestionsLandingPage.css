@@ -1,24 +1,31 @@
 .landingPageDiv {
-    padding-top: 1vh;
+    /* padding-top: 1vh; */
 }
 
 .questions-grid-container {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    padding: 15px 20px;
+    gap: 15px;
 }
 
 .questionTile {
-
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
     height: fit-content;
-    width: 98vw;
-    border: 2px solid rgb(3, 83, 3);
-    border-radius: 5px;
-    background-color: rgb(235, 226, 223);
-    color: green;
-    box-shadow: -3px 3px 3px rgb(3, 83, 3);
+    border-radius: 10px;
+    background-color: white;
+    padding: 15px;
+    color: black;
     cursor: pointer;
-    margin-top: 1vh;
     text-decoration: none;
+    row-gap: 15px;
+}
+
+.questionTile:hover {
+    background-color: rgb(242, 242, 242);
 }
 
 /* .questionTileLeft {
@@ -42,43 +49,57 @@
 } */
 
 .questionTileType {
-    /* padding-right: .5vw; */
-    /* height: fit-content; */
-    border: 2px solid rgb(3, 83, 3);
-    border-radius: 2px;
-    background-color: rgb(255, 111, 0);
-    color: rgb(3, 83, 3);
-    /* box-shadow: -3px 3px 3px rgb(3, 83, 3); */
+    padding: 5px 10px;
+    border-radius: 5px;
     cursor: pointer;
     text-decoration: none;
+    width: fit-content;
+    justify-self: end;
 }
 
-.questionTileTop {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.biology {
+    background-color: rgb(102, 212, 102);
+}
+
+.chemistry {
+    background-color: rgb(212, 126, 104);
+}
+
+.physics {
+    background-color: rgb(138, 128, 249);
 }
 
 .questionTileOwner {
-    margin-left: 0.5vh;
+    display: flex;
+    gap: 5px;
+    justify-content: center;
 }
 
-.questionTileType {
-    margin-right: 0.5vh;
-    color: rgb(3, 83, 3);
+.questionTileLikes {
+    display: flex;
+    gap: 5px;
 }
 
 .questionTileTitle {
-    text-align: justify;
-    margin-left: 0.5vw;
-    margin-right: 0.5vw;
-    margin-top: 0.5vh;
-    margin-bottom: 0.5vh;
     word-break: break-word;
+    font-size: 20px;
+    color: black;
+
+    /* background-color: rgb(238, 238, 238);
+    padding: 10px;
+    border-radius: 10px; */
 }
 
 .questionTileDescription {
-    margin: 0.5vh 0.5vw;
     text-align: justify;
     word-break: break-word;
+    color: rgb(86, 86, 86);
+}
+
+.questionTileTop {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    color: black;
 }

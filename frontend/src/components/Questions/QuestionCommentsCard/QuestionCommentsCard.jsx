@@ -17,10 +17,10 @@ function QuestionCommentsCard({ question }) {
             <div>
                 {question.Comments?.map((questionComment) => {
                     return (
-                        <div className='answerCommentDescription' key={questionComment.id}>
+                        <div className='questionCommentDescription' key={questionComment.id}>
                             {questionComment.description}
                             {questionComment.userId === user ?
-                            <div>
+                            <div className='questionCommentButtons'>
                                 <UpdateCommentModalButton comment={questionComment} response={questionComment} commentableType='question' />
                                 <DeleteCommentModalButton comment={questionComment}/>
                             </div>
