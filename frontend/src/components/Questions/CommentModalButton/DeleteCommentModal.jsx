@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useDispatch } from "react-redux";
 import { useModal } from '../../../context/Modal';
 import { removeComment } from "../../../store/comments";
 import { getQuestionDetails } from "../../../store/questions";
@@ -9,7 +9,7 @@ function DeleteCommentForm({ comment }) {
   const { closeModal } = useModal();
   let url = window.location.href.split('/');
   let questionId = parseInt(url[url.length -1]);
-  const handleDelete = (e) => {
+  const handleDelete = () => {
       return dispatch(removeComment(comment.id))
         .then(() => dispatch(getQuestionDetails(questionId)))
         .then(closeModal)
