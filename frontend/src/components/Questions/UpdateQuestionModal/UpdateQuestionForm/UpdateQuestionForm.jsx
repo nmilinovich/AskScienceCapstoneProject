@@ -2,7 +2,7 @@ import { useState  } from 'react';
 // import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getQuestionDetails, editQuestion } from '../../../../store/questions';
-import { postNewImages } from '../../../../store/images';
+// import { postNewImages } from '../../../../store/images';
 // import { useNavigate } from "react-router-dom"
 // import UploadImages from '../../DragAndDropImages/UploadImages';
 // import './PostQuestionPage.css'
@@ -53,12 +53,12 @@ function UpdateQuestionForm({user, response }) {
         if (!Object.values(errors).length) {
             await new Promise(res => dispatch(editQuestion(updatedQuestion, response.id)).then(res));
 
-            if (selectedImages.length) {
-                // let imageableId = question.id
-                const base64Images = await Promise.all(selectedImages.map(convertImageToBase64));
-                await new Promise(res => dispatch(postNewImages(base64Images, 'answer', response.id)).then(res));
-                setSelectedImages([])
-            }
+            // if (selectedImages.length) {
+            //     // let imageableId = question.id
+            //     const base64Images = await Promise.all(selectedImages.map(convertImageToBase64));
+            //     await new Promise(res => dispatch(postNewImages(base64Images, 'answer', response.id)).then(res));
+            //     setSelectedImages([])
+            // }
             await new Promise(res => dispatch(getQuestionDetails(response.id)).then(res));
         }
     };

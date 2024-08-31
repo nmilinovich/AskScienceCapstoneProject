@@ -7,7 +7,7 @@ import QuestionVotingComponent from './QuestionVotingComponent/QuestionVotingCom
 import UpdateQuestionModalButton from '../UpdateQuestionModal/UpdateQuestionModalButton';
 import QuestionCommentsCard from '../QuestionCommentsCard/QuestionCommentsCard';
 import './QuestionDetailsCard.css'
-import { FaRegEdit } from "react-icons/fa";
+// import { FaRegEdit } from "react-icons/fa";
 import { MdDelete } from 'react-icons/md';
 
 function QuestionDetailsCard({ question }) {

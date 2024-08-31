@@ -3,7 +3,7 @@ import { useState  } from 'react';
 import { useDispatch } from 'react-redux';
 // import { getQuestionDetails, editQuestion } from '../../../../store/questions';
 import { getUserAnswers, editAnswer } from '../../../../../../store/answers';
-import { postNewImages } from '../../../../../../store/images';
+// import { postNewImages } from '../../../../../../store/images';
 // import { useNavigate } from "react-router-dom"
 // import UploadImages from '../../DragAndDropImages/UploadImages';
 
@@ -39,11 +39,11 @@ function UpdateAnswerForm({user, answer }) {
         if (!Object.values(errors).length) {
             await new Promise(res => dispatch(editAnswer(updatedAnswer, answer.id)).then(res));
 
-            if (selectedImages.length) {
-                const base64Images = await Promise.all(selectedImages.map(convertImageToBase64));
-                await new Promise(res => dispatch(postNewImages(base64Images, 'answer', answer.id)).then(res));
-                setSelectedImages([])
-            }
+            // if (selectedImages.length) {
+            //     const base64Images = await Promise.all(selectedImages.map(convertImageToBase64));
+            //     await new Promise(res => dispatch(postNewImages(base64Images, 'answer', answer.id)).then(res));
+            //     setSelectedImages([])
+            // }
             await new Promise(res => dispatch(getUserAnswers()).then(res));
         }
     };
