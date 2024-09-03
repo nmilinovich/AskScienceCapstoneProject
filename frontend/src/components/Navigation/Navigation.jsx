@@ -8,7 +8,7 @@ import { FaFlask } from 'react-icons/fa';
 import { IoTelescope } from 'react-icons/io5';
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
-
+  
   const sessionLinks = sessionUser ? (
     <div>
 
@@ -16,13 +16,11 @@ function Navigation({ isLoaded }) {
     </div>
   ) : (
     <div className='login-signup-div'>
-
       <NavLink to="/login"><button className='nav-Btn'>Login</button></NavLink>
-        <NavLink to="/signup"><button className='nav-Btn'>Sign Up</button></NavLink>
-
+      <NavLink to="/signup"><button className='nav-Btn'>Sign Up</button></NavLink>
     </div>
   );
-
+  console.log(window.location.href)
   return (
     <div className='navbar'>
         <div className='leftsideNav'>
@@ -30,7 +28,8 @@ function Navigation({ isLoaded }) {
               <img className='logo' src={logo} alt=''/>
             </NavLink>
         </div>
-        <div className='filterTags'>
+        {window.location.href === 'http://localhost:5173/' ?
+          <div className='filterTags'>
             <div onClick={() => alert('feature coming soon')} className='navTag bioTag'>
               <FaBugs/>
               Biology
@@ -43,7 +42,11 @@ function Navigation({ isLoaded }) {
               <IoTelescope/>
               Physics
             </div>
-        </div>
+          </div>
+        :
+          <div className='filterTags'>
+          </div>
+        }
         {isLoaded && sessionLinks}
     </div>
   );

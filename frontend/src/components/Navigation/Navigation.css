@@ -18,6 +18,10 @@
     width: 33.3vw;
 }
 
+.hiddenNavTag {
+    visibility: hidden;
+}
+
 .logo {
     object-fit: cover;
     height: 50px;
