@@ -1,0 +1,51 @@
+.loginModal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0px 50px;
+    padding: 15px;
+}
+
+.loginModalForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.loginH1 {
+    text-align: center;
+    font-weight: 400;
+}
+
+.loginDiv {
+    padding-bottom: 5px;
+    text-align: center;
+}
+
+.loginModalBtn {
+    cursor: pointer;
+    margin-bottom: 5px;
+    padding: 5px 8px;
+    border: none;
+    background-color: white;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.loginModalBtn:hover {
+    background-color: rgb(242, 242, 242);
+}
+
+.demoUserLogin {
+    cursor: pointer;
+    margin-bottom: 5px;
+    padding: 5px 8px;
+    border: none;
+    background-color: white;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.demoUserLogin:hover {
+    background-color: rgb(242, 242, 242);
+}

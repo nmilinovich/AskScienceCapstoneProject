@@ -6,9 +6,10 @@ import './Navigation.css'
 import { FaBugs } from 'react-icons/fa6';
 import { FaFlask } from 'react-icons/fa';
 import { IoTelescope } from 'react-icons/io5';
+import LoginModalButton from '../LoginFormPage/LoginModalButton';
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
-  
+
   const sessionLinks = sessionUser ? (
     <div>
 
@@ -16,7 +17,7 @@ function Navigation({ isLoaded }) {
     </div>
   ) : (
     <div className='login-signup-div'>
-      <NavLink to="/login"><button className='nav-Btn'>Login</button></NavLink>
+      <LoginModalButton/>
       <NavLink to="/signup"><button className='nav-Btn'>Sign Up</button></NavLink>
     </div>
   );
@@ -31,15 +32,15 @@ function Navigation({ isLoaded }) {
         {window.location.href === 'http://localhost:5173/' ?
           <div className='filterTags'>
             <div onClick={() => alert('feature coming soon')} className='navTag bioTag'>
-              <FaBugs/>
+              <FaBugs />
               Biology
             </div>
             <div onClick={() => alert('feature coming soon')} className='navTag chemTag'>
-              <FaFlask/>
+              <FaFlask />
               Chemistry
             </div>
             <div onClick={() => alert('feature coming soon')} className='navTag physTag'>
-              <IoTelescope/>
+              <IoTelescope />
               Physics
             </div>
           </div>
