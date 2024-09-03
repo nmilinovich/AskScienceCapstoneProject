@@ -1,4 +1,5 @@
 import { useState  } from 'react';
+import { useModal } from '../../../../context/Modal';
 // import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getQuestionDetails, editQuestion } from '../../../../store/questions';
@@ -8,6 +9,7 @@ import { getQuestionDetails, editQuestion } from '../../../../store/questions';
 // import './PostQuestionPage.css'
 
 function UpdateQuestionForm({user, response }) {
+    const { closeModal } = useModal()
     // const navigate = useNavigate()
     const dispatch = useDispatch();
     const [title, setTitle] = useState(response.title || '');
@@ -52,14 +54,14 @@ function UpdateQuestionForm({user, response }) {
         setErrors(errHits);
         if (!Object.values(errors).length) {
             await new Promise(res => dispatch(editQuestion(updatedQuestion, response.id)).then(res));
-
+            await dispatch(getQuestionDetails(response.id)).then(closeModal);
             // if (selectedImages.length) {
             //     // let imageableId = question.id
             //     const base64Images = await Promise.all(selectedImages.map(convertImageToBase64));
             //     await new Promise(res => dispatch(postNewImages(base64Images, 'answer', response.id)).then(res));
             //     setSelectedImages([])
             // }
-            await new Promise(res => dispatch(getQuestionDetails(response.id)).then(res));
+            // await new Promise(res => dispatch(getQuestionDetails(response.id)).then(res));
         }
     };
     return (
