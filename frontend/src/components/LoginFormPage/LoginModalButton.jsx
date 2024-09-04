@@ -1,12 +1,11 @@
 import { useState, useEffect, useRef } from "react";
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 // import { Link } from 'react-router-dom';
 // import * as sessionActions from '../../store/session';
 import OpenModalButton from '../OpenModalButton/OpenModalButton'
 import LoginFormPage from "./LoginFormPage";
 
 function LoginModalButton() {
-  const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
 
