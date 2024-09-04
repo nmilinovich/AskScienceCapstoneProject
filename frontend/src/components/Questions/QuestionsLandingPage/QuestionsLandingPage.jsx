@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { getQuestions } from '../../../store/questions';
 import { useDispatch, useSelector } from "react-redux";
 import QuestionTile from '../QuestionTile/QuestionTile';
-import { useHref } from 'react-router-dom';
 
 function QuestionsLandingPage() {
     const dispatch = useDispatch();
