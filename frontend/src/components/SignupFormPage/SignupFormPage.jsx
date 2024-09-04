@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useModal } from '../../context/Modal';
 import { Navigate } from 'react-router-dom';
 import * as sessionActions from '../../store/session';
 import './SignupForm.css';
 
 function SignupFormPage() {
+  const { closeModal } = useModal()
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
   const [email, setEmail] = useState("");
@@ -13,37 +15,41 @@ function SignupFormPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
 
-  if (sessionUser) return <Navigate to="/" replace={true} />;
+  // if (sessionUser) return <Navigate to="/" replace={true} />;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
       setErrors({});
-      return dispatch(
+      return await dispatch(
         sessionActions.signup({
           email,
           username,
           password
         })
+
+        // .then(window.location.reload())
       ).catch(async (res) => {
         const data = await res.json();
         if (data?.errors) {
           setErrors(data.errors);
         }
-      });
+      })
+      .then(closeModal());
     }
-    return setErrors({
-      confirmPassword: "Confirm Password field must be the same as the Password field"
-    });
+    // return setErrors({
+    //   confirmPassword: "Confirm Password field must be the same as the Password field"
+    // });
   };
 
   return (
-    <>
-      <h1>Sign Up</h1>
-      <form onSubmit={handleSubmit}>
+    <div className='signupModal'>
+      <h1 className='signupH1'>Sign Up</h1>
+      <form onSubmit={handleSubmit} className='signupModalForm'>
         <label>
-          Email
           <input
+            className='signupInput'
+            placeholder='Email'
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -52,8 +58,9 @@ function SignupFormPage() {
         </label>
         {errors.email && <p>{errors.email}</p>}
         <label>
-          Username
           <input
+            className='signupInput'
+            placeholder='Username'
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -62,8 +69,9 @@ function SignupFormPage() {
         </label>
         {errors.username && <p>{errors.username}</p>}
         <label>
-          Password
           <input
+            className='signupInput'
+            placeholder='Password'
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -72,8 +80,9 @@ function SignupFormPage() {
         </label>
         {errors.password && <p>{errors.password}</p>}
         <label>
-          Confirm Password
           <input
+            className='signupInput'
+            placeholder='Confirm Password'
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
@@ -81,9 +90,9 @@ function SignupFormPage() {
           />
         </label>
         {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <button type="submit">Sign Up</button>
+        <button className='signupModalBtn' type="submit">Sign Up</button>
       </form>
-    </>
+    </div>
   );
 }
 

@@ -7,6 +7,7 @@ import { FaBugs } from 'react-icons/fa6';
 import { FaFlask } from 'react-icons/fa';
 import { IoTelescope } from 'react-icons/io5';
 import LoginModalButton from '../LoginFormPage/LoginModalButton';
+import SignupModalButton from '../SignupFormPage/SingupModalButton';
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
 
@@ -18,7 +19,7 @@ function Navigation({ isLoaded }) {
   ) : (
     <div className='login-signup-div'>
       <LoginModalButton/>
-      <NavLink to="/signup"><button className='nav-Btn'>Sign Up</button></NavLink>
+      <SignupModalButton/>
     </div>
   );
   console.log(window.location.href)

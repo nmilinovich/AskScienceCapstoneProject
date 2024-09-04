@@ -1,0 +1,52 @@
+.signupModal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0px 50px;
+    padding: 15px;
+}
+
+.signupModalForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.signupH1 {
+    text-align: center;
+    font-weight: 400;
+}
+
+.signupInput {
+    width: 200px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.signupModalBtn {
+    cursor: pointer;
+    margin: 5px 0px;
+    padding: 5px 8px;
+    border: none;
+    background-color: white;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.signupModalBtn:hover {
+    background-color: rgb(242, 242, 242);
+}
+
+.demoUserLogin {
+    cursor: pointer;
+    margin-bottom: 5px;
+    padding: 5px 8px;
+    border: none;
+    background-color: white;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.demoUserLogin:hover {
+    background-color: rgb(242, 242, 242);
+}
