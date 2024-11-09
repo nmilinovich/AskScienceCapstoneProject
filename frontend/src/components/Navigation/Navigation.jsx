@@ -8,6 +8,7 @@ import { FaFlask } from 'react-icons/fa';
 import { IoTelescope } from 'react-icons/io5';
 import LoginModalButton from '../LoginFormPage/LoginModalButton';
 import SignupModalButton from '../SignupFormPage/SingupModalButton';
+
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
 
