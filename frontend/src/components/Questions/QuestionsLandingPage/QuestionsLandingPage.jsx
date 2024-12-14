@@ -17,10 +17,14 @@ function QuestionsLandingPage() {
 
     return (
         <div className='landingPageDiv'>
-            <input
-                value={search}
-                onChange={e => setSearch(e.target.value)}
-            />
+            <div className='searchBarDiv'>
+                <input
+                    className='searchBar'
+                    placeholder='search'
+                    value={search}
+                    onChange={e => setSearch(e.target.value)}
+                />
+            </div>
             <div className='questions-grid-container'>
                 {Object.values(questions)
                 .filter((q) => !search || (q.title + q.description).toLowerCase().includes(search.toLowerCase()))
